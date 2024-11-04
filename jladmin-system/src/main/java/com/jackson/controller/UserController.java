@@ -10,6 +10,7 @@ import com.jackson.vo.UserLoginVO;
 import com.jackson.vo.UserVO;
 import jakarta.annotation.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -50,11 +51,17 @@ public class UserController {
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(required = false) String usernameOrEmail,
-            @RequestParam(required = false) LocalDateTime begin,
-            @RequestParam(required = false) LocalDateTime end,
+            @RequestParam(required = false) String begin,
+            @RequestParam(required = false) String end,
             @RequestParam(required = false) Boolean enabled
     ) {
-        return userService.getUserWithPaging(pageSize, page, usernameOrEmail, begin, end, enabled);
+        LocalDateTime beginTime = null;
+        LocalDateTime endTime = null;
+        if (StringUtils.hasText(begin) & StringUtils.hasText(end)) {
+            beginTime = LocalDateTime.parse(begin);
+            endTime = LocalDateTime.parse(end);
+        }
+        return userService.getUserWithPaging(pageSize, page, usernameOrEmail, beginTime, endTime, enabled);
     }
 
     /**

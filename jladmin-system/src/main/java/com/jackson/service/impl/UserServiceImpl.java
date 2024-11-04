@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
             ArrayList<Predicate> predicateList = new ArrayList<>();
             // 加上用户名或者邮箱条件
             if (StringUtils.hasText(usernameOrEmail)) {
-                Predicate uoe = cb.or(cb.equal(root.get("username"), usernameOrEmail), cb.equal(root.get("email"), usernameOrEmail));
+                Predicate uoe = cb.or(cb.like(root.get("username"), "%" + usernameOrEmail + "%"), cb.like(root.get("email"), "%" + usernameOrEmail + "%"));
                 predicateList.add(uoe);
             }
             // 加上创建时间范围条件
