@@ -9,10 +9,12 @@ import com.jackson.service.UserService;
 import com.jackson.vo.UserLoginVO;
 import com.jackson.vo.UserVO;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -123,5 +125,17 @@ public class UserController {
     @PreAuthorize(value = "hasAuthority('user:list')")
     public Result<Void> deleteUserByIdIn(@RequestBody List<Long> ids) {
         return userService.deleteUserById(ids);
+    }
+
+    /**
+     * 导出用户数据
+     *
+     * @param httpServletResponse
+     * @return
+     */
+    @PostMapping("/export")
+    @PreAuthorize(value = "hasAuthority('user:list')")
+    public void exportUserData(HttpServletResponse httpServletResponse) {
+        userService.exportUserData(httpServletResponse);
     }
 }

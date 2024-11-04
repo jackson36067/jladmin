@@ -1,6 +1,7 @@
 package com.jackson.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
 import com.jackson.Repository.*;
 import com.jackson.constant.JwtConstant;
 import com.jackson.constant.UserConstant;
@@ -14,13 +15,17 @@ import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.DeptService;
 import com.jackson.service.UserService;
+import com.jackson.util.DateTimeUtils;
 import com.jackson.util.JwtUtils;
-import com.jackson.vo.MenuVO;
-import com.jackson.vo.SubMenuVO;
-import com.jackson.vo.UserLoginVO;
-import com.jackson.vo.UserVO;
+import com.jackson.vo.*;
 import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -31,8 +36,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -282,6 +292,60 @@ public class UserServiceImpl implements UserService {
     public Result<Void> deleteUserById(List<Long> ids) {
         userRepository.deleteAllByIdInBatch(ids);
         return Result.success();
+    }
+
+    /**
+     * 导出用户数据
+     *
+     * @param httpServletResponse
+     * @return
+     */
+    @Override
+    public void exportUserData(HttpServletResponse httpServletResponse) {
+        InputStream in = ResourceUtil.class.getClassLoader().getResourceAsStream("templates/用户数据.xlsx");
+        XSSFWorkbook excel = null;
+        try {
+            excel = new XSSFWorkbook(in);
+            XSSFSheet sheet = excel.getSheet("sheet1");
+            List<UserExportDataVO> userExportDataVOList = userRepository.findAll().stream().map(user -> {
+                UserExportDataVO userExportDataVO = BeanUtil.copyProperties(user, UserExportDataVO.class);
+                userExportDataVO.setDeptName(user.getDept().getName());
+                userExportDataVO.setRoles(
+                        user.getRoleSet().stream().map(Role::getName).toList()
+                );
+                userExportDataVO.setJobs(
+                        user.getJobSet().stream().map(Job::getName).toList()
+                );
+                return userExportDataVO;
+            }).toList();
+            int RowIndex = 1;
+            for (UserExportDataVO userExportDataVO : userExportDataVOList) {
+                XSSFRow row = sheet.createRow(RowIndex);
+                row.createCell(0).setCellValue(userExportDataVO.getUsername());
+                row.createCell(1).setCellValue(com.jackson.util.StringUtils.convertCollectionToString(userExportDataVO.getRoles()));
+                row.createCell(2).setCellValue(userExportDataVO.getDeptName());
+                row.createCell(3).setCellValue(com.jackson.util.StringUtils.convertCollectionToString(userExportDataVO.getJobs()));
+                row.createCell(4).setCellValue(userExportDataVO.getEmail());
+                row.createCell(5).setCellValue(userExportDataVO.getEnabled() ? "激活" : "禁用");
+                row.createCell(6).setCellValue(userExportDataVO.getPhone());
+                row.createCell(7).setCellValue(DateTimeUtils.formatLocalDateTime(userExportDataVO.getPwdResetTime()));
+                row.createCell(8).setCellValue(DateTimeUtils.formatLocalDateTime(userExportDataVO.getCreateTime()));
+                RowIndex++;
+            }
+
+            // 设置请求头,让浏览器下载该文件
+            httpServletResponse.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            httpServletResponse.setHeader("Content-Disposition", "attachment;filename=" + new String((DateTimeUtils.formatLocalDateTime(LocalDateTime.now())+"用户数据").getBytes(), "ISO8859-1"));
+            httpServletResponse.setCharacterEncoding("UTF-8");
+            ServletOutputStream outputStream = httpServletResponse.getOutputStream();
+            excel.write(outputStream);
+            // 释放资源
+            outputStream.flush(); // 确保所有数据都被写入
+            outputStream.close();
+            excel.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

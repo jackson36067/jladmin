@@ -20,6 +20,8 @@
         <jjwt-version>0.9.1</jjwt-version>
         <lombok-version>1.18.34</lombok-version>
         <hutool-version>5.8.25</hutool-version>
+        <poi-version>5.2.5</poi-version>
+        <poi-ooxml-version>5.2.5</poi-ooxml-version>
     </properties>
     <modules>
         <module>jladmin-system</module>
@@ -52,6 +54,17 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok-version}</version>
+            </dependency>
+            <!-- poi -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi-ooxml-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
