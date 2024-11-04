@@ -15,6 +15,7 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +44,7 @@ public class UserController {
      */
     @PostMapping("/login")
     public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO, HttpServletRequest request) {
-        return userService.login(userLoginDTO,request);
+        return userService.login(userLoginDTO, request);
     }
 
     /**
@@ -147,5 +148,19 @@ public class UserController {
     @PreAuthorize(value = "hasAuthority('user:list')")
     public void exportUserData(HttpServletResponse httpServletResponse) {
         userService.exportUserData(httpServletResponse);
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @PostMapping("/logout")
+    @PreAuthorize(value = "hasAuthority('user:list')")
+    public void logout() {
+        // 清理安全上下文
+        SecurityContextHolder.clearContext();
     }
 }

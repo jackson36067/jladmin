@@ -55,7 +55,7 @@ public class WebSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorization -> {
                             authorization
-                                    .requestMatchers("/admin/user/login","/admin/user/code")
+                                    .requestMatchers("/admin/user/login", "/admin/user/code")
                                     .permitAll()
                                     .anyRequest()
                                     .authenticated();
@@ -69,6 +69,7 @@ public class WebSecurityConfig {
                             formLogin.failureHandler(new MyAuthenticationFailureHandler());
                         }
                 )
+                .logout(logout -> logout.clearAuthentication(true)) // 退出登录时清理认证信息
                 .sessionManagement(
                         sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
@@ -103,6 +104,7 @@ public class WebSecurityConfig {
 
     /**
      * 解决跨域问题
+     *
      * @return
      */
     @Bean
