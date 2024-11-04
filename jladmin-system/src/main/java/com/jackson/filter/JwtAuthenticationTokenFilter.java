@@ -36,7 +36,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         // 登录接口不拦截
         String url = httpServletRequest.getRequestURI(); // 使用URI方法默认会去掉 http:localhost:8080// 前缀
-        if (url.startsWith("/admin/user/login") || url.startsWith("/doc.html")) {
+        if (url.startsWith("/admin/user/login") || url.startsWith("/doc.html") || url.startsWith("/admin/user/code")) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;
         }

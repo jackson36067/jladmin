@@ -1,5 +1,7 @@
 package com.jackson.service.impl;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.jackson.Repository.*;
@@ -10,6 +12,7 @@ import com.jackson.dto.UserDTO;
 import com.jackson.dto.UpdateUserDTO;
 import com.jackson.dto.UserLoginDTO;
 import com.jackson.entity.*;
+import com.jackson.exception.CodeErrorException;
 import com.jackson.exception.UserNotExistException;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
@@ -21,6 +24,7 @@ import com.jackson.vo.*;
 import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -71,11 +75,14 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Result<UserLoginVO> login(UserLoginDTO userLoginDTO) {
+    public Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request) {
         // 根据前端传递的用户名密码生成UsernamePasswordAuthenticationToken,用于进一步校验逻辑
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(), userLoginDTO.getPassword());
         // 在springSecurity规则下, 自定义校验逻辑
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
+        if (!request.getHeader(UserConstant.CODE_KEY).equalsIgnoreCase(userLoginDTO.getCode())) {
+            throw new CodeErrorException("验证码错误");
+        }
         if (authenticate != null && authenticate.isAuthenticated()) {
             //登录成功
             String username = userLoginDTO.getUsername();
@@ -335,7 +342,7 @@ public class UserServiceImpl implements UserService {
 
             // 设置请求头,让浏览器下载该文件
             httpServletResponse.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            httpServletResponse.setHeader("Content-Disposition", "attachment;filename=" + new String((DateTimeUtils.formatLocalDateTime(LocalDateTime.now())+"用户数据").getBytes(), "ISO8859-1"));
+            httpServletResponse.setHeader("Content-Disposition", "attachment;filename=" + new String((DateTimeUtils.formatLocalDateTime(LocalDateTime.now()) + "用户数据").getBytes(), "ISO8859-1"));
             httpServletResponse.setCharacterEncoding("UTF-8");
             ServletOutputStream outputStream = httpServletResponse.getOutputStream();
             excel.write(outputStream);
@@ -343,6 +350,27 @@ public class UserServiceImpl implements UserService {
             outputStream.flush(); // 确保所有数据都被写入
             outputStream.close();
             excel.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 生成验证码图片
+     *
+     * @param httpServletResponse
+     */
+    @Override
+    public void generateCode(HttpServletResponse httpServletResponse) {
+        // 使用糊涂包生成验证码图片
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(113, 36, 4, 30);
+        String code = lineCaptcha.getCode();
+        try {
+            // 通过httpServletResponse返回验证码图片
+            lineCaptcha.write(httpServletResponse.getOutputStream());
+            // 将验证码保存到header中
+            httpServletResponse.addHeader(UserConstant.CODE_KEY, code);
+            httpServletResponse.setHeader("Access-Control-Expose-Headers",UserConstant.CODE_KEY);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

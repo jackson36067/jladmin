@@ -1,5 +1,8 @@
 package com.jackson.controller;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.LineCaptcha;
+import com.jackson.constant.UserConstant;
 import com.jackson.dto.UserDTO;
 import com.jackson.dto.UpdateUserDTO;
 import com.jackson.dto.UserLoginDTO;
@@ -9,12 +12,14 @@ import com.jackson.service.UserService;
 import com.jackson.vo.UserLoginVO;
 import com.jackson.vo.UserVO;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,6 +30,11 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    @GetMapping("/code")
+    public void generateCode(HttpServletResponse httpServletResponse) {
+        userService.generateCode(httpServletResponse);
+    }
+
     /**
      * 用户登录
      *
@@ -32,8 +42,8 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO) {
-        return userService.login(userLoginDTO);
+    public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO, HttpServletRequest request) {
+        return userService.login(userLoginDTO,request);
     }
 
     /**

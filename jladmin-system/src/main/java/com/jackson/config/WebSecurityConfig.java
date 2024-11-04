@@ -55,7 +55,7 @@ public class WebSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorization -> {
                             authorization
-                                    .requestMatchers("/admin/user/login")
+                                    .requestMatchers("/admin/user/login","/admin/user/code")
                                     .permitAll()
                                     .anyRequest()
                                     .authenticated();
