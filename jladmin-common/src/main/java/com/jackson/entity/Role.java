@@ -34,7 +34,12 @@ public class Role {
     @ManyToMany(mappedBy = "roleSet", fetch = FetchType.LAZY)
     private Set<User> userSet = new HashSet<>(0);
 
-    @ManyToMany(mappedBy = "roleSet", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "sys_roles_menus",
+            joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "menu_id", referencedColumnName = "menu_id")}
+    )
     private Set<Menu> menuSet = new HashSet<>(0);
 
 

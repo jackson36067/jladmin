@@ -16,4 +16,9 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     List<Menu> findAllByRoleIds(@Param("roleIds") List<Long> roleIds);
 
     List<Menu> findAllByPid(Long pid);
+
+    @Query("SELECT m FROM Menu m JOIN m.roleSet r WHERE r.id = :roleId")
+    List<Menu> findAllByRoleId(@Param("roleId") Long roleId);
+
+    Set<Menu> findAllByIdIn(List<Long> ids);
 }

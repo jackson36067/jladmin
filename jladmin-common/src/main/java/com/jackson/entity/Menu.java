@@ -52,12 +52,7 @@ public class Menu {
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "sys_roles_menus",
-            joinColumns = {@JoinColumn(name = "menu_id", referencedColumnName = "menu_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")}
-    )
+    @ManyToMany(mappedBy = "menuSet", fetch = FetchType.LAZY)
     private Set<Role> roleSet = new HashSet<>(0);
 
     public Menu() {

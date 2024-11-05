@@ -2,9 +2,12 @@ package com.jackson.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.db.PageResult;
+import com.jackson.Repository.MenuRepository;
 import com.jackson.Repository.RoleRepository;
 import com.jackson.constant.RoleConstant;
 import com.jackson.constant.UserConstant;
+import com.jackson.dto.UpdateRoleMenuDTO;
+import com.jackson.entity.Menu;
 import com.jackson.entity.Role;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
@@ -32,6 +35,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Resource
     private RoleRepository roleRepository;
+    @Resource
+    private MenuRepository menuRepository;
 
     /**
      * 获取所有角色名称集合
@@ -81,9 +86,31 @@ public class RoleServiceImpl implements RoleService {
         Page<Role> rolePage = roleRepository.findAll(roleSpecification, pageRequest);
         List<RoleVO> roleVOList = rolePage.getContent()
                 .stream()
-                .map(role -> BeanUtil.copyProperties(role, RoleVO.class))
+                .map(role -> {
+                    RoleVO roleVO = BeanUtil.copyProperties(role, RoleVO.class);
+                    // 返回角色时返回菜单,用户获取菜单
+                    List<Long> menuIdList = menuRepository.findAllByRoleId(role.getId()).stream().map(Menu::getId).toList();
+                    roleVO.setMenuIdList(menuIdList);
+                    return roleVO;
+                })
                 .toList();
         PagingResult pagingResult = new PagingResult(roleVOList.size(), roleVOList);
         return Result.success(pagingResult);
+    }
+
+    /**
+     * 更新角色菜单
+     *
+     * @param updateRoleMenuDTO
+     */
+    @Override
+    public void updateRoleMenuList(UpdateRoleMenuDTO updateRoleMenuDTO) {
+        Role role = roleRepository.findById(updateRoleMenuDTO.getId()).get();
+        role.setMenuSet(null);
+        // 先清空该角色的菜单
+        roleRepository.save(role);
+        // 在保存新的
+        role.setMenuSet(menuRepository.findAllByIdIn(updateRoleMenuDTO.getMenuIdList()));
+        roleRepository.save(role);
     }
 }

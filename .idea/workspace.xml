@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdateRoleMenuDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/MenuListVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/MenuController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/MenuService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/MenuServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/test/java/com/jackson/MenuListTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/RoleVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/RoleVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/MenuRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/MenuRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/RoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/RoleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +45,7 @@
     &quot;assignee&quot;: &quot;jackson36067&quot;
   }
 }</component>
+  <component name="GitLabMergeRequestsSettings">{}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/jackson36067/jladmin.git&quot;,
@@ -74,6 +86,7 @@
     "JUnit.JladminSystemApplicationTests.testFindPermissionsByRoleIdList.executor": "Run",
     "JUnit.JladminSystemApplicationTests.testFindRoleIdsByUserId.executor": "Run",
     "JUnit.JladminSystemApplicationTests.testUserPaging.executor": "Run",
+    "JUnit.MenuListTest.testGetMenuList.executor": "Run",
     "JUnit.UserTest.testUserPaging.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "Maven.jladmin [clean].executor": "Run",
@@ -157,22 +170,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JladminSystemApplicationTests.testFindPermissionsByRoleIdList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jladmin-system" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jackson.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.jackson" />
-      <option name="MAIN_CLASS_NAME" value="com.jackson.JladminSystemApplicationTests" />
-      <option name="METHOD_NAME" value="testFindPermissionsByRoleIdList" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="JladminSystemApplicationTests.testUserPaging" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="jladmin-system" />
       <extension name="coverage">
@@ -184,6 +181,22 @@
       <option name="PACKAGE_NAME" value="com.jackson" />
       <option name="MAIN_CLASS_NAME" value="com.jackson.JladminSystemApplicationTests" />
       <option name="METHOD_NAME" value="testUserPaging" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MenuListTest.testGetMenuList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jladmin-system" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jackson.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jackson" />
+      <option name="MAIN_CLASS_NAME" value="com.jackson.MenuListTest" />
+      <option name="METHOD_NAME" value="testGetMenuList" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -214,11 +227,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MenuListTest.testGetMenuList" />
         <item itemvalue="Application.ExportDataTest" />
         <item itemvalue="JUnit.JladminSystemApplicationTests.testUserPaging" />
         <item itemvalue="JUnit.UserTest.testUserPaging" />
         <item itemvalue="JUnit.JladminSystemApplicationTests.testFinaMenuByRoleIds" />
-        <item itemvalue="JUnit.JladminSystemApplicationTests.testFindPermissionsByRoleIdList" />
       </list>
     </recent_temporary>
   </component>
@@ -251,7 +264,9 @@
       <workItem from="1730512252860" duration="8783000" />
       <workItem from="1730528166810" duration="26673000" />
       <workItem from="1730632474702" duration="9352000" />
-      <workItem from="1730685573557" duration="23949000" />
+      <workItem from="1730685573557" duration="24079000" />
+      <workItem from="1730783506359" duration="1000" />
+      <workItem from="1730783516066" duration="9285000" />
     </task>
     <servers />
   </component>

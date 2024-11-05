@@ -1,11 +1,11 @@
 package com.jackson.controller;
 
+import com.jackson.dto.UpdateRoleMenuDTO;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.RoleService;
 import com.jackson.vo.RoleAllVO;
 import jakarta.annotation.Resource;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -57,5 +57,11 @@ public class RoleController {
             endTime = LocalDateTime.parse(end);
         }
         return roleService.getRoleWithPaging(page, pageSize, nameOrDescription, beginTime, endTime);
+    }
+
+    @PutMapping("/update/menu")
+    @PreAuthorize("hasAuthority('roles:list')")
+    public void updateRoleMenuList(@RequestBody UpdateRoleMenuDTO updateRoleMenuDTO) {
+        roleService.updateRoleMenuList(updateRoleMenuDTO);
     }
 }

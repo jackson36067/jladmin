@@ -1,6 +1,7 @@
 package com.jackson.vo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 public class RoleVO {
@@ -10,17 +11,19 @@ public class RoleVO {
     private String description;
     private Integer level;
     private LocalDateTime createTime;
+    private List<Long> menuIdList;
 
     public RoleVO() {
     }
 
-    public RoleVO(Long id, String name, String dataScope, String description, Integer level, LocalDateTime createTime) {
+    public RoleVO(Long id, String name, String dataScope, String description, Integer level, LocalDateTime createTime,List<Long> menuIdList) {
         this.id = id;
         this.name = name;
         this.dataScope = dataScope;
         this.description = description;
         this.level = level;
         this.createTime = createTime;
+        this.menuIdList = menuIdList;
     }
 
     public Long getId() {
@@ -71,17 +74,25 @@ public class RoleVO {
         this.createTime = createTime;
     }
 
+    public List<Long> getMenuIdList() {
+        return menuIdList;
+    }
+
+    public void setMenuIdList(List<Long> menuIdList) {
+        this.menuIdList = menuIdList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoleVO roleVO = (RoleVO) o;
-        return Objects.equals(id, roleVO.id) && Objects.equals(name, roleVO.name) && Objects.equals(dataScope, roleVO.dataScope) && Objects.equals(description, roleVO.description) && Objects.equals(level, roleVO.level) && Objects.equals(createTime, roleVO.createTime);
+        return Objects.equals(id, roleVO.id) && Objects.equals(name, roleVO.name) && Objects.equals(dataScope, roleVO.dataScope) && Objects.equals(description, roleVO.description) && Objects.equals(level, roleVO.level) && Objects.equals(createTime, roleVO.createTime) && Objects.equals(menuIdList, roleVO.menuIdList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, dataScope, description, level, createTime);
+        return Objects.hash(id, name, dataScope, description, level, createTime, menuIdList);
     }
 
     @Override
@@ -93,6 +104,7 @@ public class RoleVO {
                 ", description='" + description + '\'' +
                 ", level=" + level +
                 ", createTime=" + createTime +
+                ", menuIdList=" + menuIdList +
                 '}';
     }
 }
