@@ -7,6 +7,11 @@ import com.jackson.result.Result;
 import com.jackson.service.MenuService;
 import com.jackson.vo.MenuListVO;
 import jakarta.annotation.Resource;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -28,6 +33,22 @@ public class MenuServiceImpl implements MenuService {
         if (!StringUtils.hasText(title) && begin == null && end == null) {
             // 获取一级菜单集合
             menuList = menuRepository.findAll().stream().filter(menu -> menu.getType() == 0).toList();
+        } else {
+            // 加入条件
+            Specification<Menu> menuSpecification = (root, query, cb) -> {
+                ArrayList<Predicate> predicateList = new ArrayList<>();
+                if (StringUtils.hasText(title)) {
+                    Predicate predicate = cb.like(root.get("title"), "%" + title + "%");
+                    predicateList.add(predicate);
+                }
+                if (begin != null & end != null) {
+                    Predicate createTime = cb.between(root.get("createTime"), begin, end);
+                    predicateList.add(createTime);
+                }
+                Predicate[] predicates = new Predicate[predicateList.size()];
+                return cb.and(predicateList.toArray(predicates));
+            };
+            menuList = menuRepository.findAll(menuSpecification);
         }
         List<MenuListVO> menuListVOList = recursionForMenu(menuList);
         return Result.success(menuListVOList);

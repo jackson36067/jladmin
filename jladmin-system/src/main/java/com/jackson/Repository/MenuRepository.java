@@ -2,13 +2,14 @@ package com.jackson.Repository;
 
 import com.jackson.entity.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Set;
 
-public interface MenuRepository extends JpaRepository<Menu, Long> {
+public interface MenuRepository extends JpaRepository<Menu, Long>, JpaSpecificationExecutor<Menu> {
     @Query("SELECT m.permission FROM Role r JOIN r.menuSet m WHERE r.id IN :roleIds")
     List<String> findPermissionsByRoleIds(@Param("roleIds") List<Long> roleIds);
 

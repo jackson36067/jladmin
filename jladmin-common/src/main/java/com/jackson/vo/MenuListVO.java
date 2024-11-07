@@ -7,6 +7,7 @@ import java.util.Objects;
 public class MenuListVO {
     private Long id;
     private String title;
+    private String icon;
     private Integer menuSort;
     private String permission;
     private String component;
@@ -19,9 +20,10 @@ public class MenuListVO {
     public MenuListVO() {
     }
 
-    public MenuListVO(Long id, String title, Integer menuSort, String permission, String component, Boolean iFrame, Boolean cache, Boolean hidden, LocalDateTime createTime, List<MenuListVO> menuListVOList) {
+    public MenuListVO(Long id, String title, String icon, Integer menuSort, String permission, String component, Boolean iFrame, Boolean cache, Boolean hidden, LocalDateTime createTime, List<MenuListVO> menuListVOList) {
         this.id = id;
         this.title = title;
+        this.icon = icon;
         this.menuSort = menuSort;
         this.permission = permission;
         this.component = component;
@@ -46,6 +48,14 @@ public class MenuListVO {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public Integer getMenuSort() {
@@ -113,10 +123,24 @@ public class MenuListVO {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuListVO that = (MenuListVO) o;
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(icon, that.icon) && Objects.equals(menuSort, that.menuSort) && Objects.equals(permission, that.permission) && Objects.equals(component, that.component) && Objects.equals(iFrame, that.iFrame) && Objects.equals(cache, that.cache) && Objects.equals(hidden, that.hidden) && Objects.equals(createTime, that.createTime) && Objects.equals(menuListVOList, that.menuListVOList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, icon, menuSort, permission, component, iFrame, cache, hidden, createTime, menuListVOList);
+    }
+
+    @Override
     public String toString() {
         return "MenuListVO{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", icon='" + icon + '\'' +
                 ", menuSort=" + menuSort +
                 ", permission='" + permission + '\'' +
                 ", component='" + component + '\'' +
@@ -126,18 +150,5 @@ public class MenuListVO {
                 ", createTime=" + createTime +
                 ", menuListVOList=" + menuListVOList +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MenuListVO that = (MenuListVO) o;
-        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(menuSort, that.menuSort) && Objects.equals(permission, that.permission) && Objects.equals(component, that.component) && Objects.equals(iFrame, that.iFrame) && Objects.equals(cache, that.cache) && Objects.equals(hidden, that.hidden) && Objects.equals(createTime, that.createTime) && Objects.equals(menuListVOList, that.menuListVOList);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, menuSort, permission, component, iFrame, cache, hidden, createTime, menuListVOList);
     }
 }
