@@ -1,11 +1,15 @@
 package com.jackson.controller;
 
+import com.jackson.dto.AddRoleDTO;
+import com.jackson.dto.UpdateRoleDTO;
 import com.jackson.dto.UpdateRoleMenuDTO;
+import com.jackson.entity.Role;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.RoleService;
 import com.jackson.vo.RoleAllVO;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -63,5 +67,62 @@ public class RoleController {
     @PreAuthorize("hasAuthority('roles:list')")
     public void updateRoleMenuList(@RequestBody UpdateRoleMenuDTO updateRoleMenuDTO) {
         roleService.updateRoleMenuList(updateRoleMenuDTO);
+    }
+
+    /**
+     * 新增角色
+     *
+     * @param addRoleDTO
+     */
+    @PostMapping("/add")
+    @PreAuthorize("hasAuthority('roles:list')")
+    public void addRole(@RequestBody AddRoleDTO addRoleDTO) {
+        roleService.addRole(addRoleDTO);
+    }
+
+    /**
+     * 修改角色
+     *
+     * @param updateRoleDTO
+     */
+    @PutMapping("/update")
+    @PreAuthorize("hasAuthority('roles:list')")
+    public void updateRole(@RequestBody UpdateRoleDTO updateRoleDTO) {
+        roleService.updateRole(updateRoleDTO);
+    }
+
+
+    /**
+     * 导出用户数据
+     *
+     * @param ids
+     * @return
+     */
+    @PostMapping("/ids")
+    @PreAuthorize("hasAuthority('roles:list')")
+    public Result<List<Role>> getRoleByIds(@RequestBody List<Long> ids) {
+        return roleService.getRoleByIds(ids);
+    }
+
+    /**
+     * 导出角色数据
+     *
+     * @param httpServletResponse
+     */
+    @PostMapping("/export")
+    @PreAuthorize("hasAuthority('roles:list')")
+    public void exportRoleData(HttpServletResponse httpServletResponse) {
+        roleService.exportRoleData(httpServletResponse);
+
+    }
+
+    /**
+     * 根据id删除批量删除角色
+     * @param ids
+     */
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('roles:list')")
+    public void deleteRoleByIds(@RequestBody List<Long> ids) {
+        roleService.deleteRoleByIds(ids);
     }
 }

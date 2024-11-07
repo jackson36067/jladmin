@@ -93,4 +93,9 @@ public class DeptServiceImpl implements DeptService {
         }
         return subDeptIds;
     }
+
+    @Override
+    public Result<Dept> getDeptById(Long id) {
+        return Result.success(deptRepository.findById(id).get());
+    }
 }

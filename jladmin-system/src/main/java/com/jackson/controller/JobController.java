@@ -1,14 +1,13 @@
 package com.jackson.controller;
 
+import com.jackson.entity.Job;
 import com.jackson.result.Result;
 import com.jackson.service.JobService;
 import com.jackson.vo.JobEnabledVO;
 import jakarta.annotation.Resource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +26,11 @@ public class JobController {
     @PreAuthorize("hasAuthority('job:list')")
     public Result<List<JobEnabledVO>> getEnabledJobList() {
         return jobService.getEnabledJobList();
+    }
+
+    @PostMapping("/ids")
+    @PreAuthorize("hasAuthority('job:list')")
+    public Result<List<Job>> getJobByIds(@RequestBody List<Long> ids){
+        return jobService.getJobByIds(ids);
     }
 }

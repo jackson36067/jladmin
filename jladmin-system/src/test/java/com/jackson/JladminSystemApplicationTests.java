@@ -64,14 +64,6 @@ class JladminSystemApplicationTests {
         System.out.println(encode);
     }
 
-    @Transactional
-    @Test
-    public void testFinaMenuByRoleIds() {
-        ArrayList<Long> list = new ArrayList<>();
-        list.add(1L);
-        List<Menu> allByRoleSet = menuRepository.findAllByRoleIds(list);
-    }
-
     @Test
     public void testUserPaging() {
         Result<PagingResult> admin = userService.getUserWithPaging(10, 1, null, LocalDateTime.of(2017, 10, 30, 0, 0, 0), LocalDateTime.of(2024, 10, 30, 0, 0, 0), true);

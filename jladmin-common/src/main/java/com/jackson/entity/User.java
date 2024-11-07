@@ -45,11 +45,11 @@ public class User {
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "dept_id", referencedColumnName = "dept_id")
     private Dept dept;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(
             name = "sys_users_roles",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
@@ -57,7 +57,7 @@ public class User {
     )
     private Set<Role> roleSet = new HashSet<>(0);
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(
             name = "sys_users_jobs",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},

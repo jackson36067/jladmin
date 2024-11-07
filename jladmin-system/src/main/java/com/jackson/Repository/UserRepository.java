@@ -1,12 +1,15 @@
 package com.jackson.Repository;
 
+import com.jackson.entity.Role;
 import com.jackson.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
@@ -25,4 +28,11 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
      * @return
      */
     List<User> findAllByDeptIdIn(List<Long> deptId);
+
+    User findByEmail(String email);
+
+    User findByPhone(String phone);
+
+    @Query("SELECT u FROM User u JOIN u.roleSet r WHERE r.id IN :roleIds")
+    List<User> findByRoleIds(@Param("roleIds") List<Long> roleIds);
 }

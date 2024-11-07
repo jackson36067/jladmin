@@ -52,7 +52,7 @@ public class Menu {
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    @ManyToMany(mappedBy = "menuSet", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "menuSet")
     private Set<Role> roleSet = new HashSet<>(0);
 
     public Menu() {

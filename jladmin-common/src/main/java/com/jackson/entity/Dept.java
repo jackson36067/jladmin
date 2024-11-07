@@ -33,7 +33,7 @@ public class Dept {
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    @OneToMany(mappedBy = "dept", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dept")
     private Set<User> userSet = new HashSet<>(0);
 
     public Dept() {

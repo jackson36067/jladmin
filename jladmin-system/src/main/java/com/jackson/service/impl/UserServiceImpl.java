@@ -13,23 +13,30 @@ import com.jackson.dto.UpdateUserDTO;
 import com.jackson.dto.UserLoginDTO;
 import com.jackson.entity.*;
 import com.jackson.exception.CodeErrorException;
-import com.jackson.exception.UserNotExistException;
+import com.jackson.exception.EmailExistException;
+import com.jackson.exception.PhoneExistException;
+import com.jackson.exception.UsernameExistException;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.DeptService;
 import com.jackson.service.UserService;
 import com.jackson.util.DateTimeUtils;
 import com.jackson.util.JwtUtils;
+import com.jackson.util.ListUtils;
 import com.jackson.vo.*;
 import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaUpdate;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -40,11 +47,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
@@ -67,6 +71,8 @@ public class UserServiceImpl implements UserService {
     private DeptService deptService;
     @Resource
     private JobRepository jobRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     /**
      * 用户登录
@@ -189,9 +195,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public Result<Void> updateUser(Long id, UpdateUserDTO updateUserDTO) {
-        // 根据修改参数是否存在
         // 通过用户id获取用户信息
         User user = userRepository.findById(id).get();
+        user.setJobSet(null);
+        user.setRoleSet(null);
+        userRepository.saveAndFlush(user);
         String username = updateUserDTO.getUsername();
         String nickName = updateUserDTO.getNickName();
         String phone = updateUserDTO.getPhone();
@@ -201,16 +209,29 @@ public class UserServiceImpl implements UserService {
         Boolean enabled = updateUserDTO.getEnabled();
         List<Long> roles = updateUserDTO.getRoles();
         List<Long> jobs = updateUserDTO.getJobs();
-        if (StringUtils.hasText(username) & !user.getUsername().equals(updateUserDTO.getUsername())) {
+        if (StringUtils.hasText(username) & !user.getUsername().equals(username)) {
+            // 修改的用户名不能重复
+            User user1 = userRepository.findUserByUsername(username);
+            if (user1 != null) {
+                throw new UsernameExistException(UserConstant.USERNAME_EXIST);
+            }
             user.setUsername(username);
         }
-        if (StringUtils.hasText(nickName) & !user.getNickName().equals(updateUserDTO.getNickName())) {
+        if (StringUtils.hasText(nickName) & !user.getNickName().equals(nickName)) {
             user.setNickName(nickName);
         }
-        if (StringUtils.hasText(phone) & !user.getPhone().equals(updateUserDTO.getPhone())) {
+        if (StringUtils.hasText(phone) & !user.getPhone().equals(phone)) {
+            User user1 = userRepository.findByPhone(phone);
+            if (user1 != null) {
+                throw new PhoneExistException(UserConstant.PHONE_EXIST);
+            }
             user.setPhone(phone);
         }
         if (StringUtils.hasText(email) & !user.getEmail().equals(updateUserDTO.getEmail())) {
+            User user1 = userRepository.findByEmail(email);
+            if (user1 != null) {
+                throw new EmailExistException(UserConstant.EMAIL_EXIST);
+            }
             user.setEmail(email);
         }
         if (deptId != null & !user.getDept().getId().equals(deptId)) {
@@ -225,25 +246,38 @@ public class UserServiceImpl implements UserService {
         }
         // 修改角色
         Set<Role> roleSet = roleRepository.findAllByIdIn(roles);
-        if (!UserServiceImpl.areSetsEqual(roleSet, user.getRoleSet())) {
-            user.setRoleSet(roleSet);
-        }
+        user.setRoleSet(roleSet);
         // 修改岗位
         Set<Job> jobSet = jobRepository.findAllByIdIn(jobs);
-        if (!UserServiceImpl.areSetsEqual(jobSet, user.getJobSet())) {
-            user.setJobSet(jobSet);
-        }
+        user.setJobSet(jobSet);
         Long currentId = BaseContext.getCurrentId();
         User updateUser = userRepository.findById(currentId).get();
         user.setUpdateBy(updateUser.getUsername());
         user.setUpdateTime(LocalDateTime.now());
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
         return Result.success();
     }
 
     @Transactional
     @Override
     public Result<Void> saveUser(UserDTO userDTO) {
+        User user = BeanUtil.copyProperties(userDTO, User.class);
+        String username = user.getUsername();
+        String phone = user.getPhone();
+        String email = user.getEmail();
+        User user1 = userRepository.findUserByUsername(username);
+        User user2 = userRepository.findUserByUsername(phone);
+        User user3 = userRepository.findUserByUsername(email);
+        // 保证新增的用户名,电话号码以及邮箱不能重复
+        if (user1 != null) {
+            throw new PhoneExistException(UserConstant.PHONE_EXIST);
+        }
+        if (user2 != null) {
+            throw new PhoneExistException(UserConstant.PHONE_EXIST);
+        }
+        if (user3 != null) {
+            throw new EmailExistException(UserConstant.EMAIL_EXIST);
+        }
         // 设置dept
         Dept dept = deptRepository.findById(userDTO.getDeptId()).get();
         // 设置默认配置
@@ -253,7 +287,6 @@ public class UserServiceImpl implements UserService {
         Set<Role> roleSet = roleRepository.findAllByIdIn(userDTO.getRoles());
         // 设置job
         Set<Job> jobSet = jobRepository.findAllByIdIn(userDTO.getJobs());
-        User user = BeanUtil.copyProperties(userDTO, User.class);
         // 新增操作
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         user.setPassword(bCryptPasswordEncoder.encode("123456"));
@@ -370,24 +403,11 @@ public class UserServiceImpl implements UserService {
             lineCaptcha.write(httpServletResponse.getOutputStream());
             // 将验证码保存到header中
             httpServletResponse.addHeader(UserConstant.CODE_KEY, code);
-            httpServletResponse.setHeader("Access-Control-Expose-Headers",UserConstant.CODE_KEY);
+            httpServletResponse.setHeader("Access-Control-Expose-Headers", UserConstant.CODE_KEY);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    /**
-     * 比较两个set集合内容是否完全一致
-     *
-     * @param set1
-     * @param set2
-     * @param <T>
-     * @return
-     */
-    public static <T> boolean areSetsEqual(Set<T> set1, Set<T> set2) {
-        if (set1 == null || set2 == null) {
-            return false; // 处理 null 的情况
-        }
-        return set1.size() == set2.size() && set1.containsAll(set2);
-    }
+
 }

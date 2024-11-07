@@ -5,20 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdateRoleMenuDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/MenuListVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/MenuController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/MenuService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/MenuServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/test/java/com/jackson/MenuListTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/AddRoleDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdateRoleDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/EmailExistException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/PhoneExistException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/RoleHasUserException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/RoleNameExistException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/UsernameExistException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/util/ListUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/RoleExportDataVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/templates/角色数据.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a78f69b0-3b27-42a4-b25d-57ccc35ae1c1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a78f69b0-3b27-42a4-b25d-57ccc35ae1c1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/RoleConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/RoleConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/UserConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/UserConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Dept.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Dept.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Job.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/RoleVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/RoleVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/MenuRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/MenuRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/RoleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/DeptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/DeptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/JobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/JobController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/DeptService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/DeptService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/JobService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/JobService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/RoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/RoleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/DeptServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/DeptServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/JobServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/JobServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/test/java/com/jackson/JladminSystemApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/test/java/com/jackson/JladminSystemApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,47 +100,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ExportDataTest.executor": "Debug",
-    "JUnit.JladminSystemApplicationTests.testBcrypt.executor": "Run",
-    "JUnit.JladminSystemApplicationTests.testFinaMenuByRoleIds.executor": "Run",
-    "JUnit.JladminSystemApplicationTests.testFindPermissionsByRoleIdList.executor": "Run",
-    "JUnit.JladminSystemApplicationTests.testFindRoleIdsByUserId.executor": "Run",
-    "JUnit.JladminSystemApplicationTests.testUserPaging.executor": "Run",
-    "JUnit.MenuListTest.testGetMenuList.executor": "Run",
-    "JUnit.UserTest.testUserPaging.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven.jladmin [clean].executor": "Run",
-    "Notification.DisplayName-DoNotAsk-Lombok plugin": "Lombok integration problem",
-    "Notification.DoNotAsk-Lombok plugin": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.JladminSystemApplication.executor": "Debug",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "openjdk-21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/javaCode/springdata",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propCompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ExportDataTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.JladminSystemApplicationTests.testBcrypt.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JladminSystemApplicationTests.testFinaMenuByRoleIds.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JladminSystemApplicationTests.testFindPermissionsByRoleIdList.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JladminSystemApplicationTests.testFindRoleIdsByUserId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JladminSystemApplicationTests.testUserPaging.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MenuListTest.testGetMenuList.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserTest.testUserPaging.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.jladmin [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Lombok plugin&quot;: &quot;Lombok integration problem&quot;,
+    &quot;Notification.DoNotAsk-Lombok plugin&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.JladminSystemApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/javaCode/jladmin/jladmin-system/src/main/resources/templates/角色数据.xlsx&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;D:/javaCode/jladmin/jladmin-system/src/main/resources/templates/角色数据.xlsx&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -266,7 +290,11 @@
       <workItem from="1730632474702" duration="9352000" />
       <workItem from="1730685573557" duration="24079000" />
       <workItem from="1730783506359" duration="1000" />
-      <workItem from="1730783516066" duration="9285000" />
+      <workItem from="1730783516066" duration="18189000" />
+      <workItem from="1730867462831" duration="8000" />
+      <workItem from="1730867479795" duration="30634000" />
+      <workItem from="1730958266711" duration="2278000" />
+      <workItem from="1730961244064" duration="4397000" />
     </task>
     <servers />
   </component>
@@ -301,6 +329,7 @@
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
         <watch expression="param_3" />
+        <watch expression="sheet" />
       </configuration>
     </watches-manager>
   </component>

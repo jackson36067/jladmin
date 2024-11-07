@@ -1,14 +1,12 @@
 package com.jackson.controller;
 
+import com.jackson.entity.Dept;
 import com.jackson.result.Result;
 import com.jackson.service.DeptService;
 import com.jackson.vo.DeptVO;
 import jakarta.annotation.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,5 +27,11 @@ public class DeptController {
             @RequestParam(required = false) Boolean enabled
     ) {
         return deptService.getDeptList(name, begin, end, enabled);
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('dept:list')")
+    public Result<Dept> getDeptById(@PathVariable Long id) {
+        return deptService.getDeptById(id);
     }
 }

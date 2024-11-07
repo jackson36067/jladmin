@@ -32,7 +32,7 @@ public class Job {
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    @ManyToMany(mappedBy = "jobSet", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "jobSet")
     private Set<User> userSet = new HashSet<>(0);
 
 

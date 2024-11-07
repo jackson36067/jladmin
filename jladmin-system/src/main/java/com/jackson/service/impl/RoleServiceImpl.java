@@ -1,34 +1,55 @@
 package com.jackson.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.db.PageResult;
 import com.jackson.Repository.MenuRepository;
 import com.jackson.Repository.RoleRepository;
+import com.jackson.Repository.UserRepository;
 import com.jackson.constant.RoleConstant;
 import com.jackson.constant.UserConstant;
+import com.jackson.context.BaseContext;
+import com.jackson.dto.AddRoleDTO;
+import com.jackson.dto.UpdateRoleDTO;
 import com.jackson.dto.UpdateRoleMenuDTO;
+import com.jackson.entity.Job;
 import com.jackson.entity.Menu;
 import com.jackson.entity.Role;
+import com.jackson.entity.User;
+import com.jackson.exception.RoleHasUserException;
+import com.jackson.exception.RoleNameExistException;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.RoleService;
+import com.jackson.util.DateTimeUtils;
+import com.jackson.util.ListUtils;
 import com.jackson.vo.RoleAllVO;
+import com.jackson.vo.RoleExportDataVO;
 import com.jackson.vo.RoleVO;
+import com.jackson.vo.UserExportDataVO;
 import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -37,6 +58,8 @@ public class RoleServiceImpl implements RoleService {
     private RoleRepository roleRepository;
     @Resource
     private MenuRepository menuRepository;
+    @Resource
+    private UserRepository userRepository;
 
     /**
      * 获取所有角色名称集合
@@ -89,7 +112,9 @@ public class RoleServiceImpl implements RoleService {
                 .map(role -> {
                     RoleVO roleVO = BeanUtil.copyProperties(role, RoleVO.class);
                     // 返回角色时返回菜单,用户获取菜单
-                    List<Long> menuIdList = menuRepository.findAllByRoleId(role.getId()).stream().map(Menu::getId).toList();
+                    ArrayList<Long> list = new ArrayList<>();
+                    list.add(role.getId());
+                    List<Long> menuIdList = menuRepository.findAllByRoleIds(list).stream().map(Menu::getId).toList();
                     roleVO.setMenuIdList(menuIdList);
                     return roleVO;
                 })
@@ -112,5 +137,170 @@ public class RoleServiceImpl implements RoleService {
         // 在保存新的
         role.setMenuSet(menuRepository.findAllByIdIn(updateRoleMenuDTO.getMenuIdList()));
         roleRepository.save(role);
+    }
+
+    /**
+     * 新增角色
+     *
+     * @param addRoleDTO
+     */
+    @Override
+    public void addRole(AddRoleDTO addRoleDTO) {
+        Role role = BeanUtil.copyProperties(addRoleDTO, Role.class);
+        // 判断dataScope中指定的是全部,本级还是自定义
+        String dataScope = addRoleDTO.getDataScope();
+        doPermission(role, dataScope);
+        if (dataScope.equals(RoleConstant.CUSTOMIZE_PERMISSION)) {
+            // 获取自定义中传输的菜单id集合
+            List<Long> permissionList = addRoleDTO.getPermissionList();
+            Set<Menu> menuSet = menuRepository.findAllByIdIn(permissionList);
+            role.setMenuSet(menuSet);
+        }
+        // 设置创建时间以及创建人以及修改
+        LocalDateTime now = LocalDateTime.now();
+        role.setCreateTime(now);
+        role.setUpdateTime(now);
+        User user = getUser();
+        role.setCreateBy(user.getUsername());
+        role.setUpdateBy(user.getUsername());
+        // 保存用户信息
+        roleRepository.save(role);
+    }
+
+
+    /**
+     * 修改角色
+     *
+     * @param updateRoleDTO
+     */
+    @Transactional
+    @Override
+    public void updateRole(UpdateRoleDTO updateRoleDTO) {
+        Role role = roleRepository.findById(updateRoleDTO.getId()).get();
+        // 先清空数据
+        role.setMenuSet(null);
+        roleRepository.saveAndFlush(role);
+
+        String name = updateRoleDTO.getName();
+        Integer level = updateRoleDTO.getLevel();
+        String dataScope = updateRoleDTO.getDataScope();
+        String description = updateRoleDTO.getDescription();
+        if (StringUtils.hasText(name) && !role.getName().equals(name)) {
+            if (roleRepository.findByName(name) != null) {
+                throw new RoleNameExistException(RoleConstant.ROLE_NAME_EXIST);
+            }
+            role.setName(name);
+        }
+        if (level != null && !Objects.equals(role.getLevel(), level)) {
+            role.setLevel(level);
+        }
+        if (StringUtils.hasText(dataScope) & !role.getDataScope().equals(dataScope)) {
+            role.setDataScope(dataScope);
+        }
+        if (StringUtils.hasText(description) && !role.getDescription().equals(description)) {
+            role.setDescription(description);
+        }
+        // 判断dataScope中指定的是全部,本级还是自定义
+        doPermission(role, dataScope);
+        if (dataScope.equals(RoleConstant.CUSTOMIZE_PERMISSION)) {
+            // 获取自定义中传输的菜单id集合
+            Set<Menu> menuSet = menuRepository.findAllByIdIn(updateRoleDTO.getPermissionList());
+            role.setMenuSet(new HashSet<>(menuSet));
+        }
+        role.setUpdateTime(LocalDateTime.now());
+        User user = getUser();
+        role.setUpdateBy(user.getUsername());
+        roleRepository.saveAndFlush(role);
+    }
+
+    @Override
+    public Result<List<Role>> getRoleByIds(List<Long> ids) {
+        Set<Role> roleSet = roleRepository.findAllByIdIn(ids);
+        ArrayList<Role> roles = new ArrayList<>(roleSet);
+        return Result.success(roles);
+    }
+
+    /**
+     * 导出角色数据
+     *
+     * @param httpServletResponse
+     */
+    @Override
+    public void exportRoleData(HttpServletResponse httpServletResponse) {
+        InputStream in = ResourceUtil.class.getClassLoader().getResourceAsStream("templates/角色数据.xlsx");
+        XSSFWorkbook excel = null;
+        try {
+            excel = new XSSFWorkbook(in);
+            XSSFSheet sheet = excel.getSheet("sheet1");
+            List<RoleExportDataVO> roleExportDataVOList = roleRepository.findAll()
+                    .stream()
+                    .map(role -> BeanUtil.copyProperties(role, RoleExportDataVO.class))
+                    .toList();
+            int RowIndex = 1;
+            for (RoleExportDataVO roleExportDataVO : roleExportDataVOList) {
+                XSSFRow row = sheet.createRow(RowIndex);
+                row.createCell(0).setCellValue(roleExportDataVO.getName());
+                row.createCell(1).setCellValue(roleExportDataVO.getLevel().toString());
+                row.createCell(2).setCellValue(roleExportDataVO.getDescription());
+                row.createCell(3).setCellValue(DateTimeUtils.formatLocalDateTime(roleExportDataVO.getCreateTime()));
+                RowIndex++;
+            }
+            // 设置请求头,让浏览器下载该文件
+            httpServletResponse.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            String fileName = URLEncoder.encode(DateTimeUtils.formatLocalDateTime(LocalDateTime.now()) + "角色数据.xls", "UTF-8");
+            httpServletResponse.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+            httpServletResponse.setCharacterEncoding("UTF-8");
+            // 防止浏览器缓存导致的文件损坏问题
+            httpServletResponse.setHeader("Cache-Control", "no-cache");
+            httpServletResponse.setHeader("Pragma", "no-cache");
+            ServletOutputStream outputStream = httpServletResponse.getOutputStream();
+            excel.write(outputStream);
+            // 释放资源
+            outputStream.flush(); // 确保所有数据都被写入
+            outputStream.close();
+            excel.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 根据id批量删除角色
+     *
+     * @param ids
+     */
+    @Override
+    public void deleteRoleByIds(List<Long> ids) {
+        // 删除角色前判断是否有用户属于该角色,有的话就不允许删除
+        List<User> userList = userRepository.findByRoleIds(ids);
+        if (!userList.isEmpty()) {
+            throw new RoleHasUserException(RoleConstant.ROLE_HAS_USER);
+        }
+        roleRepository.deleteAllByIdInBatch(ids);
+    }
+
+    private void doPermission(Role role, String dataScope) {
+        if (dataScope.equals(RoleConstant.ALL_PERMISSION)) {
+            // 获取超级管理员中的权限
+            Role superRole = roleRepository.findByName(RoleConstant.SUPER_ADMIN);
+            ArrayList<Long> list = new ArrayList<>();
+            list.add(superRole.getId());
+            List<Menu> superRoleMenuList = menuRepository.findAllByRoleIds(list);
+            role.setMenuSet(new HashSet<>(superRoleMenuList));
+        }
+        if (dataScope.equals(RoleConstant.SAME_LEVEL_PERMISSION)) {
+            Role commonRole = roleRepository.findByName(RoleConstant.COMMON_USER);
+            ArrayList<Long> list = new ArrayList<>();
+            list.add(commonRole.getId());
+            List<Menu> commonRoleMenuList = menuRepository.findAllByRoleIds(list);
+            // 获取普通用户中的权限
+            role.setMenuSet(new HashSet<>(commonRoleMenuList));
+        }
+    }
+
+
+    private User getUser() {
+        User user = userRepository.findById(BaseContext.getCurrentId()).get();
+        return user;
     }
 }
