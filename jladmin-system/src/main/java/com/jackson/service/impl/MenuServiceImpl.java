@@ -2,17 +2,23 @@ package com.jackson.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.jackson.Repository.MenuRepository;
+import com.jackson.Repository.UserRepository;
+import com.jackson.constant.MenuConstant;
+import com.jackson.context.BaseContext;
+import com.jackson.dto.AddMenuDTO;
 import com.jackson.entity.Menu;
+import com.jackson.entity.User;
+import com.jackson.exception.MenuSortRepeatException;
+import com.jackson.exception.MenuTitleExistException;
 import com.jackson.result.Result;
 import com.jackson.service.MenuService;
 import com.jackson.vo.MenuListVO;
 import jakarta.annotation.Resource;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -24,6 +30,8 @@ public class MenuServiceImpl implements MenuService {
 
     @Resource
     private MenuRepository menuRepository;
+    @Resource
+    private UserRepository userRepository;
 
     @Override
     public Result<List<MenuListVO>> getMenuList(String title, LocalDateTime begin, LocalDateTime end) {
@@ -55,6 +63,41 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
+     * 新增菜单
+     *
+     * @param addMenuDTO
+     */
+    @Transactional
+    @Override
+    public void addMenu(AddMenuDTO addMenuDTO) {
+        // 新增目录
+        Menu menu = BeanUtil.copyProperties(addMenuDTO, Menu.class);
+        // 判断title是否重复
+        Menu byTitle = menuRepository.findByTitle(menu.getTitle());
+        if (byTitle != null) {
+            throw new MenuTitleExistException(MenuConstant.MENU_TITLE_EXIST);
+        }
+        Menu byMenuSort = menuRepository.findByMenuSort(menu.getMenuSort());
+        if (byMenuSort != null) {
+            throw new MenuSortRepeatException(MenuConstant.MENU_SORT_EXIST);
+        }
+        menu.setCreateTime(LocalDateTime.now());
+        menu.setUpdateTime(LocalDateTime.now());
+        User user = getUser();
+        String username = user.getUsername();
+        menu.setCreateBy(username);
+        menu.setUpdateBy(username);
+        menuRepository.save(menu);
+        // 判断是否为顶级目录
+        if (menu.getType() != 0) {
+            // 不是,就要修改该菜单上级子菜单数量
+            Menu highMenu = menuRepository.findById(menu.getPid()).get();
+            highMenu.setSubCount(highMenu.getSubCount() + 1);
+            menuRepository.saveAndFlush(highMenu);
+        }
+    }
+
+    /**
      * 递归获取菜单及其子菜单集合
      *
      * @param menuList 一级菜单集合
@@ -75,5 +118,9 @@ public class MenuServiceImpl implements MenuService {
             }
         }
         return MenuVOList;
+    }
+
+    public User getUser() {
+        return userRepository.findById(BaseContext.getCurrentId()).get();
     }
 }

@@ -20,4 +20,8 @@ public interface MenuRepository extends JpaRepository<Menu, Long>, JpaSpecificat
 
 
     Set<Menu> findAllByIdIn(List<Long> ids);
+
+    Menu findByTitle(String title);
+
+    Menu findByMenuSort(Integer menuSort);
 }

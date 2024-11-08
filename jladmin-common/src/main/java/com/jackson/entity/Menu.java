@@ -14,7 +14,7 @@ import java.util.Set;
 @Table(name = "sys_menu")
 public class Menu {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menu_id")
     private Long id;
     @Column(name = "pid")

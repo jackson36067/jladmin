@@ -1,5 +1,6 @@
 package com.jackson.service;
 
+import com.jackson.dto.AddMenuDTO;
 import com.jackson.result.Result;
 import com.jackson.vo.MenuListVO;
 
@@ -8,4 +9,6 @@ import java.util.List;
 
 public interface MenuService {
     Result<List<MenuListVO>> getMenuList(String title, LocalDateTime begin, LocalDateTime end);
+
+    void addMenu(AddMenuDTO addMenuDTO);
 }
