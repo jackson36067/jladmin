@@ -1,6 +1,11 @@
 package com.jackson.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -9,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "sys_user")
+@EntityListeners(AuditingEntityListener.class) // 开启springdatajpa审计监听器
 public class User {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +41,17 @@ public class User {
     @Column(name = "enabled")
     private Boolean enabled;
     @Column(name = "create_by")
+    @CreatedBy // 公共字段自动填充注解
     private String createBy;
     @Column(name = "update_by")
+    @LastModifiedBy
     private String updateBy;
     @Column(name = "pwd_reset_time")
     private LocalDateTime PwdResetTime;
+    @CreatedDate
     @Column(name = "create_time")
     private LocalDateTime createTime;
+    @LastModifiedDate
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 

@@ -192,6 +192,13 @@ public class UserServiceImpl implements UserService {
         return Result.success(userVOList);
     }
 
+    /**
+     * 修改用户
+     *
+     * @param id
+     * @param updateUserDTO
+     * @return
+     */
     @Transactional
     @Override
     public Result<Void> updateUser(Long id, UpdateUserDTO updateUserDTO) {
@@ -250,14 +257,16 @@ public class UserServiceImpl implements UserService {
         // 修改岗位
         Set<Job> jobSet = jobRepository.findAllByIdIn(jobs);
         user.setJobSet(jobSet);
-        Long currentId = BaseContext.getCurrentId();
-        User updateUser = userRepository.findById(currentId).get();
-        user.setUpdateBy(updateUser.getUsername());
-        user.setUpdateTime(LocalDateTime.now());
         userRepository.saveAndFlush(user);
         return Result.success();
     }
 
+    /**
+     * 新增用户
+     *
+     * @param userDTO
+     * @return
+     */
     @Transactional
     @Override
     public Result<Void> saveUser(UserDTO userDTO) {
@@ -280,9 +289,6 @@ public class UserServiceImpl implements UserService {
         }
         // 设置dept
         Dept dept = deptRepository.findById(userDTO.getDeptId()).get();
-        // 设置默认配置
-        Long currentId = BaseContext.getCurrentId();
-        User createUser = userRepository.findById(currentId).get();
         // 设置role
         Set<Role> roleSet = roleRepository.findAllByIdIn(userDTO.getRoles());
         // 设置job
@@ -294,11 +300,6 @@ public class UserServiceImpl implements UserService {
         user.setDept(dept);
         user.setRoleSet(roleSet);
         user.setJobSet(jobSet);
-        user.setCreateBy(createUser.getUsername());
-        user.setUpdateBy(createUser.getUsername());
-        user.setCreateTime(LocalDateTime.now());
-        user.setUpdateTime(LocalDateTime.now());
-        user.setPwdResetTime(LocalDateTime.now());
         userRepository.save(user);
         return Result.success();
     }

@@ -1,6 +1,11 @@
 package com.jackson.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -9,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "sys_dept")
+@EntityListeners(AuditingEntityListener.class)
 public class Dept {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +31,16 @@ public class Dept {
     @Column(name = "enabled")
     private Boolean enabled;
     @Column(name = "create_by")
+    @CreatedBy
     private String createBy;
     @Column(name = "update_by")
+    @LastModifiedBy
     private String updateBy;
     @Column(name = "create_time")
+    @CreatedDate
     private LocalDateTime createTime;
     @Column(name = "update_time")
+    @LastModifiedDate
     private LocalDateTime updateTime;
 
     @OneToMany(mappedBy = "dept")
