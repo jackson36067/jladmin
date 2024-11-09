@@ -4,10 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.jackson.Repository.MenuRepository;
 import com.jackson.Repository.UserRepository;
 import com.jackson.constant.MenuConstant;
-import com.jackson.context.BaseContext;
 import com.jackson.dto.AddMenuDTO;
 import com.jackson.entity.Menu;
-import com.jackson.entity.User;
 import com.jackson.exception.MenuSortRepeatException;
 import com.jackson.exception.MenuTitleExistException;
 import com.jackson.result.Result;
@@ -16,7 +14,6 @@ import com.jackson.vo.MenuListVO;
 import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -33,6 +30,14 @@ public class MenuServiceImpl implements MenuService {
     @Resource
     private UserRepository userRepository;
 
+    /**
+     * 获取菜单
+     *
+     * @param title
+     * @param begin
+     * @param end
+     * @return
+     */
     @Override
     public Result<List<MenuListVO>> getMenuList(String title, LocalDateTime begin, LocalDateTime end) {
         // 递归获取所有菜单及其子菜单
@@ -81,12 +86,6 @@ public class MenuServiceImpl implements MenuService {
         if (byMenuSort != null) {
             throw new MenuSortRepeatException(MenuConstant.MENU_SORT_EXIST);
         }
-        menu.setCreateTime(LocalDateTime.now());
-        menu.setUpdateTime(LocalDateTime.now());
-        User user = getUser();
-        String username = user.getUsername();
-        menu.setCreateBy(username);
-        menu.setUpdateBy(username);
         menuRepository.save(menu);
         // 判断是否为顶级目录
         if (menu.getType() != 0) {
@@ -118,9 +117,5 @@ public class MenuServiceImpl implements MenuService {
             }
         }
         return MenuVOList;
-    }
-
-    public User getUser() {
-        return userRepository.findById(BaseContext.getCurrentId()).get();
     }
 }

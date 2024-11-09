@@ -156,13 +156,6 @@ public class RoleServiceImpl implements RoleService {
             Set<Menu> menuSet = menuRepository.findAllByIdIn(permissionList);
             role.setMenuSet(menuSet);
         }
-        // 设置创建时间以及创建人以及修改
-        LocalDateTime now = LocalDateTime.now();
-        role.setCreateTime(now);
-        role.setUpdateTime(now);
-        User user = getUser();
-        role.setCreateBy(user.getUsername());
-        role.setUpdateBy(user.getUsername());
         // 保存用户信息
         roleRepository.save(role);
     }
@@ -207,9 +200,6 @@ public class RoleServiceImpl implements RoleService {
             Set<Menu> menuSet = menuRepository.findAllByIdIn(updateRoleDTO.getPermissionList());
             role.setMenuSet(new HashSet<>(menuSet));
         }
-        role.setUpdateTime(LocalDateTime.now());
-        User user = getUser();
-        role.setUpdateBy(user.getUsername());
         roleRepository.saveAndFlush(role);
     }
 
@@ -296,11 +286,5 @@ public class RoleServiceImpl implements RoleService {
             // 获取普通用户中的权限
             role.setMenuSet(new HashSet<>(commonRoleMenuList));
         }
-    }
-
-
-    private User getUser() {
-        User user = userRepository.findById(BaseContext.getCurrentId()).get();
-        return user;
     }
 }
