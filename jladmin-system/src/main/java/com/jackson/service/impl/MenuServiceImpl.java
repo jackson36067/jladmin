@@ -1,6 +1,7 @@
 package com.jackson.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
 import com.jackson.Repository.MenuRepository;
 import com.jackson.Repository.UserRepository;
 import com.jackson.constant.MenuConstant;
@@ -12,15 +13,26 @@ import com.jackson.exception.MenuSortRepeatException;
 import com.jackson.exception.MenuTitleExistException;
 import com.jackson.result.Result;
 import com.jackson.service.MenuService;
+import com.jackson.util.DateTimeUtils;
+import com.jackson.vo.MenuExportDataVO;
 import com.jackson.vo.MenuListVO;
+import com.jackson.vo.RoleExportDataVO;
 import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -208,6 +220,58 @@ public class MenuServiceImpl implements MenuService {
             }
         });
         menuRepository.deleteAllByIdInBatch(ids);
+    }
+
+    /**
+     * 导出菜单数据
+     *
+     * @param httpServletResponse
+     */
+    @Override
+    public void exportMenuData(HttpServletResponse httpServletResponse) {
+        InputStream in = ResourceUtil.class.getClassLoader().getResourceAsStream("templates/菜单数据.xlsx");
+        XSSFWorkbook excel = null;
+        ServletOutputStream outputStream = null;
+        try {
+            excel = new XSSFWorkbook(in);
+            XSSFSheet sheet = excel.getSheet("sheet1");
+            List<MenuExportDataVO> roleExportDataVOList = menuRepository.findAll()
+                    .stream()
+                    .map(menu -> BeanUtil.copyProperties(menu, MenuExportDataVO.class))
+                    .toList();
+            int RowIndex = 1;
+            for (MenuExportDataVO menuExportDataVO : roleExportDataVOList) {
+                XSSFRow row = sheet.createRow(RowIndex);
+                row.createCell(0).setCellValue(menuExportDataVO.getTitle());
+                row.createCell(1).setCellValue(menuExportDataVO.getType() == 0 ? "目录" : (menuExportDataVO.getType() == 1 ? "菜单" : "按钮"));
+                row.createCell(2).setCellValue(menuExportDataVO.getPermission());
+                row.createCell(3).setCellValue(menuExportDataVO.getiFrame() ? "是" : "否");
+                row.createCell(4).setCellValue(menuExportDataVO.getHidden() ? "是" : "否");
+                row.createCell(5).setCellValue(menuExportDataVO.getCache() ? "是" : "否");
+                row.createCell(6).setCellValue(DateTimeUtils.formatLocalDateTime(menuExportDataVO.getCreateTime()));
+                RowIndex++;
+            }
+            // 设置请求头,让浏览器下载该文件
+            // 设置请求头,让浏览器下载该文件
+            httpServletResponse.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            httpServletResponse.setHeader("Content-Disposition", "attachment;filename=" + new String(("菜单数据").getBytes(), "ISO8859-1"));
+            httpServletResponse.setCharacterEncoding("UTF-8");
+            outputStream = httpServletResponse.getOutputStream();
+            excel.write(outputStream);
+            // 释放资源
+            outputStream.flush(); // 确保所有数据都被写入
+            outputStream.close();
+            excel.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                Objects.requireNonNull(excel).close();
+                Objects.requireNonNull(outputStream).close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 

@@ -6,6 +6,7 @@ import com.jackson.result.Result;
 import com.jackson.service.MenuService;
 import com.jackson.vo.MenuListVO;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -65,11 +66,21 @@ public class MenuController {
 
     /**
      * 根据id批量删除菜单
+     *
      * @param ids
      */
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('menu:list')")
     public void deleteMenuByIds(@RequestBody List<Long> ids) {
         menuService.deleteMenuByIds(ids);
+    }
+
+    /**
+     * 导出菜单数据
+     */
+    @GetMapping("/export")
+    @PreAuthorize("hasAuthority('menu:list')")
+    public void exportMenuData(HttpServletResponse httpServletResponse) {
+        menuService.exportMenuData(httpServletResponse);
     }
 }
