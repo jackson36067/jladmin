@@ -1,6 +1,7 @@
 package com.jackson.service;
 
 import com.jackson.dto.AddMenuDTO;
+import com.jackson.dto.UpdateMenuDTO;
 import com.jackson.result.Result;
 import com.jackson.vo.MenuListVO;
 
@@ -11,4 +12,8 @@ public interface MenuService {
     Result<List<MenuListVO>> getMenuList(String title, LocalDateTime begin, LocalDateTime end);
 
     void addMenu(AddMenuDTO addMenuDTO);
+
+    void updateMenu(UpdateMenuDTO updateMenuDTO);
+
+    void deleteMenuByIds(List<Long> ids);
 }

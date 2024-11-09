@@ -1,10 +1,9 @@
 package com.jackson.dto;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class AddMenuDTO implements Serializable {
+public class UpdateMenuDTO {
+    private Long id;
     private Long pid;
     private Integer type;
     private String title;
@@ -18,10 +17,11 @@ public class AddMenuDTO implements Serializable {
     private Boolean hidden;
     private String permission;
 
-    public AddMenuDTO() {
+    public UpdateMenuDTO() {
     }
 
-    public AddMenuDTO(Long pid, Integer type, String title, String name, String component, Integer menuSort, String icon, String path, Boolean iFrame, Boolean cache, Boolean hidden, String permission) {
+    public UpdateMenuDTO(Long id, Long pid, Integer type, String title, String name, String component, Integer menuSort, String icon, String path, Boolean iFrame, Boolean cache, Boolean hidden, String permission) {
+        this.id = id;
         this.pid = pid;
         this.type = type;
         this.title = title;
@@ -34,6 +34,14 @@ public class AddMenuDTO implements Serializable {
         this.cache = cache;
         this.hidden = hidden;
         this.permission = permission;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getPid() {
@@ -136,19 +144,20 @@ public class AddMenuDTO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AddMenuDTO that = (AddMenuDTO) o;
-        return Objects.equals(pid, that.pid) && Objects.equals(type, that.type) && Objects.equals(title, that.title) && Objects.equals(name, that.name) && Objects.equals(component, that.component) && Objects.equals(menuSort, that.menuSort) && Objects.equals(icon, that.icon) && Objects.equals(path, that.path) && Objects.equals(iFrame, that.iFrame) && Objects.equals(cache, that.cache) && Objects.equals(hidden, that.hidden) && Objects.equals(permission, that.permission);
+        UpdateMenuDTO that = (UpdateMenuDTO) o;
+        return Objects.equals(id, that.id) && Objects.equals(pid, that.pid) && Objects.equals(type, that.type) && Objects.equals(title, that.title) && Objects.equals(name, that.name) && Objects.equals(component, that.component) && Objects.equals(menuSort, that.menuSort) && Objects.equals(icon, that.icon) && Objects.equals(path, that.path) && Objects.equals(iFrame, that.iFrame) && Objects.equals(cache, that.cache) && Objects.equals(hidden, that.hidden) && Objects.equals(permission, that.permission);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pid, type, title, name, component, menuSort, icon, path, iFrame, cache, hidden, permission);
+        return Objects.hash(id, pid, type, title, name, component, menuSort, icon, path, iFrame, cache, hidden, permission);
     }
 
     @Override
     public String toString() {
-        return "AddMenuDTO{" +
-                "pid=" + pid +
+        return "UpdateMenuDTO{" +
+                "id=" + id +
+                ", pid=" + pid +
                 ", type=" + type +
                 ", title='" + title + '\'' +
                 ", name='" + name + '\'' +

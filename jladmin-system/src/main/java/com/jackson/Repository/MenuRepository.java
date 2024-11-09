@@ -24,4 +24,6 @@ public interface MenuRepository extends JpaRepository<Menu, Long>, JpaSpecificat
     Menu findByTitle(String title);
 
     Menu findByMenuSort(Integer menuSort);
+
+    Menu findByName(String name);
 }

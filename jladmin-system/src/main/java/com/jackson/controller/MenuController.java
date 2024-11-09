@@ -1,6 +1,7 @@
 package com.jackson.controller;
 
 import com.jackson.dto.AddMenuDTO;
+import com.jackson.dto.UpdateMenuDTO;
 import com.jackson.result.Result;
 import com.jackson.service.MenuService;
 import com.jackson.vo.MenuListVO;
@@ -42,11 +43,33 @@ public class MenuController {
 
     /**
      * 新增菜单
+     *
      * @param addMenuDTO
      */
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('menu:list')")
     public void addMenu(@RequestBody AddMenuDTO addMenuDTO) {
         menuService.addMenu(addMenuDTO);
+    }
+
+    /**
+     * 编辑菜单
+     *
+     * @param updateMenuDTO
+     */
+    @PutMapping("/update")
+    @PreAuthorize("hasAuthority('menu:list')")
+    public void updateMenu(@RequestBody UpdateMenuDTO updateMenuDTO) {
+        menuService.updateMenu(updateMenuDTO);
+    }
+
+    /**
+     * 根据id批量删除菜单
+     * @param ids
+     */
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('menu:list')")
+    public void deleteMenuByIds(@RequestBody List<Long> ids) {
+        menuService.deleteMenuByIds(ids);
     }
 }
