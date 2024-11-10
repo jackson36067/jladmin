@@ -23,8 +23,8 @@ public interface DeptRepository extends JpaRepository<Dept, Long>, JpaSpecificat
      * 通过条件获取部门集合
      *
      * @param name    部门名称
-     * @param begin 创建时间范围的开始时间
-     * @param end 创建时间的范围的结束时间
+     * @param begin   创建时间范围的开始时间
+     * @param end     创建时间的范围的结束时间
      * @param enabled 部门状态(启用或者禁用)
      * @return Dept集合
      */
@@ -32,9 +32,14 @@ public interface DeptRepository extends JpaRepository<Dept, Long>, JpaSpecificat
 
     /**
      * 通过pid获取用户信息
+     *
      * @param pid
      * @return
      */
     List<Dept> findAllByPid(Long pid);
 
+
+    Dept findByName(String name);
+
+    Dept findByDeptSort(Integer deptSort);
 }

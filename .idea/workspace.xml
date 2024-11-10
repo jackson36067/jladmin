@@ -5,11 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/MenuExportDataVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/templates/菜单数据.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/DeptConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/AddDeptDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdateDeptDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/DeptNameException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/DeptExportDataVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/templates/部门数据.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/MenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/MenuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/MenuService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/MenuSortRepeatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/SortRepeatException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/util/ListUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/util/ListUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/DeptRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/DeptRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/DeptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/DeptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/DeptService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/DeptService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/DeptServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/DeptServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/MenuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/MenuServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,9 +70,9 @@
   <component name="MavenRunner">
     <option name="jreName" value="openjdk-21" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
   <component name="ProjectId" id="2nyd1LWxusogQWR0M20xfAbPPOe" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -266,7 +274,8 @@
       <workItem from="1730958266711" duration="2278000" />
       <workItem from="1730961244064" duration="12439000" />
       <workItem from="1731031103314" duration="8138000" />
-      <workItem from="1731117994114" duration="15944000" />
+      <workItem from="1731117994114" duration="24124000" />
+      <workItem from="1731203862114" duration="7281000" />
     </task>
     <servers />
   </component>

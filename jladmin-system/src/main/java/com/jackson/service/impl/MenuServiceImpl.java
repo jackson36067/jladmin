@@ -7,16 +7,16 @@ import com.jackson.Repository.UserRepository;
 import com.jackson.constant.MenuConstant;
 import com.jackson.dto.AddMenuDTO;
 import com.jackson.dto.UpdateMenuDTO;
+import com.jackson.entity.Dept;
 import com.jackson.entity.Menu;
 import com.jackson.exception.MenuNameExistException;
-import com.jackson.exception.MenuSortRepeatException;
+import com.jackson.exception.SortRepeatException;
 import com.jackson.exception.MenuTitleExistException;
 import com.jackson.result.Result;
 import com.jackson.service.MenuService;
 import com.jackson.util.DateTimeUtils;
 import com.jackson.vo.MenuExportDataVO;
 import com.jackson.vo.MenuListVO;
-import com.jackson.vo.RoleExportDataVO;
 import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.servlet.ServletOutputStream;
@@ -25,14 +25,12 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +103,7 @@ public class MenuServiceImpl implements MenuService {
         if (addMenuDTO.getMenuSort() != null) {
             Menu byMenuSort = menuRepository.findByMenuSort(menu.getMenuSort());
             if (byMenuSort != null) {
-                throw new MenuSortRepeatException(MenuConstant.MENU_SORT_EXIST);
+                throw new SortRepeatException(MenuConstant.MENU_SORT_EXIST);
             }
         }
         // 判断菜单组件名是否已经存在
@@ -164,7 +162,7 @@ public class MenuServiceImpl implements MenuService {
         if (menuSort != null & !Objects.equals(menu.getMenuSort(), menuSort)) {
             Menu byMenuSort = menuRepository.findByMenuSort(menuSort);
             if (byMenuSort != null) {
-                throw new MenuSortRepeatException(MenuConstant.MENU_SORT_EXIST);
+                throw new SortRepeatException(MenuConstant.MENU_SORT_EXIST);
             }
             menu.setMenuSort(menuSort);
         }
@@ -197,6 +195,15 @@ public class MenuServiceImpl implements MenuService {
             menu.setComponent(component);
         }
         if (pid != null & !Objects.equals(menu.getPid(), pid)) {
+            // 原本的上级菜单子菜单数➖1
+            if (menu.getPid() != null) {
+                // 原本是一级菜单,就不需要➖了
+                Menu menu1 = menuRepository.findById(menu.getPid()).get();
+                menu1.setSubCount(menu1.getSubCount() - 1);
+            }
+            // 现在的上级菜单子菜单数➕1
+            Menu menu2 = menuRepository.findById(pid).get();
+            menu2.setSubCount(menu2.getSubCount() == null ? 1 : menu2.getSubCount() + 1);
             menu.setPid(pid);
         }
         menuRepository.saveAndFlush(menu);
