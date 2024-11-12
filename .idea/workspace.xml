@@ -5,20 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/DeptConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/AddDeptDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdateDeptDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/DeptNameException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/DeptExportDataVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/templates/部门数据.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/EmailConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/TaskConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/AddTaskDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/ResumeTaskDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdateTaskDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/QuartzJob.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/QuartzLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/JobClassNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/JobNameExistException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Logger/JobExecutionLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/QuartzJobRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/QuartzLogRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/QuartzJobConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/QuartzJobController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/factory/AutowiringSpringBeanJobFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/QuartzJobService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzJobServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/task/MyTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/mail/MailManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a78f69b0-3b27-42a4-b25d-57ccc35ae1c1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a78f69b0-3b27-42a4-b25d-57ccc35ae1c1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/MenuSortRepeatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/SortRepeatException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/util/ListUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/util/ListUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/DeptRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/DeptRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/DeptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/DeptController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/DeptService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/DeptService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/DeptServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/DeptServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/MenuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/MenuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/JladminSystemApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/JladminSystemApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,9 +84,9 @@
   <component name="MavenRunner">
     <option name="jreName" value="openjdk-21" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2nyd1LWxusogQWR0M20xfAbPPOe" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -127,6 +141,9 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\javaCode\jladmin\jladmin-system\src\main\resources\templates" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jackson.dto" />
     </key>
   </component>
   <component name="RedisHelper">
@@ -275,7 +292,9 @@
       <workItem from="1730961244064" duration="12439000" />
       <workItem from="1731031103314" duration="8138000" />
       <workItem from="1731117994114" duration="24124000" />
-      <workItem from="1731203862114" duration="7281000" />
+      <workItem from="1731203862114" duration="30312000" />
+      <workItem from="1731291427889" duration="11321000" />
+      <workItem from="1731387684870" duration="10810000" />
     </task>
     <servers />
   </component>
@@ -311,6 +330,8 @@
       <configuration name="SpringBootApplicationConfigurationType">
         <watch expression="param_3" />
         <watch expression="sheet" />
+        <watch expression="rFactoryBean factory = new SchedulerFactoryBean();&#10;        factory.setJobFactory(springBeanJobFactory());&#10;        return factory;&#10;    }" />
+        <watch expression="rFactoryBean factory = new SchedulerFactoryBean();&#10;        factory.setJobFactory(springBeanJobFactory());&#10;        return factory;&#10;    }" />
       </configuration>
     </watches-manager>
   </component>

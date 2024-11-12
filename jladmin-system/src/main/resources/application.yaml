@@ -19,3 +19,48 @@ spring:
       naming:
         # 开启驼峰命名
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 2252559105@qq.com
+    password: fpazmmwwbqtadjci
+    properties:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
+          required: true
+        connectiontimeout: 5000
+        timeout: 5000
+        writetimeout: 5000
+  quartz:
+    # 将任务等保存化到数据库
+    job-store-type: jdbc
+    # 程序结束时会等待quartz相关的内容结束
+    wait-for-jobs-to-complete-on-shutdown: true
+    overwrite-existing-jobs: true
+    properties:
+      org:
+        quartz:
+          scheduler:
+            # scheduler的实例名
+            instanceName: scheduler
+            #auto：自动生成唯一值
+            instanceId: AUTO
+          # 持久化相关
+          jobStore:
+            # 升级 springboot 版本，注释 class 属性
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            # 数据库类型
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+            # 表示数据库表名前缀
+            tablePrefix: MYAPP_
+            dataSource: dataSource
+          # 线程池相关
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            # 线程数
+            threadCount: 10
+            # 线程优先级
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
