@@ -5,34 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/EmailConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/TaskConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/AddTaskDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/ResumeTaskDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdateTaskDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/QuartzJob.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/QuartzLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/JobClassNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/JobNameExistException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Logger/JobExecutionLogger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/QuartzJobRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/QuartzLogRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/QuartzJobConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/QuartzJobController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/factory/AutowiringSpringBeanJobFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/QuartzJobService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzJobServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/task/MyTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/mail/MailManagement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/QuartzJobExportDataVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/QuartzLogExportDataVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/QuartzLogVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/QuartzLogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/QuartzLogService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzLogServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/templates/任务日志数据.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/templates/定时任务数据.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a78f69b0-3b27-42a4-b25d-57ccc35ae1c1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a78f69b0-3b27-42a4-b25d-57ccc35ae1c1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/JladminSystemApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/JladminSystemApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/QuartzLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/QuartzLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/result/PagingResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/result/PagingResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Logger/JobExecutionLogger.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Logger/JobExecutionLogger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/QuartzJobRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/QuartzJobRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/QuartzLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/QuartzLogRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/QuartzJobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/QuartzJobController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/QuartzJobService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/QuartzJobService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzJobServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzJobServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -294,7 +286,9 @@
       <workItem from="1731117994114" duration="24124000" />
       <workItem from="1731203862114" duration="30312000" />
       <workItem from="1731291427889" duration="11321000" />
-      <workItem from="1731387684870" duration="10810000" />
+      <workItem from="1731387684870" duration="12438000" />
+      <workItem from="1731424844533" duration="32000" />
+      <workItem from="1731462987599" duration="13582000" />
     </task>
     <servers />
   </component>

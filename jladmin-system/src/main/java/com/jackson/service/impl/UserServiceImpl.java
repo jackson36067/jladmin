@@ -173,7 +173,7 @@ public class UserServiceImpl implements UserService {
                     return userVO;
                 })
                 .toList();
-        PagingResult pagingResult = new PagingResult(userVOList.size(), userVOList);
+        PagingResult pagingResult = new PagingResult(userRepository.count(), userVOList);
         return Result.success(pagingResult);
     }
 

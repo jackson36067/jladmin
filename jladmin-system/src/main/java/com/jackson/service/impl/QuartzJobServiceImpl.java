@@ -1,6 +1,7 @@
 package com.jackson.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
 import com.jackson.Repository.QuartzJobRepository;
 import com.jackson.constant.TaskConstant;
 import com.jackson.constant.UserConstant;
@@ -8,16 +9,24 @@ import com.jackson.dto.AddTaskDTO;
 import com.jackson.dto.ResumeTaskDTO;
 import com.jackson.dto.UpdateTaskDTO;
 import com.jackson.entity.QuartzJob;
+import com.jackson.entity.Role;
 import com.jackson.exception.JobClassNotFoundException;
 import com.jackson.exception.JobNameExistException;
 import com.jackson.mail.MailManagement;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.QuartzJobService;
+import com.jackson.util.DateTimeUtils;
+import com.jackson.vo.QuartzJobExportDataVO;
+import com.jackson.vo.UserExportDataVO;
 import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.quartz.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -26,6 +35,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +44,7 @@ import java.util.List;
 @Service
 public class QuartzJobServiceImpl implements QuartzJobService {
 
-    @Autowired
+    @Resource
     private Scheduler scheduler;
     @Resource
     private QuartzJobRepository quartzJobRepository;
@@ -213,11 +224,6 @@ public class QuartzJobServiceImpl implements QuartzJobService {
         quartzJobRepository.saveAndFlush(quartzJob);
     }
 
-    // 查看任务日志
-    public List<? extends Trigger> getJobLog(String jobName, String jobGroup) throws SchedulerException {
-        return scheduler.getTriggersOfJob(new JobKey(jobName, jobGroup));
-    }
-
     /**
      * 根据条件获取任务列表
      *
@@ -247,7 +253,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, sort);
         Page<QuartzJob> quartzJobRepositoryAll = quartzJobRepository.findAll(quartzJobSpecification, pageRequest);
         List<QuartzJob> content = quartzJobRepositoryAll.getContent();
-        PagingResult pagingResult = new PagingResult(content.size(), content);
+        PagingResult pagingResult = new PagingResult(quartzJobRepository.count(), content);
         return Result.success(pagingResult);
     }
 
@@ -260,5 +266,48 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     @Override
     public Result<QuartzJob> getQuartzJobById(Long id) {
         return Result.success(quartzJobRepository.findById(id).get());
+    }
+
+    /**
+     * 导出任务数据
+     *
+     * @param httpServletResponse
+     */
+    @Override
+    public void exportQuartzJobData(HttpServletResponse httpServletResponse) {
+        InputStream in = ResourceUtil.class.getClassLoader().getResourceAsStream("templates/定时任务数据.xlsx");
+        XSSFWorkbook excel = null;
+        try {
+            excel = new XSSFWorkbook(in);
+            XSSFSheet sheet = excel.getSheet("sheet1");
+            List<QuartzJobExportDataVO> quartzJobExportDataVOS = quartzJobRepository.findAll()
+                    .stream()
+                    .map(quartzJob -> BeanUtil.copyProperties(quartzJob, QuartzJobExportDataVO.class))
+                    .toList();
+            int RowIndex = 1;
+            for (QuartzJobExportDataVO quartzJobExportDataVO : quartzJobExportDataVOS) {
+                XSSFRow row = sheet.createRow(RowIndex);
+                row.createCell(0).setCellValue(quartzJobExportDataVO.getJobName());
+                row.createCell(1).setCellValue(quartzJobExportDataVO.getClassName());
+                row.createCell(2).setCellValue(quartzJobExportDataVO.getCronExpression());
+                row.createCell(3).setCellValue(quartzJobExportDataVO.getisPause() ? "暂停中" : "执行中");
+                row.createCell(4).setCellValue(quartzJobExportDataVO.getDescription());
+                row.createCell(5).setCellValue(DateTimeUtils.formatLocalDateTime(quartzJobExportDataVO.getCreateTime()));
+                RowIndex++;
+            }
+
+            // 设置请求头,让浏览器下载该文件
+            httpServletResponse.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            httpServletResponse.setHeader("Content-Disposition", "attachment;filename=" + new String((DateTimeUtils.formatLocalDateTime(LocalDateTime.now()) + "用户数据").getBytes(), "ISO8859-1"));
+            httpServletResponse.setCharacterEncoding("UTF-8");
+            ServletOutputStream outputStream = httpServletResponse.getOutputStream();
+            excel.write(outputStream);
+            // 释放资源
+            outputStream.flush(); // 确保所有数据都被写入
+            outputStream.close();
+            excel.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

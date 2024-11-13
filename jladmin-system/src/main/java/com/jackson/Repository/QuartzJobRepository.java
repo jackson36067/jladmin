@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface QuartzJobRepository extends JpaRepository<QuartzJob, Long>, JpaSpecificationExecutor<QuartzJob> {
     QuartzJob findByJobName(String jobName);
+
+    QuartzJob findByJobNameAndJobGroup(String jobName, String jobGroup);
 }

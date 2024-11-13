@@ -8,6 +8,7 @@ import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.QuartzJobService;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -127,16 +128,12 @@ public class QuartzJobController {
     }
 
     /**
-     * 获取任务调度日志
-     *
-     * @param jobName
-     * @param jobGroup
-     * @return
-     * @throws SchedulerException
+     * 导出任务数据
+     * @param httpServletResponse
      */
-    @GetMapping("/log")
+    @GetMapping("/export")
     @PreAuthorize("hasAuthority('timing:list')")
-    public List<? extends Trigger> getJobLog(@RequestParam String jobName, @RequestParam String jobGroup) throws SchedulerException {
-        return quartzService.getJobLog(jobName, jobGroup);
+    public void exportQuartzJobData(HttpServletResponse httpServletResponse) {
+        quartzService.exportQuartzJobData(httpServletResponse);
     }
 }

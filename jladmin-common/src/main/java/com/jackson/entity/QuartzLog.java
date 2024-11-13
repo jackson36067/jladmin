@@ -75,11 +75,11 @@ public class QuartzLog implements Serializable {
         this.exceptionDetail = exceptionDetail;
     }
 
-    public Boolean getSuccess() {
+    public Boolean getisSuccess() {
         return isSuccess;
     }
 
-    public void setSuccess(Boolean success) {
+    public void setisSuccess(Boolean success) {
         isSuccess = success;
     }
 

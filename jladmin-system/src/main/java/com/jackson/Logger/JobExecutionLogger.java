@@ -1,7 +1,10 @@
 package com.jackson.Logger;
 
+import com.jackson.Repository.QuartzJobRepository;
 import com.jackson.Repository.QuartzLogRepository;
+import com.jackson.entity.QuartzJob;
 import com.jackson.entity.QuartzLog;
+import com.jackson.mail.MailManagement;
 import jakarta.annotation.Resource;
 import org.quartz.*;
 import org.quartz.listeners.JobListenerSupport;
@@ -15,6 +18,10 @@ public class JobExecutionLogger extends JobListenerSupport {
 
     @Resource
     private QuartzLogRepository quartzLogRepository;
+    @Resource
+    private QuartzJobRepository quartzJobRepository;
+    @Resource
+    private MailManagement mailManagement;
 
     private static final Logger logger = Logger.getLogger(JobExecutionLogger.class.getName());
 
@@ -46,11 +53,14 @@ public class JobExecutionLogger extends JobListenerSupport {
         }
         quartzLog.setCreateTime(LocalDateTime.now());
         quartzLog.setClassName(context.getJobDetail().getJobClass().toString());
-        quartzLog.setSuccess(true);
+        quartzLog.setisSuccess(true);
         logger.info("Job was executed: " + context.getJobDetail().getKey());
         if (jobException != null) {
             quartzLog.setExceptionDetail(jobException.getMessage());
-            quartzLog.setSuccess(false);
+            quartzLog.setisSuccess(false);
+            // 任务执行失败,进行邮箱告警
+            QuartzJob jobGroup = quartzJobRepository.findByJobNameAndJobGroup(key.getName(), key.getGroup());
+            mailManagement.sendMessage(jobGroup.getEmail(), "任务执行异常,异常信息: " + jobException.getMessage());
             logger.warning("任务执行异常,异常信息: " + jobException.getMessage());
         }
         quartzLogRepository.save(quartzLog);

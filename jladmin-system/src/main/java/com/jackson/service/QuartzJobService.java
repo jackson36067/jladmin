@@ -6,6 +6,7 @@ import com.jackson.dto.UpdateTaskDTO;
 import com.jackson.entity.QuartzJob;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
+import jakarta.servlet.http.HttpServletResponse;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 
@@ -23,9 +24,9 @@ public interface QuartzJobService {
 
     void resumeJob(ResumeTaskDTO resumeTaskDTO) throws SchedulerException;
 
-    List<? extends Trigger> getJobLog(String jobName, String jobGroup) throws SchedulerException;
-
     Result<PagingResult> getQuartzJobList(Integer page, Integer pageSize, String jobName, LocalDateTime beginTime, LocalDateTime endTime);
 
     Result<QuartzJob> getQuartzJobById(Long id);
+
+    void exportQuartzJobData(HttpServletResponse httpServletResponse);
 }
