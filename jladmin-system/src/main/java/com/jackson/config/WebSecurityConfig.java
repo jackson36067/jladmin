@@ -55,7 +55,14 @@ public class WebSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorization -> {
                             authorization
-                                    .requestMatchers("/admin/user/login", "/admin/user/code")
+                                    .requestMatchers(
+                                            "/admin/user/login",
+                                            "/admin/user/code",
+                                            "/doc.html", // 后面都是swagger请求
+                                            "/swagger-resources/**",
+                                            "/v3/api-docs/**",
+                                            "/webjars/**"
+                                    )
                                     .permitAll()
                                     .anyRequest()
                                     .authenticated();

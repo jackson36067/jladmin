@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface UserService {
-    Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request);
+    Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response);
 
     Result<PagingResult> getUserWithPaging(Integer pageSize, Integer page, String usernameOrEmail, LocalDateTime begin, LocalDateTime end, Boolean enabled);
 
@@ -32,4 +32,12 @@ public interface UserService {
     void exportUserData(HttpServletResponse httpServletResponse);
 
     void generateCode(HttpServletResponse httpServletResponse);
+
+    void logout(HttpServletRequest request);
+
+    Result<PagingResult> getOnlineUserPaging(Integer page, Integer pageSize, String username);
+
+    void ForcedWithdrawal(List<String> ipList);
+
+    void exportOnlineUserInfo(HttpServletResponse response);
 }

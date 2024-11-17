@@ -24,6 +24,9 @@
         <poi-ooxml-version>5.2.5</poi-ooxml-version>
         <fastjson-version>2.0.32</fastjson-version>
         <quartz-version>2.6.4</quartz-version>
+        <aop-version>3.3.5</aop-version>
+        <geoip2-version>2.15.0</geoip2-version>
+        <swagger-version>4.1.0</swagger-version>
     </properties>
     <modules>
         <module>jladmin-system</module>
@@ -77,6 +80,23 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-quartz</artifactId>
                 <version>${quartz-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${aop-version}</version>
+            </dependency>
+            <!-- geoip -->
+            <dependency>
+                <groupId>com.maxmind.geoip2</groupId>
+                <artifactId>geoip2</artifactId>
+                <version>${geoip2-version}</version>
+            </dependency>
+            <!-- swagger -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${swagger-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

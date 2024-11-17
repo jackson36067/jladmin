@@ -145,6 +145,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
+        <!-- aop -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <!--swagger测试-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

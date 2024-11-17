@@ -4,46 +4,43 @@ import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.json.JSONUtil;
 import com.jackson.Repository.*;
+import com.jackson.annotation.CacheOnlineUserInfo;
 import com.jackson.constant.JwtConstant;
+import com.jackson.constant.RedisConstant;
 import com.jackson.constant.UserConstant;
-import com.jackson.context.BaseContext;
 import com.jackson.dto.UserDTO;
 import com.jackson.dto.UpdateUserDTO;
 import com.jackson.dto.UserLoginDTO;
 import com.jackson.entity.*;
-import com.jackson.exception.CodeErrorException;
-import com.jackson.exception.EmailExistException;
-import com.jackson.exception.PhoneExistException;
-import com.jackson.exception.UsernameExistException;
+import com.jackson.exception.*;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.DeptService;
 import com.jackson.service.UserService;
-import com.jackson.util.DateTimeUtils;
-import com.jackson.util.JwtUtils;
-import com.jackson.util.ListUtils;
+import com.jackson.utils.DateTimeUtils;
+import com.jackson.utils.GeoIPUtils;
+import com.jackson.utils.JwtUtils;
 import com.jackson.vo.*;
 import jakarta.annotation.Resource;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaUpdate;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,8 +68,10 @@ public class UserServiceImpl implements UserService {
     private DeptService deptService;
     @Resource
     private JobRepository jobRepository;
-    @Autowired
-    private EntityManager entityManager;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+    @Resource
+    private GeoIPUtils geoIPUtils;
 
     /**
      * 用户登录
@@ -80,8 +79,9 @@ public class UserServiceImpl implements UserService {
      * @param userLoginDTO
      * @return
      */
+    @CacheOnlineUserInfo
     @Override
-    public Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request) {
+    public Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response) {
         // 根据前端传递的用户名密码生成UsernamePasswordAuthenticationToken,用于进一步校验逻辑
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(), userLoginDTO.getPassword());
         // 在springSecurity规则下, 自定义校验逻辑
@@ -122,6 +122,7 @@ public class UserServiceImpl implements UserService {
         }
         throw new RuntimeException("账号不存在或密码出错");
     }
+
 
     /**
      * 根据条件分页展示用户数据
@@ -363,9 +364,9 @@ public class UserServiceImpl implements UserService {
             for (UserExportDataVO userExportDataVO : userExportDataVOList) {
                 XSSFRow row = sheet.createRow(RowIndex);
                 row.createCell(0).setCellValue(userExportDataVO.getUsername());
-                row.createCell(1).setCellValue(com.jackson.util.StringUtils.convertCollectionToString(userExportDataVO.getRoles()));
+                row.createCell(1).setCellValue(com.jackson.utils.StringUtils.convertCollectionToString(userExportDataVO.getRoles()));
                 row.createCell(2).setCellValue(userExportDataVO.getDeptName());
-                row.createCell(3).setCellValue(com.jackson.util.StringUtils.convertCollectionToString(userExportDataVO.getJobs()));
+                row.createCell(3).setCellValue(com.jackson.utils.StringUtils.convertCollectionToString(userExportDataVO.getJobs()));
                 row.createCell(4).setCellValue(userExportDataVO.getEmail());
                 row.createCell(5).setCellValue(userExportDataVO.getEnabled() ? "激活" : "禁用");
                 row.createCell(6).setCellValue(userExportDataVO.getPhone());
@@ -385,7 +386,7 @@ public class UserServiceImpl implements UserService {
             outputStream.close();
             excel.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(UserConstant.INPUT_ERROR);
         }
     }
 
@@ -406,9 +407,119 @@ public class UserServiceImpl implements UserService {
             httpServletResponse.addHeader(UserConstant.CODE_KEY, code);
             httpServletResponse.setHeader("Access-Control-Expose-Headers", UserConstant.CODE_KEY);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(UserConstant.GEN_CODE_ERROR);
         }
     }
 
+    /**
+     * 退出登录
+     */
+    @Override
+    public void logout(HttpServletRequest request) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findUserByUsername(name);
+        // 退出后删除该用户的在线记录
+        ZSetOperations<String, String> stringStringSetOperations = stringRedisTemplate.opsForZSet();
+        Set<String> members = stringStringSetOperations.range(RedisConstant.ONLINE_USER_KEY, 0, -1);// 获取所有成员
+        if (members.size() != 0) {
+            for (String member : members) {
+                OnlineUser onlineUser = JSONUtil.toBean(member, OnlineUser.class);
+                if (onlineUser.getUsername().equals(user.getUsername()) && onlineUser.getIpAddress().equals(geoIPUtils.getClientIp(request))) {
+                    stringStringSetOperations.remove(RedisConstant.ONLINE_USER_KEY, JSONUtil.toJsonStr(onlineUser));
+                }
+            }
+        }
+        // 清理安全上下文
+        SecurityContextHolder.clearContext();
+    }
 
+    /**
+     * 获取在线用户列表
+     *
+     * @param page
+     * @param pageSize
+     * @param username
+     * @return
+     */
+    @Override
+    public Result<PagingResult> getOnlineUserPaging(Integer page, Integer pageSize, String username) {
+        // 获取起始索引
+        int start = (page - 1) * pageSize;
+        // 使用opsForZSet实现分页
+        ZSetOperations<String, String> stringStringZSetOperations = stringRedisTemplate.opsForZSet();
+        Set<String> range = stringStringZSetOperations.reverseRangeByScore(RedisConstant.ONLINE_USER_KEY, 0, System.currentTimeMillis(), Long.parseLong(Integer.toString(start)), pageSize);
+        List<OnlineUser> onlineUserList = range.stream().map(jsonStr -> JSONUtil.toBean(jsonStr, OnlineUser.class)).toList();
+        if (StringUtils.hasText(username)) {
+            String regex = ".*" + username + ".*";
+            onlineUserList = onlineUserList.stream().filter(onlineUser -> onlineUser.getUsername().matches(regex)).toList();
+        }
+        PagingResult pagingResult = new PagingResult(stringStringZSetOperations.size(RedisConstant.ONLINE_USER_KEY), onlineUserList);
+        return Result.success(pagingResult);
+    }
+
+    /**
+     * 强制退出某个用户账号
+     *
+     * @param ipList
+     */
+    @Override
+    public void ForcedWithdrawal(List<String> ipList) {
+        // 强退实现逻辑,将强退的用户名加入到redis中,在过滤器中校验是否存在该登录者的ip,存在直接清空认证信息,强制退出到登录页面
+        stringRedisTemplate.opsForSet().add(RedisConstant.FORCE_WITHDRAW_KEY, ipList.toArray(new String[0]));
+        // 将拉黑的这个在线用户数据删除
+        Set<String> onlineUserJsonList = stringRedisTemplate.opsForZSet().range(RedisConstant.ONLINE_USER_KEY, 0, -1);
+        onlineUserJsonList.forEach(onlineUserJson -> {
+            OnlineUser onlineUser = JSONUtil.toBean(onlineUserJson, OnlineUser.class);
+            if (ipList.contains(onlineUser.getIpAddress())) {
+                stringRedisTemplate.opsForZSet().remove(RedisConstant.ONLINE_USER_KEY, onlineUserJson);
+            }
+        });
+    }
+
+    /**
+     * 导出在线用户数据
+     *
+     * @param response
+     */
+    @Override
+    public void exportOnlineUserInfo(HttpServletResponse response) {
+        InputStream in = ResourceUtil.class.getClassLoader().getResourceAsStream("templates/在线用户数据.xlsx");
+        XSSFWorkbook excel = null;
+        try {
+            excel = new XSSFWorkbook(in);
+            XSSFSheet sheet = excel.getSheet("sheet1");
+            // 获取所有在线用户数据
+            List<OnlineUserExportData> onlineUserExportDataList = stringRedisTemplate.opsForZSet().reverseRangeByScore(RedisConstant.ONLINE_USER_KEY, 0, System.currentTimeMillis())
+                    .stream()
+                    .map(onlineUserInfoJson -> {
+                        OnlineUser onlineUser = JSONUtil.toBean(onlineUserInfoJson, OnlineUser.class);
+                        return BeanUtil.copyProperties(onlineUser, OnlineUserExportData.class);
+                    })
+                    .toList();
+            int RowIndex = 1;
+            for (OnlineUserExportData onlineUserExportData : onlineUserExportDataList) {
+                XSSFRow row = sheet.createRow(RowIndex);
+                row.createCell(0).setCellValue(onlineUserExportData.getUsername());
+                row.createCell(1).setCellValue(onlineUserExportData.getDeptName());
+                row.createCell(2).setCellValue(onlineUserExportData.getIpAddress());
+                row.createCell(3).setCellValue(onlineUserExportData.getLoginLocation());
+                row.createCell(4).setCellValue(onlineUserExportData.getBrowser());
+                row.createCell(5).setCellValue(DateTimeUtils.formatLocalDateTime(onlineUserExportData.getLoginTime()));
+                RowIndex++;
+            }
+
+            // 设置请求头,让浏览器下载该文件
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Content-Disposition", "attachment;filename=" + new String((DateTimeUtils.formatLocalDateTime(LocalDateTime.now()) + "用户数据").getBytes(), "ISO8859-1"));
+            response.setCharacterEncoding("UTF-8");
+            ServletOutputStream outputStream = response.getOutputStream();
+            excel.write(outputStream);
+            // 释放资源
+            outputStream.flush(); // 确保所有数据都被写入
+            outputStream.close();
+            excel.close();
+        } catch (IOException e) {
+            throw new RuntimeException(UserConstant.INPUT_ERROR);
+        }
+    }
 }

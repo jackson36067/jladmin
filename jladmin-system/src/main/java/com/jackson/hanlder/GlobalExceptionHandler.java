@@ -1,6 +1,5 @@
 package com.jackson.hanlder;
 
-import com.jackson.exception.BaseException;
 import com.jackson.result.Result;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +18,8 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler
-    public void ExceptionHandler(Exception be, HttpServletResponse httpServletResponse) throws IOException {
+    public Result<String> ExceptionHandler(Exception be, HttpServletResponse httpServletResponse) {
         log.info("异常信息:{}", be.getMessage());
-        httpServletResponse.setStatus(500);
-        httpServletResponse.getWriter().write(be.getMessage());
+        return Result.error(be.getMessage());
     }
 }

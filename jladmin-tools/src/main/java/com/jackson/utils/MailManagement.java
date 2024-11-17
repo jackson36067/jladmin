@@ -1,4 +1,4 @@
-package com.jackson.mail;
+package com.jackson.utils;
 
 import com.jackson.constant.EmailConstant;
 import jakarta.annotation.Resource;

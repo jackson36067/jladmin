@@ -1,8 +1,5 @@
 package com.jackson.controller;
 
-import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.LineCaptcha;
-import com.jackson.constant.UserConstant;
 import com.jackson.dto.UserDTO;
 import com.jackson.dto.UpdateUserDTO;
 import com.jackson.dto.UserLoginDTO;
@@ -15,14 +12,12 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/admin/user")
@@ -43,8 +38,8 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO, HttpServletRequest request) {
-        return userService.login(userLoginDTO, request);
+    public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response) {
+        return userService.login(userLoginDTO, request, response);
     }
 
     /**
@@ -154,13 +149,43 @@ public class UserController {
      * 退出登录
      *
      * @param request
-     * @param response
      * @return
      */
     @PostMapping("/logout")
     @PreAuthorize(value = "hasAuthority('user:list')")
-    public void logout() {
-        // 清理安全上下文
-        SecurityContextHolder.clearContext();
+    public void logout(HttpServletRequest request) {
+        userService.logout(request);
+    }
+
+    /**
+     * 分页获取在线用户列表
+     *
+     * @param page
+     * @param pageSize
+     * @param username
+     * @return
+     */
+    @GetMapping("/online")
+    public Result<PagingResult> getOnlineUserPaging(
+            @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(required = false) String username
+    ) {
+        return userService.getOnlineUserPaging(page, pageSize, username);
+    }
+
+    /**
+     * 强制退出某个用户账号
+     *
+     * @param ipList
+     */
+    @PostMapping("/force")
+    public void ForcedWithdrawal(@RequestBody List<String> ipList) {
+        userService.ForcedWithdrawal(ipList);
+    }
+
+    @GetMapping("/online/export")
+    public void exportOnlineUserInfo(HttpServletResponse response) {
+        userService.exportOnlineUserInfo(response);
     }
 }

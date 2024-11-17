@@ -64,3 +64,9 @@ spring:
             # 线程优先级
             threadPriority: 5
             threadsInheritContextClassLoaderOfInitializingThread: true
+knife4j:
+  enable: true # 启用 Knife4j
+  production: false # 是否为生产模式，生产模式下不展示文档
+springdoc:
+  api-docs:
+    enabled: true # 确保 OpenAPI 文档生成已启用

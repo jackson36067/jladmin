@@ -54,6 +54,16 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
         </dependency>
+        <!-- servlet -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+        </dependency>
+        <!-- 离线ip库 -->
+        <dependency>
+            <groupId>com.maxmind.geoip2</groupId>
+            <artifactId>geoip2</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

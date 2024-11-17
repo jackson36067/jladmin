@@ -1,4 +1,4 @@
-package com.jackson.util;
+package com.jackson.utils;
 
 import com.jackson.constant.JwtConstant;
 import io.jsonwebtoken.Claims;

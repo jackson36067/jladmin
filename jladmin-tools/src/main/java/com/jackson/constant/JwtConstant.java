@@ -5,4 +5,5 @@ public class JwtConstant {
     public static final Long EXPIRE_TIME = 7 * 24 * 60 * 60 * 60L;
     public static final String USER_ID = "user_id";
     public static final String USERNAME = "username";
+    public static final String TOKEN_EXPIRE = "token过期,请重新登录";
 }

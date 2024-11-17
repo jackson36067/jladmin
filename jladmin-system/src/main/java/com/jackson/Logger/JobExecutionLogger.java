@@ -4,7 +4,7 @@ import com.jackson.Repository.QuartzJobRepository;
 import com.jackson.Repository.QuartzLogRepository;
 import com.jackson.entity.QuartzJob;
 import com.jackson.entity.QuartzLog;
-import com.jackson.mail.MailManagement;
+import com.jackson.utils.MailManagement;
 import jakarta.annotation.Resource;
 import org.quartz.*;
 import org.quartz.listeners.JobListenerSupport;
