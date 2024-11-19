@@ -1,9 +1,12 @@
 package com.jackson.controller;
 
+import com.jackson.annotation.SysLog;
+import com.jackson.constant.RoleConstant;
 import com.jackson.dto.AddRoleDTO;
 import com.jackson.dto.UpdateRoleDTO;
 import com.jackson.dto.UpdateRoleMenuDTO;
 import com.jackson.entity.Role;
+import com.jackson.enumeration.SysLogType;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.RoleService;
@@ -63,8 +66,14 @@ public class RoleController {
         return roleService.getRoleWithPaging(page, pageSize, nameOrDescription, beginTime, endTime);
     }
 
+    /**
+     * 修改角色对应菜单
+     *
+     * @param updateRoleMenuDTO
+     */
     @PutMapping("/update/menu")
     @PreAuthorize("hasAuthority('roles:list')")
+    @SysLog(value = RoleConstant.UPDATE_ROLE_MENU_LOG, type = SysLogType.UPDATE)
     public void updateRoleMenuList(@RequestBody UpdateRoleMenuDTO updateRoleMenuDTO) {
         roleService.updateRoleMenuList(updateRoleMenuDTO);
     }
@@ -76,6 +85,7 @@ public class RoleController {
      */
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('roles:list')")
+    @SysLog(value = RoleConstant.ADD_ROLE_LOG, type = SysLogType.ADD)
     public void addRole(@RequestBody AddRoleDTO addRoleDTO) {
         roleService.addRole(addRoleDTO);
     }
@@ -87,6 +97,7 @@ public class RoleController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('roles:list')")
+    @SysLog(value = RoleConstant.UPDATE_ROLE_LOG, type = SysLogType.UPDATE)
     public void updateRole(@RequestBody UpdateRoleDTO updateRoleDTO) {
         roleService.updateRole(updateRoleDTO);
     }
@@ -118,10 +129,12 @@ public class RoleController {
 
     /**
      * 根据id删除批量删除角色
+     *
      * @param ids
      */
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('roles:list')")
+    @SysLog(value = RoleConstant.DELETE_ROLE_LOG, type = SysLogType.DELETE)
     public void deleteRoleByIds(@RequestBody List<Long> ids) {
         roleService.deleteRoleByIds(ids);
     }

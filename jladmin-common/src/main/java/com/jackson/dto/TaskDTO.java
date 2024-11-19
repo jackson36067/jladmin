@@ -3,15 +3,15 @@ package com.jackson.dto;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ResumeTaskDTO implements Serializable {
+public class TaskDTO implements Serializable {
     private Long id;
     private String jobName;
     private String jobGroup;
 
-    public ResumeTaskDTO() {
+    public TaskDTO() {
     }
 
-    public ResumeTaskDTO(Long id, String jobName, String jobGroup, Boolean isPause) {
+    public TaskDTO(Long id, String jobName, String jobGroup, Boolean isPause) {
         this.id = id;
         this.jobName = jobName;
         this.jobGroup = jobGroup;
@@ -45,7 +45,7 @@ public class ResumeTaskDTO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ResumeTaskDTO that = (ResumeTaskDTO) o;
+        TaskDTO that = (TaskDTO) o;
         return Objects.equals(id, that.id) && Objects.equals(jobName, that.jobName) && Objects.equals(jobGroup, that.jobGroup);
     }
 

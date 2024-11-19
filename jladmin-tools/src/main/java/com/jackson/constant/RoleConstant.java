@@ -9,4 +9,8 @@ public class RoleConstant {
     public static final String COMMON_USER = "普通用户";
     public static final String ROLE_NAME_EXIST = "角色名称已经存在";
     public static final String ROLE_HAS_USER = "角色被分配给了用户,无法删除";
+    public static final String ADD_ROLE_LOG = "新增角色";
+    public static final String UPDATE_ROLE_LOG = "更新角色";
+    public static final String DELETE_ROLE_LOG = "删除角色";
+    public static final String UPDATE_ROLE_MENU_LOG = "更新角色菜单";
 }

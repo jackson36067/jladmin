@@ -18,8 +18,9 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler
-    public Result<String> ExceptionHandler(Exception be, HttpServletResponse httpServletResponse) {
+    public Result<String> ExceptionHandler(Exception be, HttpServletResponse response) {
         log.info("异常信息:{}", be.getMessage());
+        response.setStatus(500);
         return Result.error(be.getMessage());
     }
 }

@@ -1,7 +1,10 @@
 package com.jackson.controller;
 
+import com.jackson.annotation.SysLog;
+import com.jackson.constant.MenuConstant;
 import com.jackson.dto.AddMenuDTO;
 import com.jackson.dto.UpdateMenuDTO;
+import com.jackson.enumeration.SysLogType;
 import com.jackson.result.Result;
 import com.jackson.service.MenuService;
 import com.jackson.vo.MenuListVO;
@@ -49,6 +52,7 @@ public class MenuController {
      */
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('menu:list')")
+    @SysLog(value = MenuConstant.ADD_MENU_LOG,type = SysLogType.ADD)
     public void addMenu(@RequestBody AddMenuDTO addMenuDTO) {
         menuService.addMenu(addMenuDTO);
     }
@@ -60,6 +64,7 @@ public class MenuController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('menu:list')")
+    @SysLog(value = MenuConstant.UPDATE_MENU_LOG,type = SysLogType.UPDATE)
     public void updateMenu(@RequestBody UpdateMenuDTO updateMenuDTO) {
         menuService.updateMenu(updateMenuDTO);
     }
@@ -71,6 +76,7 @@ public class MenuController {
      */
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('menu:list')")
+    @SysLog(value = MenuConstant.DELETE_MENU_LOG,type = SysLogType.DELETE)
     public void deleteMenuByIds(@RequestBody List<Long> ids) {
         menuService.deleteMenuByIds(ids);
     }

@@ -15,4 +15,10 @@ public class UserConstant {
     public static final String INPUT_ERROR = "写入失败";
     public static final String GEN_CODE_ERROR = "生成验证码失败";
     public static final String USER_BLOCK_ERROR = "您已经被拉黑,请联系管理员";
+    public static final String SELECT_USER_LOG = "查询用户";
+    public static final String UPDATE_USER_LOG = "更新用户";
+    public static final String DELETE_USER_LOG = "删除用户";
+    public static final String ADD_USER_LOG = "新增用户";
+    public static final String LOGIN_USER_LOG = "用户登录";
+    public static final String BLOCK_USER_LOG = "用户拉黑";
 }

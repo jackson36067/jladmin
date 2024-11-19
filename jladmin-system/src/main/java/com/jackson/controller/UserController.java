@@ -1,8 +1,11 @@
 package com.jackson.controller;
 
-import com.jackson.dto.UserDTO;
+import com.jackson.annotation.SysLog;
+import com.jackson.constant.UserConstant;
 import com.jackson.dto.UpdateUserDTO;
+import com.jackson.dto.UserDTO;
 import com.jackson.dto.UserLoginDTO;
+import com.jackson.enumeration.SysLogType;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.UserService;
@@ -31,13 +34,9 @@ public class UserController {
         userService.generateCode(httpServletResponse);
     }
 
-    /**
-     * 用户登录
-     *
-     * @param userLoginDTO
-     * @return
-     */
+
     @PostMapping("/login")
+    @SysLog(value = UserConstant.LOGIN_USER_LOG, type = SysLogType.LOGIN) // 操作日志记录
     public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response) {
         return userService.login(userLoginDTO, request, response);
     }
@@ -105,6 +104,7 @@ public class UserController {
      */
     @PutMapping("/update/{id}")
     @PreAuthorize(value = "hasAuthority('user:list')")
+    @SysLog(value = UserConstant.UPDATE_USER_LOG, type = SysLogType.UPDATE)
     public Result<Void> updateUser(@PathVariable Long id, @RequestBody UpdateUserDTO updateUserDTO) {
         return userService.updateUser(id, updateUserDTO);
     }
@@ -117,6 +117,7 @@ public class UserController {
      */
     @PostMapping("/save")
     @PreAuthorize(value = "hasAuthority('user:list')")
+    @SysLog(value = UserConstant.ADD_USER_LOG, type = SysLogType.ADD)
     public Result<Void> saveUser(@RequestBody UserDTO userDTO) {
         return userService.saveUser(userDTO);
     }
@@ -129,6 +130,7 @@ public class UserController {
      */
     @DeleteMapping("/delete")
     @PreAuthorize(value = "hasAuthority('user:list')")
+    @SysLog(value = UserConstant.DELETE_USER_LOG, type = SysLogType.DELETE)
     public Result<Void> deleteUserByIdIn(@RequestBody List<Long> ids) {
         return userService.deleteUserById(ids);
     }
@@ -180,10 +182,16 @@ public class UserController {
      * @param ipList
      */
     @PostMapping("/force")
+    @SysLog(value = UserConstant.BLOCK_USER_LOG, type = SysLogType.BLOCK)
     public void ForcedWithdrawal(@RequestBody List<String> ipList) {
         userService.ForcedWithdrawal(ipList);
     }
 
+    /**
+     * 导出在线用户数据
+     *
+     * @param response
+     */
     @GetMapping("/online/export")
     public void exportOnlineUserInfo(HttpServletResponse response) {
         userService.exportOnlineUserInfo(response);

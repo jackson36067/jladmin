@@ -6,7 +6,7 @@ import com.jackson.Repository.QuartzJobRepository;
 import com.jackson.constant.TaskConstant;
 import com.jackson.constant.UserConstant;
 import com.jackson.dto.AddTaskDTO;
-import com.jackson.dto.ResumeTaskDTO;
+import com.jackson.dto.TaskDTO;
 import com.jackson.dto.UpdateTaskDTO;
 import com.jackson.entity.QuartzJob;
 import com.jackson.exception.JobClassNotFoundException;
@@ -182,9 +182,9 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     }
 
     // 删除任务
-    public void deleteJob(List<ResumeTaskDTO> resumeTaskDTOList) throws SchedulerException {
-        resumeTaskDTOList.forEach(resumeTaskDTO -> {
-            JobKey jobKey = new JobKey(resumeTaskDTO.getJobName(), resumeTaskDTO.getJobGroup());
+    public void deleteJob(List<TaskDTO> taskDTOList) throws SchedulerException {
+        taskDTOList.forEach(taskDTO -> {
+            JobKey jobKey = new JobKey(taskDTO.getJobName(), taskDTO.getJobGroup());
             try {
                 boolean exists = scheduler.checkExists(jobKey);
                 if (exists) {
@@ -195,28 +195,28 @@ public class QuartzJobServiceImpl implements QuartzJobService {
             }
         });
         // 删除自定义数据库中的数据
-        List<Long> idList = resumeTaskDTOList.stream().map(ResumeTaskDTO::getId).toList();
+        List<Long> idList = taskDTOList.stream().map(TaskDTO::getId).toList();
         quartzJobRepository.deleteAllByIdInBatch(idList);
     }
 
     // 暂停任务
-    public void pauseJob(ResumeTaskDTO resumeTaskDTO) throws SchedulerException {
-        scheduler.pauseJob(new JobKey(resumeTaskDTO.getJobName(), resumeTaskDTO.getJobGroup()));
-        Long id = resumeTaskDTO.getId();
+    public void pauseJob(TaskDTO taskDTO) throws SchedulerException {
+        scheduler.pauseJob(new JobKey(taskDTO.getJobName(), taskDTO.getJobGroup()));
+        Long id = taskDTO.getId();
         QuartzJob quartzJob = quartzJobRepository.findById(id).get();
         quartzJob.setisPause(true);
         quartzJobRepository.saveAndFlush(quartzJob);
     }
 
     // 恢复任务
-    public void resumeJob(ResumeTaskDTO resumeTaskDTO) throws SchedulerException {
+    public void resumeJob(TaskDTO taskDTO) throws SchedulerException {
         // 确保任务存在
-        JobKey jobKey = new JobKey(resumeTaskDTO.getJobName(), resumeTaskDTO.getJobGroup());
+        JobKey jobKey = new JobKey(taskDTO.getJobName(), taskDTO.getJobGroup());
         if (!scheduler.checkExists(jobKey)) {
             throw new SchedulerException("Job does not exist: " + jobKey);
         }
         scheduler.resumeJob(jobKey);
-        Long id = resumeTaskDTO.getId();
+        Long id = taskDTO.getId();
         QuartzJob quartzJob = quartzJobRepository.findById(id).get();
         quartzJob.setisPause(false);
         quartzJobRepository.saveAndFlush(quartzJob);

@@ -10,6 +10,7 @@ import com.jackson.annotation.CacheOnlineUserInfo;
 import com.jackson.constant.JwtConstant;
 import com.jackson.constant.RedisConstant;
 import com.jackson.constant.UserConstant;
+import com.jackson.context.BaseContext;
 import com.jackson.dto.UserDTO;
 import com.jackson.dto.UpdateUserDTO;
 import com.jackson.dto.UserLoginDTO;
@@ -82,13 +83,14 @@ public class UserServiceImpl implements UserService {
     @CacheOnlineUserInfo
     @Override
     public Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response) {
+        // 校验验证码
+        if (!request.getHeader(UserConstant.CODE_KEY).equalsIgnoreCase(userLoginDTO.getCode())) {
+            throw new CodeErrorException("验证码错误");
+        }
         // 根据前端传递的用户名密码生成UsernamePasswordAuthenticationToken,用于进一步校验逻辑
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(), userLoginDTO.getPassword());
         // 在springSecurity规则下, 自定义校验逻辑
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
-        if (!request.getHeader(UserConstant.CODE_KEY).equalsIgnoreCase(userLoginDTO.getCode())) {
-            throw new CodeErrorException("验证码错误");
-        }
         if (authenticate != null && authenticate.isAuthenticated()) {
             //登录成功
             String username = userLoginDTO.getUsername();
@@ -431,6 +433,8 @@ public class UserServiceImpl implements UserService {
         }
         // 清理安全上下文
         SecurityContextHolder.clearContext();
+        // 清除baseContext
+        BaseContext.removeCurrentId();
     }
 
     /**

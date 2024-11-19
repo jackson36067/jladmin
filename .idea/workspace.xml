@@ -5,63 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/OnlineUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/OnlineUserExportData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/annotation/CacheOnlineUserInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/aop/OnlineUserInfoCacheAspect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/templates/在线用户数据.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RedisConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/BlockException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/TokenExpireException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/UserHasLoginException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/GeoIPUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/LogExportDataVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/LogVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/LogRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/annotation/SysLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/aop/LogAspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/LogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/LogService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/LogServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/templates/日志数据.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/LogConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/enumeration/SysLogType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/GenLogException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/RequestHolder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/DeptConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/DeptConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/EmailConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/EmailConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/JwtConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/JwtConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/MenuConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/MenuConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/RedisConstant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/RoleConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RoleConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/TaskConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/TaskConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/constant/UserConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/UserConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/BaseException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/BaseException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/CodeErrorException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/CodeErrorException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/DeptNameException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/DeptNameException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/EmailExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/EmailExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/JobClassNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/JobClassNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/JobNameExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/JobNameExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/MenuNameExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/MenuNameExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/MenuTitleExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/MenuTitleExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/PasswordErrorException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/PasswordErrorException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/PhoneExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/PhoneExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/RoleHasUserException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/RoleHasUserException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/RoleNameExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/RoleNameExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/SortRepeatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/SortRepeatException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/UserNotExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/UserNotExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/exception/UsernameExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/UsernameExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/util/DateTimeUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/DateTimeUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/util/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/JwtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/util/ListUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/ListUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/util/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/StringUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Logger/JobExecutionLogger.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Logger/JobExecutionLogger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/ResumeTaskDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/TaskDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/DeptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/DeptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/JobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/JobController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/MenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/QuartzJobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/QuartzJobController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/RoleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/filter/JwtAuthenticationTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/filter/JwtAuthenticationTokenFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/hanlder/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/hanlder/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/hanlder/MyAuthenticationSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/hanlder/MyAuthenticationSuccessHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/DeptServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/DeptServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/MenuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/MenuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/QuartzJobService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/QuartzJobService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzJobServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzJobServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzLogServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzLogServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/mail/MailManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/MailManagement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/DeptConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/DeptConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/MenuConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/MenuConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RoleConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RoleConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/TaskConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/TaskConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/UserConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/UserConstant.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +47,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="AnnotationType" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -159,7 +133,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;D:/javaCode/jladmin/jladmin-system/src/main/resources/templates/角色数据.xlsx&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -335,7 +309,9 @@
       <workItem from="1731590071556" duration="3940000" />
       <workItem from="1731676337330" duration="1301000" />
       <workItem from="1731722013018" duration="17520000" />
-      <workItem from="1731808681540" duration="11757000" />
+      <workItem from="1731808681540" duration="15758000" />
+      <workItem from="1731915458944" duration="18629000" />
+      <workItem from="1731979714962" duration="7080000" />
     </task>
     <servers />
   </component>

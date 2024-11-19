@@ -1,16 +1,18 @@
 package com.jackson.controller;
 
+import com.jackson.annotation.SysLog;
+import com.jackson.constant.TaskConstant;
 import com.jackson.dto.AddTaskDTO;
-import com.jackson.dto.ResumeTaskDTO;
+import com.jackson.dto.TaskDTO;
 import com.jackson.dto.UpdateTaskDTO;
 import com.jackson.entity.QuartzJob;
+import com.jackson.enumeration.SysLogType;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.QuartzJobService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import org.quartz.SchedulerException;
-import org.quartz.Trigger;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -72,6 +74,7 @@ public class QuartzJobController {
      */
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('timing:list')")
+    @SysLog(value = TaskConstant.ADD_JOB_LOG, type = SysLogType.ADD)
     public void addJob(@RequestBody AddTaskDTO addTaskDTO) throws Exception {
         quartzService.addJob(addTaskDTO);
     }
@@ -85,6 +88,7 @@ public class QuartzJobController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('timing:list')")
+    @SysLog(value = TaskConstant.UPDATE_JOB_LOG, type = SysLogType.UPDATE)
     public void updateJob(@RequestBody UpdateTaskDTO updateTaskDTO) throws SchedulerException {
         quartzService.updateJob(updateTaskDTO);
     }
@@ -92,43 +96,46 @@ public class QuartzJobController {
     /**
      * 删除任务调度
      *
-     * @param jobName
-     * @param jobGroup
+     * @param taskDTOList
      * @return
      * @throws SchedulerException
      */
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('timing:list')")
-    public void deleteJob(@RequestBody List<ResumeTaskDTO> resumeTaskDTOList) throws SchedulerException {
-        quartzService.deleteJob(resumeTaskDTOList);
+    @SysLog(value = TaskConstant.DELETE_JOB_LOG, type = SysLogType.DELETE)
+    public void deleteJob(@RequestBody List<TaskDTO> taskDTOList) throws SchedulerException {
+        quartzService.deleteJob(taskDTOList);
     }
 
     /**
      * 暂停任务调度
      *
-     * @param resumeTaskDTO
+     * @param taskDTO
      * @throws SchedulerException
      */
     @PostMapping("/pause")
     @PreAuthorize("hasAuthority('timing:list')")
-    public void pauseJob(@RequestBody ResumeTaskDTO resumeTaskDTO) throws SchedulerException {
-        quartzService.pauseJob(resumeTaskDTO);
+    @SysLog(value = TaskConstant.PAUSE_JOB_LOG, type = SysLogType.PAUSE)
+    public void pauseJob(@RequestBody TaskDTO taskDTO) throws SchedulerException {
+        quartzService.pauseJob(taskDTO);
     }
 
     /**
      * 恢复任务调度
      *
-     * @param resumeTaskDTO
+     * @param taskDTO
      * @throws SchedulerException
      */
     @PostMapping("/resume")
     @PreAuthorize("hasAuthority('timing:list')")
-    public void resumeJob(@RequestBody ResumeTaskDTO resumeTaskDTO) throws SchedulerException {
-        quartzService.resumeJob(resumeTaskDTO);
+    @SysLog(value = TaskConstant.RESUME_JOB_LOG, type = SysLogType.RESUME)
+    public void resumeJob(@RequestBody TaskDTO taskDTO) throws SchedulerException {
+        quartzService.resumeJob(taskDTO);
     }
 
     /**
      * 导出任务数据
+     *
      * @param httpServletResponse
      */
     @GetMapping("/export")

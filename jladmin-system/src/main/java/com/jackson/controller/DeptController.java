@@ -1,8 +1,11 @@
 package com.jackson.controller;
 
+import com.jackson.annotation.SysLog;
+import com.jackson.constant.DeptConstant;
 import com.jackson.dto.AddDeptDTO;
 import com.jackson.dto.UpdateDeptDTO;
 import com.jackson.entity.Dept;
+import com.jackson.enumeration.SysLogType;
 import com.jackson.result.Result;
 import com.jackson.service.DeptService;
 import com.jackson.vo.DeptVO;
@@ -60,6 +63,7 @@ public class DeptController {
      */
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('dept:list')")
+    @SysLog(value = DeptConstant.ADD_DEPT_LOG, type = SysLogType.ADD)
     public void addDept(@RequestBody AddDeptDTO addDeptDTO) {
         deptService.addDept(addDeptDTO);
     }
@@ -71,6 +75,7 @@ public class DeptController {
      */
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('dept:list')")
+    @SysLog(value = DeptConstant.UPDATE_DEPT_LOG, type = SysLogType.UPDATE)
     public void updateDept(@RequestBody UpdateDeptDTO updateDeptDTO) {
         deptService.updateDept(updateDeptDTO);
     }
@@ -82,12 +87,14 @@ public class DeptController {
      */
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('dept:list')")
+    @SysLog(value = DeptConstant.DELETE_DEPT_LOG, type = SysLogType.DELETE)
     public void deleteDeptByIds(@RequestBody List<Long> ids) {
         deptService.deleteDeptByIds(ids);
     }
 
     /**
      * 导出部门数据
+     *
      * @param httpServletResponse
      */
     @GetMapping("/export")
