@@ -2,13 +2,12 @@ package com.jackson.controller;
 
 import com.jackson.annotation.SysLog;
 import com.jackson.constant.UserConstant;
-import com.jackson.dto.UpdateUserDTO;
-import com.jackson.dto.UserDTO;
-import com.jackson.dto.UserLoginDTO;
+import com.jackson.dto.*;
 import com.jackson.enumeration.SysLogType;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.UserService;
+import com.jackson.vo.UserLogVO;
 import com.jackson.vo.UserLoginVO;
 import com.jackson.vo.UserVO;
 import jakarta.annotation.Resource;
@@ -195,5 +194,50 @@ public class UserController {
     @GetMapping("/online/export")
     public void exportOnlineUserInfo(HttpServletResponse response) {
         userService.exportOnlineUserInfo(response);
+    }
+
+    /**
+     * 根据用户名分页获取用户操作日志
+     *
+     * @param username
+     * @return
+     */
+    @GetMapping("/center/log")
+    public Result<PagingResult> getUserLog(
+            @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            String username) {
+        return userService.getUserLog(page, pageSize, username);
+    }
+
+    /**
+     * 发送验证码到指定邮箱
+     *
+     * @param email
+     */
+    @GetMapping("/email/code")
+    public void sentEmailCode(String email) {
+        userService.sentEmailCode(email);
+    }
+
+    /**
+     * 修改用户邮箱
+     *
+     * @param updateEmailDTO
+     */
+    @PutMapping("/update/email")
+    @SysLog(value = UserConstant.UPDATE_USER_EMAIL_LOG, type = SysLogType.UPDATE)
+    public void updateEmail(@RequestBody UpdateEmailDTO updateEmailDTO) {
+        userService.updateEmail(updateEmailDTO);
+    }
+
+    /**
+     * 修改用户密码
+     * @param updatePasswordDTO
+     */
+    @PutMapping("/update/password")
+    @SysLog(value = UserConstant.UPDATE_USER_PASSWORD_LOG, type = SysLogType.UPDATE)
+    public void updatePassword(@RequestBody UpdatePasswordDTO updatePasswordDTO){
+        userService.updatePassword(updatePasswordDTO);
     }
 }

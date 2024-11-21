@@ -2,6 +2,8 @@ package com.jackson.Logger;
 
 import com.jackson.Repository.QuartzJobRepository;
 import com.jackson.Repository.QuartzLogRepository;
+import com.jackson.constant.EmailConstant;
+import com.jackson.constant.TaskConstant;
 import com.jackson.entity.QuartzJob;
 import com.jackson.entity.QuartzLog;
 import com.jackson.utils.MailManagement;
@@ -60,7 +62,7 @@ public class JobExecutionLogger extends JobListenerSupport {
             quartzLog.setisSuccess(false);
             // 任务执行失败,进行邮箱告警
             QuartzJob jobGroup = quartzJobRepository.findByJobNameAndJobGroup(key.getName(), key.getGroup());
-            mailManagement.sendMessage(jobGroup.getEmail(), "任务执行异常,异常信息: " + jobException.getMessage());
+            mailManagement.sendMessage(jobGroup.getEmail(), EmailConstant.EMAIL_JOB_SUBJECT, TaskConstant.TASK_EXCEPTION + jobException.getMessage());
             logger.warning("任务执行异常,异常信息: " + jobException.getMessage());
         }
         quartzLogRepository.save(quartzLog);

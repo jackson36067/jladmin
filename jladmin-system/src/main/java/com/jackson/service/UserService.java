@@ -1,8 +1,6 @@
 package com.jackson.service;
 
-import com.jackson.dto.UserDTO;
-import com.jackson.dto.UpdateUserDTO;
-import com.jackson.dto.UserLoginDTO;
+import com.jackson.dto.*;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.vo.UserLoginVO;
@@ -10,7 +8,6 @@ import com.jackson.vo.UserVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -40,4 +37,12 @@ public interface UserService {
     void ForcedWithdrawal(List<String> ipList);
 
     void exportOnlineUserInfo(HttpServletResponse response);
+
+    Result<PagingResult> getUserLog(Integer page, Integer pageSize, String username);
+
+    void sentEmailCode(String email);
+
+    void updateEmail(UpdateEmailDTO updateEmailDTO);
+
+    void updatePassword(UpdatePasswordDTO updatePasswordDTO);
 }

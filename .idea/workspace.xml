@@ -5,36 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/LogExportDataVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/LogVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Repository/LogRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/annotation/SysLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/aop/LogAspect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/LogController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/LogService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/LogServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/templates/日志数据.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/LogConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/enumeration/SysLogType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/GenLogException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/RequestHolder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdateEmailDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdatePasswordDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/UserLogVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/ResumeTaskDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/TaskDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/DeptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/DeptController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/JobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/JobController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/MenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/QuartzJobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/QuartzJobController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/UserLoginVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/UserLoginVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Logger/JobExecutionLogger.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Logger/JobExecutionLogger.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/hanlder/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/hanlder/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/QuartzJobService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/QuartzJobService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzJobServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzJobServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/DeptConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/DeptConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/MenuConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/MenuConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RoleConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RoleConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/EmailConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/EmailConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/LogConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/LogConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RedisConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RedisConstant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/TaskConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/TaskConstant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/UserConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/UserConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/MailManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/MailManagement.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +54,9 @@
     &quot;accountId&quot;: &quot;4daa1e0d-444a-422f-a2ed-40f9c5e98ec5&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="JsbtTreeLayoutManager">
     <layout place="tools.popupGrunt">
       <scroll-view-position x="0" y="0" />
@@ -311,7 +299,11 @@
       <workItem from="1731722013018" duration="17520000" />
       <workItem from="1731808681540" duration="15758000" />
       <workItem from="1731915458944" duration="18629000" />
-      <workItem from="1731979714962" duration="7080000" />
+      <workItem from="1731979714962" duration="10280000" />
+      <workItem from="1732002684534" duration="2558000" />
+      <workItem from="1732075816191" duration="5595000" />
+      <workItem from="1732162927481" duration="598000" />
+      <workItem from="1732174863260" duration="14163000" />
     </task>
     <servers />
   </component>
@@ -349,6 +341,7 @@
         <watch expression="sheet" />
         <watch expression="rFactoryBean factory = new SchedulerFactoryBean();&#10;        factory.setJobFactory(springBeanJobFactory());&#10;        return factory;&#10;    }" />
         <watch expression="rFactoryBean factory = new SchedulerFactoryBean();&#10;        factory.setJobFactory(springBeanJobFactory());&#10;        return factory;&#10;    }" />
+        <watch expression="equals" />
       </configuration>
     </watches-manager>
   </component>

@@ -4,16 +4,13 @@ import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
 import com.jackson.Repository.*;
 import com.jackson.annotation.CacheOnlineUserInfo;
-import com.jackson.constant.JwtConstant;
-import com.jackson.constant.RedisConstant;
-import com.jackson.constant.UserConstant;
+import com.jackson.constant.*;
 import com.jackson.context.BaseContext;
-import com.jackson.dto.UserDTO;
-import com.jackson.dto.UpdateUserDTO;
-import com.jackson.dto.UserLoginDTO;
+import com.jackson.dto.*;
 import com.jackson.entity.*;
 import com.jackson.exception.*;
 import com.jackson.result.PagingResult;
@@ -23,6 +20,7 @@ import com.jackson.service.UserService;
 import com.jackson.utils.DateTimeUtils;
 import com.jackson.utils.GeoIPUtils;
 import com.jackson.utils.JwtUtils;
+import com.jackson.utils.MailManagement;
 import com.jackson.vo.*;
 import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.Predicate;
@@ -51,6 +49,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -73,6 +72,10 @@ public class UserServiceImpl implements UserService {
     private StringRedisTemplate stringRedisTemplate;
     @Resource
     private GeoIPUtils geoIPUtils;
+    @Resource
+    private LogRepository logRepository;
+    @Resource
+    private MailManagement mailManagement;
 
     /**
      * 用户登录
@@ -85,7 +88,7 @@ public class UserServiceImpl implements UserService {
     public Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response) {
         // 校验验证码
         if (!request.getHeader(UserConstant.CODE_KEY).equalsIgnoreCase(userLoginDTO.getCode())) {
-            throw new CodeErrorException("验证码错误");
+            throw new CodeErrorException(UserConstant.CODE_ERROR);
         }
         // 根据前端传递的用户名密码生成UsernamePasswordAuthenticationToken,用于进一步校验逻辑
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(), userLoginDTO.getPassword());
@@ -119,6 +122,7 @@ public class UserServiceImpl implements UserService {
                         menuVO.setSubMenuVOList(subMenuVOList);
                         return menuVO;
                     }).toList();
+            userLoginVO.setDeptName(user.getDept().getName());
             userLoginVO.setMenuVOList(menuVOList);
             return Result.success(userLoginVO);
         }
@@ -207,8 +211,6 @@ public class UserServiceImpl implements UserService {
     public Result<Void> updateUser(Long id, UpdateUserDTO updateUserDTO) {
         // 通过用户id获取用户信息
         User user = userRepository.findById(id).get();
-        user.setJobSet(null);
-        user.setRoleSet(null);
         userRepository.saveAndFlush(user);
         String username = updateUserDTO.getUsername();
         String nickName = updateUserDTO.getNickName();
@@ -255,11 +257,15 @@ public class UserServiceImpl implements UserService {
             user.setEnabled(enabled);
         }
         // 修改角色
-        Set<Role> roleSet = roleRepository.findAllByIdIn(roles);
-        user.setRoleSet(roleSet);
+        if (roles != null) {
+            Set<Role> roleSet = roleRepository.findAllByIdIn(roles);
+            user.setRoleSet(roleSet);
+        }
         // 修改岗位
-        Set<Job> jobSet = jobRepository.findAllByIdIn(jobs);
-        user.setJobSet(jobSet);
+        if (jobs != null) {
+            Set<Job> jobSet = jobRepository.findAllByIdIn(jobs);
+            user.setJobSet(jobSet);
+        }
         userRepository.saveAndFlush(user);
         return Result.success();
     }
@@ -525,5 +531,91 @@ public class UserServiceImpl implements UserService {
         } catch (IOException e) {
             throw new RuntimeException(UserConstant.INPUT_ERROR);
         }
+    }
+
+    /**
+     * 根据用户名分页获取用户操作日志
+     *
+     * @param page
+     * @param pageSize
+     * @param username
+     * @return
+     */
+    @Override
+    public Result<PagingResult> getUserLog(Integer page, Integer pageSize, String username) {
+        Specification<Log> logSpecification = (root, query, cb) -> {
+            ArrayList<Predicate> predicateArrayList = new ArrayList<>();
+            Predicate predicate = cb.equal(root.get(LogConstant.USERNAME), username);
+            predicateArrayList.add(predicate);
+            return cb.and(predicateArrayList.toArray(new Predicate[0]));
+        };
+        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.DESC, LogConstant.CREATE_TIME));
+        Page<Log> logRepositoryAll = logRepository.findAll(logSpecification, pageRequest);
+        List<UserLogVO> userLogVOList = logRepositoryAll.getContent()
+                .stream()
+                .map(log -> BeanUtil.copyProperties(log, UserLogVO.class))
+                .toList();
+        PagingResult pagingResult = new PagingResult(logRepository.count(), userLogVOList);
+        return Result.success(pagingResult);
+    }
+
+    /**
+     * 发送验证码到指定邮箱
+     *
+     * @param email
+     */
+    @Override
+    public void sentEmailCode(String email) {
+        String code = RandomUtil.randomNumbers(6);
+        mailManagement.sendMessage(email, EmailConstant.EMAIL_CODE_SUBJECT, code);
+        // 将验证码保存到redis中,并设置1分钟过期
+        Long currentId = BaseContext.getCurrentId(); // 区分给不同用户发送的验证码
+        stringRedisTemplate.opsForValue().set(RedisConstant.EMAIL_KEY_PREFIX + currentId, code, RedisConstant.CODE_EXPIRE_TIME, TimeUnit.MINUTES);
+    }
+
+    /**
+     * 修改用户邮箱
+     *
+     * @param updateEmailDTO
+     */
+    @Override
+    public void updateEmail(UpdateEmailDTO updateEmailDTO) {
+        // 获取当前用户
+        User user = userRepository.findById(BaseContext.getCurrentId()).get();
+        Authentication authentication = judgePasswordAuthentication(user.getUsername(), updateEmailDTO.getPassword());
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new PasswordErrorException(UserConstant.PASSWORD_ERROR);
+        }
+        String cacheCode = stringRedisTemplate.opsForValue().get(RedisConstant.EMAIL_KEY_PREFIX + user.getId());
+        if (!Objects.equals(cacheCode, updateEmailDTO.getVerifyCode())) {
+            throw new CodeErrorException(UserConstant.CODE_ERROR);
+        }
+        user.setEmail(updateEmailDTO.getNewEmail());
+        userRepository.saveAndFlush(user);
+    }
+
+    /**
+     * 修改用户密码
+     *
+     * @param updatePasswordDTO
+     */
+    @Override
+    public void updatePassword(UpdatePasswordDTO updatePasswordDTO) {
+        // 获取当前用户
+        User user = userRepository.findById(BaseContext.getCurrentId()).get();
+        Authentication authentication = judgePasswordAuthentication(user.getUsername(), updatePasswordDTO.getUsedPassword());
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new PasswordErrorException(UserConstant.USED_PASSWORD_ERROR);
+        }
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String encode = bCryptPasswordEncoder.encode(updatePasswordDTO.getNewPassword());
+        user.setPassword(encode);
+        userRepository.saveAndFlush(user);
+    }
+
+    private Authentication judgePasswordAuthentication(String username, String password) {
+        // 校验密码是否一致 (使用springSecurity框架校验)
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+        return authenticationManager.authenticate(authenticationToken);
     }
 }

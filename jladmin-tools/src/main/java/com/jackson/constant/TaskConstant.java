@@ -10,4 +10,5 @@ public class TaskConstant {
     public static final String DELETE_JOB_LOG = "删除任务调度";
     public static final String PAUSE_JOB_LOG = "暂停任务调度";
     public static final String RESUME_JOB_LOG = "恢复任务调度";
+    public static final String TASK_EXCEPTION = "任务执行异常,异常信息: ";
 }

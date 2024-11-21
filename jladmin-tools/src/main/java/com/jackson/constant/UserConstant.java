@@ -21,4 +21,8 @@ public class UserConstant {
     public static final String ADD_USER_LOG = "新增用户";
     public static final String LOGIN_USER_LOG = "用户登录";
     public static final String BLOCK_USER_LOG = "用户拉黑";
+    public static final String UPDATE_USER_EMAIL_LOG = "修改用户邮箱";
+    public static final String UPDATE_USER_PASSWORD_LOG = "修改用户密码";
+    public static final String CODE_ERROR = "验证码错误";
+    public static final String USED_PASSWORD_ERROR = "旧密码错误";
 }

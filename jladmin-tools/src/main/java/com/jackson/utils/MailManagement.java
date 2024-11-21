@@ -17,11 +17,11 @@ public class MailManagement {
      * @param to
      * @return
      */
-    public void sendMessage(String to, String code) {
+    public void sendMessage(String to, String subject, String code) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom(EmailConstant.EMAIL_FROM);
         simpleMailMessage.setTo(to);
-        simpleMailMessage.setSubject(EmailConstant.EMAIL_CODE_SUBJECT);
+        simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText(code);
         mailSender.send(simpleMailMessage);
     }
