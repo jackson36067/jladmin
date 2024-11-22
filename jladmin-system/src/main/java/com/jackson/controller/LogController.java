@@ -35,7 +35,8 @@ public class LogController {
             @RequestParam(defaultValue = "9") Integer pageSize,
             @RequestParam(required = false) String location,
             @RequestParam(required = false) String begin,
-            @RequestParam(required = false) String end
+            @RequestParam(required = false) String end,
+            @RequestParam(required = false) Boolean isError
     ) {
         LocalDateTime beginTime = null;
         LocalDateTime endTime = null;
@@ -43,7 +44,7 @@ public class LogController {
             beginTime = LocalDateTime.parse(begin);
             endTime = LocalDateTime.parse(end);
         }
-        return logService.getLogWithPaging(page, pageSize, location, beginTime, endTime);
+        return logService.getLogWithPaging(page, pageSize, location, beginTime, endTime,isError);
     }
 
     /**
@@ -51,7 +52,7 @@ public class LogController {
      * @param response
      */
     @GetMapping("/export")
-    public void exportLogInfo(HttpServletResponse response){
-        logService.exportLogInfo(response);
+    public void exportLogInfo(HttpServletResponse response,@RequestParam(required = false) Boolean isError){
+        logService.exportLogInfo(response,isError);
     }
 }

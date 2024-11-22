@@ -57,7 +57,7 @@ public class LogAspect {
             saveLog(point, System.currentTimeMillis() - beginTime, null);
             return proceed;
         } catch (Exception e) {
-            saveLog(point, System.currentTimeMillis() - beginTime, e.getMessage());
+            saveLog(point, System.currentTimeMillis() - beginTime, e.getLocalizedMessage());
             throw e;
         }
     }

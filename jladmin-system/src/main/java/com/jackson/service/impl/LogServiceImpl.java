@@ -13,6 +13,7 @@ import com.jackson.vo.LogExportDataVO;
 import com.jackson.vo.LogVO;
 import com.jackson.vo.QuartzJobExportDataVO;
 import jakarta.annotation.Resource;
+import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -49,8 +51,8 @@ public class LogServiceImpl implements LogService {
      * @return
      */
     @Override
-    public Result<PagingResult> getLogWithPaging(Integer page, Integer pageSize, String location, LocalDateTime beginTime, LocalDateTime endTime) {
-        Specification<Log> logSpecification = (Specification<Log>) (root, query, cb) -> {
+    public Result<PagingResult> getLogWithPaging(Integer page, Integer pageSize, String location, LocalDateTime beginTime, LocalDateTime endTime, Boolean isError) {
+        Specification<Log> logSpecification = (root, query, cb) -> {
             ArrayList<Predicate> predicateList = new ArrayList<>();
             if (StringUtils.hasText(location)) {
                 Predicate predicate = cb.like(root.get(LogConstant.ADDRESS), "%" + location + "%");
@@ -60,6 +62,17 @@ public class LogServiceImpl implements LogService {
                 Predicate createTime = cb.between(root.get(LogConstant.CREATE_TIME), beginTime, endTime);
                 predicateList.add(createTime);
             }
+            // 判断是否获取的是异常操作日志
+            if (isError != null && isError) {
+                // 得到异常详情不为空的日志
+                Predicate exception = cb.isNotNull(root.get(LogConstant.EXCEPTION_DETAIL));
+                // 如果需要进一步排除空字符串
+                Predicate notEmpty = cb.and(
+                        exception,
+                        cb.notEqual(root.get(LogConstant.EXCEPTION_DETAIL), "")
+                );
+                predicateList.add(notEmpty);
+            }
             return cb.and(predicateList.toArray(new Predicate[0]));
         };
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.DESC, LogConstant.CREATE_TIME));
@@ -68,7 +81,7 @@ public class LogServiceImpl implements LogService {
                 .stream()
                 .map(log -> BeanUtil.copyProperties(log, LogVO.class))
                 .toList();
-        PagingResult pagingResult = new PagingResult(logRepository.count(), logVOList);
+        PagingResult pagingResult = new PagingResult(logRepositoryAll.getTotalElements(), logVOList);
         return Result.success(pagingResult);
     }
 
@@ -78,7 +91,7 @@ public class LogServiceImpl implements LogService {
      * @param response
      */
     @Override
-    public void exportLogInfo(HttpServletResponse response) {
+    public void exportLogInfo(HttpServletResponse response, Boolean isError) {
         InputStream in = ResourceUtil.class.getClassLoader().getResourceAsStream("templates/日志数据.xlsx");
         XSSFWorkbook excel = null;
         try {
@@ -88,6 +101,13 @@ public class LogServiceImpl implements LogService {
                     .stream()
                     .map(log -> BeanUtil.copyProperties(log, LogExportDataVO.class))
                     .toList();
+            // 通过isError判断是全部导出还是只导出异常日志2数据
+            if (isError != null && isError) {
+                logExportDataVOList = logExportDataVOList
+                        .stream()
+                        .filter(logExportDataVO -> StringUtils.hasText(logExportDataVO.getExceptionDetail()))
+                        .toList();
+            }
             int RowIndex = 1;
             for (LogExportDataVO logExportDataVO
                     : logExportDataVOList) {

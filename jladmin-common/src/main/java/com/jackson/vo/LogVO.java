@@ -17,11 +17,12 @@ public class LogVO implements Serializable {
     private LocalDateTime createTime;
     private String method;
     private String params;
+    private String exceptionDetail;
 
     public LogVO() {
     }
 
-    public LogVO(String username, String requestIp, String address, String description, String browser, Long time, LocalDateTime createTime, String method, String params) {
+    public LogVO(String username, String requestIp, String address, String description, String browser, Long time, LocalDateTime createTime, String method, String params,String exceptionDetail) {
         this.username = username;
         this.requestIp = requestIp;
         this.address = address;
@@ -31,6 +32,7 @@ public class LogVO implements Serializable {
         this.createTime = createTime;
         this.method = method;
         this.params = params;
+        this.exceptionDetail = exceptionDetail;
     }
 
     public String getUsername() {
@@ -105,17 +107,25 @@ public class LogVO implements Serializable {
         this.params = params;
     }
 
+    public String getExceptionDetail() {
+        return exceptionDetail;
+    }
+
+    public void setExceptionDetail(String exceptionDetail) {
+        this.exceptionDetail = exceptionDetail;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LogVO logVO = (LogVO) o;
-        return Objects.equals(username, logVO.username) && Objects.equals(requestIp, logVO.requestIp) && Objects.equals(address, logVO.address) && Objects.equals(description, logVO.description) && Objects.equals(browser, logVO.browser) && Objects.equals(time, logVO.time) && Objects.equals(createTime, logVO.createTime) && Objects.equals(method, logVO.method) && Objects.equals(params, logVO.params);
+        return Objects.equals(username, logVO.username) && Objects.equals(requestIp, logVO.requestIp) && Objects.equals(address, logVO.address) && Objects.equals(description, logVO.description) && Objects.equals(browser, logVO.browser) && Objects.equals(time, logVO.time) && Objects.equals(createTime, logVO.createTime) && Objects.equals(method, logVO.method) && Objects.equals(params, logVO.params) && Objects.equals(exceptionDetail, logVO.exceptionDetail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, requestIp, address, description, browser, time, createTime, method, params);
+        return Objects.hash(username, requestIp, address, description, browser, time, createTime, method, params, exceptionDetail);
     }
 
     @Override
@@ -130,6 +140,7 @@ public class LogVO implements Serializable {
                 ", createTime=" + createTime +
                 ", method='" + method + '\'' +
                 ", params='" + params + '\'' +
+                ", exceptionDetail='" + exceptionDetail + '\'' +
                 '}';
     }
 }

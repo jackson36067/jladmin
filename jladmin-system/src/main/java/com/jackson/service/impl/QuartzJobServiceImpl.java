@@ -251,7 +251,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, sort);
         Page<QuartzJob> quartzJobRepositoryAll = quartzJobRepository.findAll(quartzJobSpecification, pageRequest);
         List<QuartzJob> content = quartzJobRepositoryAll.getContent();
-        PagingResult pagingResult = new PagingResult(quartzJobRepository.count(), content);
+        PagingResult pagingResult = new PagingResult(quartzJobRepositoryAll.getTotalElements(), content);
         return Result.success(pagingResult);
     }
 

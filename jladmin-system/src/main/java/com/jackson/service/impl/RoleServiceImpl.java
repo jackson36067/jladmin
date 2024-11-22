@@ -110,7 +110,7 @@ public class RoleServiceImpl implements RoleService {
                     return roleVO;
                 })
                 .toList();
-        PagingResult pagingResult = new PagingResult(roleRepository.count(), roleVOList);
+        PagingResult pagingResult = new PagingResult(rolePage.getTotalElements(), roleVOList);
         return Result.success(pagingResult);
     }
 

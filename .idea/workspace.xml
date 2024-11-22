@@ -5,21 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdateEmailDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdatePasswordDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/UserLogVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/task/LogTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/UserLoginVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/UserLoginVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Logger/JobExecutionLogger.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/Logger/JobExecutionLogger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/LogVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/LogVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/aop/LogAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/aop/LogAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/LogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/LogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/QuartzLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/QuartzLogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/LogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/LogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/LogServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/LogServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzJobServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzJobServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzLogServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/QuartzLogServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/EmailConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/EmailConstant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/LogConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/LogConstant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RedisConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RedisConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/TaskConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/TaskConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/UserConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/UserConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/MailManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/MailManagement.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -303,7 +302,8 @@
       <workItem from="1732002684534" duration="2558000" />
       <workItem from="1732075816191" duration="5595000" />
       <workItem from="1732162927481" duration="598000" />
-      <workItem from="1732174863260" duration="14163000" />
+      <workItem from="1732174863260" duration="15657000" />
+      <workItem from="1732249796461" duration="9860000" />
     </task>
     <servers />
   </component>

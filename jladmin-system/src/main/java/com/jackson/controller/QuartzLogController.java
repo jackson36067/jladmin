@@ -44,7 +44,7 @@ public class QuartzLogController {
      * 导出任务日志数据
      * @param httpServletResponse
      */
-    @GetMapping("export")
+    @GetMapping("/export")
     @PreAuthorize("hasAuthority('timing:list')")
     public void exportQuartzLogData (HttpServletResponse httpServletResponse){
         quartzLogService.exportQuartzLogData(httpServletResponse);

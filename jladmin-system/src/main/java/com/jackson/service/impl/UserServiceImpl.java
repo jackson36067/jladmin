@@ -180,7 +180,7 @@ public class UserServiceImpl implements UserService {
                     return userVO;
                 })
                 .toList();
-        PagingResult pagingResult = new PagingResult(userRepository.count(), userVOList);
+        PagingResult pagingResult = new PagingResult(userPage.getTotalElements(), userVOList);
         return Result.success(pagingResult);
     }
 

@@ -5,4 +5,5 @@ public class LogConstant {
     public static final String CREATE_TIME = "createTime";
     public static final String ADDRESS= "address";
     public static final String USERNAME= "username";
+    public static final String EXCEPTION_DETAIL= "exceptionDetail";
 }

@@ -62,7 +62,7 @@ public class QuartzLogServiceImpl implements QuartzLogService {
                 .stream()
                 .map(quartzLog -> BeanUtil.copyProperties(quartzLog, QuartzLogVO.class))
                 .toList();
-        PagingResult pagingResult = new PagingResult(quartzLogRepository.count(), quartzLogVOList);
+        PagingResult pagingResult = new PagingResult(quartzLogRepositoryAll.getTotalElements(), quartzLogVOList);
         return Result.success(pagingResult);
     }
 
