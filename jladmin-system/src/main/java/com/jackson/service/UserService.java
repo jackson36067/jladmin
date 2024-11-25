@@ -9,6 +9,7 @@ import com.jackson.vo.UserLoginVO;
 import com.jackson.vo.UserVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,4 +52,6 @@ public interface UserService {
     Result<List<UserFriendVO>> getAllFriendUser(String username);
 
     Result<List<UserMessage>> getUsersMessage(String username,String friendUsername);
+
+    Result<String> uploadImage(MultipartFile image);
 }

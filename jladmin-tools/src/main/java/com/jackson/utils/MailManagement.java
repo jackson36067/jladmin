@@ -2,11 +2,13 @@ package com.jackson.utils;
 
 import com.jackson.constant.EmailConstant;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class MailManagement {
     @Resource
     private JavaMailSender mailSender;
@@ -23,6 +25,12 @@ public class MailManagement {
         simpleMailMessage.setTo(to);
         simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText(code);
-        mailSender.send(simpleMailMessage);
+        try {
+            mailSender.send(simpleMailMessage);
+            log.info("邮件发送成功！");
+        } catch (Exception e) {
+            log.info("邮件发送失败：{}", e.getMessage());
+            throw  new RuntimeException("邮件发送异常");
+        }
     }
 }

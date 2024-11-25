@@ -28,6 +28,7 @@
         <geoip2-version>2.15.0</geoip2-version>
         <swagger-version>4.1.0</swagger-version>
         <websocket_version>3.2.3</websocket_version>
+        <alioss-version>3.15.1</alioss-version>
     </properties>
     <modules>
         <module>jladmin-system</module>
@@ -104,6 +105,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-websocket</artifactId>
                 <version>${websocket_version}</version>
+            </dependency>
+            <!-- alioss -->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${alioss-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

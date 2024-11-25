@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -264,5 +265,15 @@ public class UserController {
     @GetMapping("/message")
     public Result<List<UserMessage>> getUsersMessage(@RequestParam String username, @RequestParam String friendUsername) {
         return userService.getUsersMessage(username, friendUsername);
+    }
+
+    /**
+     * 上传头像至alioss
+     * @param image
+     * @return
+     */
+    @PostMapping("/upload")
+    public Result<String> uploadImage(MultipartFile image) {
+        return userService.uploadImage(image);
     }
 }

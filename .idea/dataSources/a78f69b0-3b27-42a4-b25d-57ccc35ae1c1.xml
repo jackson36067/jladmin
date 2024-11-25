@@ -1070,7 +1070,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="313" parent="1" name="jladmin">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-11-24.14:33:46</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-11-25.05:04:25</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="314" parent="1" name="mysql.infoschema">
@@ -1328,7 +1328,7 @@ COMPACT</Options>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
     <column id="357" parent="318" name="column_id">
-      <AutoIncrement>190</AutoIncrement>
+      <AutoIncrement>191</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -1401,7 +1401,7 @@ COMPACT</Options>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="374" parent="319" name="config_id">
-      <AutoIncrement>6</AutoIncrement>
+      <AutoIncrement>7</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -1717,7 +1717,7 @@ server_id</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="434" parent="325" name="server_id">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>2</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -2329,7 +2329,7 @@ JOB_GROUP</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="554" parent="337" name="dept_id">
-      <AutoIncrement>23</AutoIncrement>
+      <AutoIncrement>24</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -2403,7 +2403,7 @@ JOB_GROUP</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="568" parent="338" name="dict_id">
-      <AutoIncrement>5</AutoIncrement>
+      <AutoIncrement>6</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -2451,7 +2451,7 @@ JOB_GROUP</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="577" parent="339" name="detail_id">
-      <AutoIncrement>6</AutoIncrement>
+      <AutoIncrement>7</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -2514,7 +2514,7 @@ JOB_GROUP</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="589" parent="340" name="job_id">
-      <AutoIncrement>12</AutoIncrement>
+      <AutoIncrement>13</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -2580,7 +2580,7 @@ JOB_GROUP</ColNames>
       <UnderlyingIndexName>uniq_name</UnderlyingIndexName>
     </key>
     <column id="602" parent="341" name="log_id">
-      <AutoIncrement>3642</AutoIncrement>
+      <AutoIncrement>3666</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -2774,7 +2774,7 @@ JOB_GROUP</ColNames>
       <UnderlyingIndexName>uniq_name</UnderlyingIndexName>
     </key>
     <column id="643" parent="343" name="job_id">
-      <AutoIncrement>14</AutoIncrement>
+      <AutoIncrement>15</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -2861,7 +2861,7 @@ JOB_GROUP</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="660" parent="344" name="log_id">
-      <AutoIncrement>170</AutoIncrement>
+      <AutoIncrement>173</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -2906,7 +2906,7 @@ JOB_GROUP</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="670" parent="345" name="role_id">
-      <AutoIncrement>10</AutoIncrement>
+      <AutoIncrement>11</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -3024,7 +3024,7 @@ menu_id</ColNames>
       <UnderlyingIndexName>role_id</UnderlyingIndexName>
     </key>
     <column id="694" parent="348" name="user_id">
-      <AutoIncrement>17</AutoIncrement>
+      <AutoIncrement>18</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
@@ -3067,7 +3067,7 @@ menu_id</ColNames>
     </column>
     <column id="702" parent="348" name="avatar_path">
       <Comment>头像真实路径</Comment>
-      <DasType>varchar(255)|0s</DasType>
+      <DasType>varchar(500)|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="703" parent="348" name="password">
@@ -3356,7 +3356,7 @@ role_id</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="760" parent="354" name="storage_id">
-      <AutoIncrement>9</AutoIncrement>
+      <AutoIncrement>10</AutoIncrement>
       <Comment>ID</Comment>
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>

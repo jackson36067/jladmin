@@ -15,11 +15,12 @@ public class UpdateUserDTO implements Serializable {
     private Boolean enabled;
     private List<Long> roles;
     private List<Long> jobs;
+    private String avatarPath;
 
     public UpdateUserDTO() {
     }
 
-    public UpdateUserDTO(Long id, String username, String nickName, String phone, String email, Long deptId, String gender, Boolean enabled, List<Long> roles, List<Long> jobs) {
+    public UpdateUserDTO(Long id, String username, String nickName, String phone, String email, Long deptId, String gender, Boolean enabled, List<Long> roles, List<Long> jobs,String avatarPath) {
         this.id = id;
         this.username = username;
         this.nickName = nickName;
@@ -30,6 +31,7 @@ public class UpdateUserDTO implements Serializable {
         this.enabled = enabled;
         this.roles = roles;
         this.jobs = jobs;
+        this.avatarPath = avatarPath;
     }
 
     public Long getId() {
@@ -112,17 +114,25 @@ public class UpdateUserDTO implements Serializable {
         this.jobs = jobs;
     }
 
+    public String getAvatarPath() {
+        return avatarPath;
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UpdateUserDTO that = (UpdateUserDTO) o;
-        return Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(nickName, that.nickName) && Objects.equals(phone, that.phone) && Objects.equals(email, that.email) && Objects.equals(deptId, that.deptId) && Objects.equals(gender, that.gender) && Objects.equals(enabled, that.enabled) && Objects.equals(roles, that.roles) && Objects.equals(jobs, that.jobs);
+        return Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(nickName, that.nickName) && Objects.equals(phone, that.phone) && Objects.equals(email, that.email) && Objects.equals(deptId, that.deptId) && Objects.equals(gender, that.gender) && Objects.equals(enabled, that.enabled) && Objects.equals(roles, that.roles) && Objects.equals(jobs, that.jobs) && Objects.equals(avatarPath, that.avatarPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, nickName, phone, email, deptId, gender, enabled, roles, jobs);
+        return Objects.hash(id, username, nickName, phone, email, deptId, gender, enabled, roles, jobs, avatarPath);
     }
 
     @Override
@@ -138,6 +148,7 @@ public class UpdateUserDTO implements Serializable {
                 ", enabled=" + enabled +
                 ", roles=" + roles +
                 ", jobs=" + jobs +
+                ", avatarPath='" + avatarPath + '\'' +
                 '}';
     }
 }

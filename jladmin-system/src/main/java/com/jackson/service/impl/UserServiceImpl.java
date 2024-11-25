@@ -13,6 +13,7 @@ import com.jackson.context.BaseContext;
 import com.jackson.dto.*;
 import com.jackson.entity.*;
 import com.jackson.exception.*;
+import com.jackson.properties.AliOssProperty;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.DeptService;
@@ -41,6 +42,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -75,6 +77,8 @@ public class UserServiceImpl implements UserService {
     private MailManagement mailManagement;
     @Resource
     private UserMessageRepository userMessageRepository;
+    @Resource
+    private AliOssUtils aliOssUtils;
 
     /**
      * 用户登录
@@ -220,6 +224,7 @@ public class UserServiceImpl implements UserService {
         Boolean enabled = updateUserDTO.getEnabled();
         List<Long> roles = updateUserDTO.getRoles();
         List<Long> jobs = updateUserDTO.getJobs();
+        String avatarPath = updateUserDTO.getAvatarPath();
         // 防止只更新用户中心数据时将岗位与角色信息删除
         if (roles != null && jobs != null) {
             // 更新用户job以及role时,先清空内容,后续再添加
@@ -245,7 +250,7 @@ public class UserServiceImpl implements UserService {
             }
             user.setPhone(phone);
         }
-        if (StringUtils.hasText(email) & !user.getEmail().equals(updateUserDTO.getEmail())) {
+        if (StringUtils.hasText(email) & !user.getEmail().equals(email)) {
             User user1 = userRepository.findByEmail(email);
             if (user1 != null) {
                 throw new EmailExistException(UserConstant.EMAIL_EXIST);
@@ -256,11 +261,15 @@ public class UserServiceImpl implements UserService {
             // 调用deptRepository修改该用户的对应部门的部门名称
             user.setDept(deptRepository.findById(deptId).get());
         }
-        if (StringUtils.hasText(gender) & !user.getGender().equals(updateUserDTO.getGender())) {
+        if (StringUtils.hasText(gender) & !user.getGender().equals(gender)) {
             user.setGender(gender);
         }
-        if (enabled != null & !user.getEnabled().equals(updateUserDTO.getEnabled())) {
+        if (enabled != null & !user.getEnabled().equals(enabled)) {
             user.setEnabled(enabled);
+        }
+        // 修改头像
+        if (StringUtils.hasText(avatarPath) & !user.getAvatarPath().equals(avatarPath)) {
+            user.setAvatarPath(avatarPath);
         }
 
         // 修改角色
@@ -564,7 +573,7 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(log -> BeanUtil.copyProperties(log, UserLogVO.class))
                 .toList();
-        PagingResult pagingResult = new PagingResult(logRepository.count(), userLogVOList);
+        PagingResult pagingResult = new PagingResult(logRepositoryAll.getTotalElements(), userLogVOList);
         return Result.success(pagingResult);
     }
 
@@ -650,7 +659,8 @@ public class UserServiceImpl implements UserService {
     /**
      * 获取两个用户的聊天记录
      *
-     * @param usernameList
+     * @param username
+     * @param friendUsername
      * @return
      */
     @Override
@@ -667,4 +677,15 @@ public class UserServiceImpl implements UserService {
         return Result.success(list);
     }
 
+    /**
+     * 上传头像至alioss
+     *
+     * @param image
+     * @return
+     */
+    @Override
+    public Result<String> uploadImage(MultipartFile image) {
+        String upload = aliOssUtils.upload(image);
+        return Result.success(upload);
+    }
 }
