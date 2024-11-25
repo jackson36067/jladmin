@@ -27,6 +27,7 @@
         <aop-version>3.3.5</aop-version>
         <geoip2-version>2.15.0</geoip2-version>
         <swagger-version>4.1.0</swagger-version>
+        <websocket_version>3.2.3</websocket_version>
     </properties>
     <modules>
         <module>jladmin-system</module>
@@ -97,6 +98,12 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>${swagger-version}</version>
+            </dependency>
+            <!-- websocket -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-websocket</artifactId>
+                <version>${websocket_version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

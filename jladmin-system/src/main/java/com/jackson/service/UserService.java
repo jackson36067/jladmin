@@ -1,8 +1,10 @@
 package com.jackson.service;
 
 import com.jackson.dto.*;
+import com.jackson.entity.UserMessage;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
+import com.jackson.vo.UserFriendVO;
 import com.jackson.vo.UserLoginVO;
 import com.jackson.vo.UserVO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,4 +47,8 @@ public interface UserService {
     void updateEmail(UpdateEmailDTO updateEmailDTO);
 
     void updatePassword(UpdatePasswordDTO updatePasswordDTO);
+
+    Result<List<UserFriendVO>> getAllFriendUser(String username);
+
+    Result<List<UserMessage>> getUsersMessage(String username,String friendUsername);
 }

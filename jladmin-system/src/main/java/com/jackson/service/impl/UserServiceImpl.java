@@ -17,10 +17,7 @@ import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.DeptService;
 import com.jackson.service.UserService;
-import com.jackson.utils.DateTimeUtils;
-import com.jackson.utils.GeoIPUtils;
-import com.jackson.utils.JwtUtils;
-import com.jackson.utils.MailManagement;
+import com.jackson.utils.*;
 import com.jackson.vo.*;
 import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.Predicate;
@@ -76,6 +73,8 @@ public class UserServiceImpl implements UserService {
     private LogRepository logRepository;
     @Resource
     private MailManagement mailManagement;
+    @Resource
+    private UserMessageRepository userMessageRepository;
 
     /**
      * 用户登录
@@ -211,7 +210,7 @@ public class UserServiceImpl implements UserService {
     public Result<Void> updateUser(Long id, UpdateUserDTO updateUserDTO) {
         // 通过用户id获取用户信息
         User user = userRepository.findById(id).get();
-        userRepository.saveAndFlush(user);
+
         String username = updateUserDTO.getUsername();
         String nickName = updateUserDTO.getNickName();
         String phone = updateUserDTO.getPhone();
@@ -221,6 +220,13 @@ public class UserServiceImpl implements UserService {
         Boolean enabled = updateUserDTO.getEnabled();
         List<Long> roles = updateUserDTO.getRoles();
         List<Long> jobs = updateUserDTO.getJobs();
+        // 防止只更新用户中心数据时将岗位与角色信息删除
+        if (roles != null && jobs != null) {
+            // 更新用户job以及role时,先清空内容,后续再添加
+            user.setJobSet(null);
+            user.setRoleSet(null);
+            userRepository.saveAndFlush(user);
+        }
         if (StringUtils.hasText(username) & !user.getUsername().equals(username)) {
             // 修改的用户名不能重复
             User user1 = userRepository.findUserByUsername(username);
@@ -256,16 +262,19 @@ public class UserServiceImpl implements UserService {
         if (enabled != null & !user.getEnabled().equals(updateUserDTO.getEnabled())) {
             user.setEnabled(enabled);
         }
+
         // 修改角色
         if (roles != null) {
             Set<Role> roleSet = roleRepository.findAllByIdIn(roles);
             user.setRoleSet(roleSet);
         }
+
         // 修改岗位
         if (jobs != null) {
             Set<Job> jobSet = jobRepository.findAllByIdIn(jobs);
             user.setJobSet(jobSet);
         }
+
         userRepository.saveAndFlush(user);
         return Result.success();
     }
@@ -618,4 +627,44 @@ public class UserServiceImpl implements UserService {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         return authenticationManager.authenticate(authenticationToken);
     }
+
+    /**
+     * 获取所有用户
+     *
+     * @return
+     */
+    @Override
+    public Result<List<UserFriendVO>> getAllFriendUser(String username) {
+        List<User> userList = userRepository.findAll();
+        List<UserFriendVO> list = userList.stream().map(user -> BeanUtil.copyProperties(user, UserFriendVO.class)).toList();
+        // 如果用户jackson,那么将其他所有用户返回,如果不是,只返回jackson一个用户 (其他用户联系管理员jackson)
+        String userFriendArgsUsername = UserConstant.USER_FRIEND_ARGS_USERNAME;
+        if (username.equals(userFriendArgsUsername)) {
+            list = list.stream().filter(userFriendVO -> !userFriendVO.getUsername().equals(userFriendArgsUsername)).toList();
+        } else {
+            list = list.stream().filter(userFriendVO -> userFriendVO.getUsername().equals(userFriendArgsUsername)).toList();
+        }
+        return Result.success(list);
+    }
+
+    /**
+     * 获取两个用户的聊天记录
+     *
+     * @param usernameList
+     * @return
+     */
+    @Override
+    public Result<List<UserMessage>> getUsersMessage(String username, String friendUsername) {
+        List<UserMessage> all = userMessageRepository.findAll(Sort.by(Sort.Direction.ASC, "sendTime"));
+        // 过滤出两者的信息
+        List<UserMessage> list = all
+                .stream()
+                .filter(userMessage ->
+                        (
+                                userMessage.getSender().equals(username) && userMessage.getRecipient().equals(friendUsername)) || (userMessage.getSender().equals(friendUsername) && userMessage.getRecipient().equals(username)
+                        )
+                ).toList();
+        return Result.success(list);
+    }
+
 }

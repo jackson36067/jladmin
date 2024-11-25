@@ -25,4 +25,5 @@ public class UserConstant {
     public static final String UPDATE_USER_PASSWORD_LOG = "修改用户密码";
     public static final String CODE_ERROR = "验证码错误";
     public static final String USED_PASSWORD_ERROR = "旧密码错误";
+    public static final String USER_FRIEND_ARGS_USERNAME = "jackson";
 }

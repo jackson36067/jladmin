@@ -3,11 +3,12 @@ package com.jackson.controller;
 import com.jackson.annotation.SysLog;
 import com.jackson.constant.UserConstant;
 import com.jackson.dto.*;
+import com.jackson.entity.UserMessage;
 import com.jackson.enumeration.SysLogType;
 import com.jackson.result.PagingResult;
 import com.jackson.result.Result;
 import com.jackson.service.UserService;
-import com.jackson.vo.UserLogVO;
+import com.jackson.vo.UserFriendVO;
 import com.jackson.vo.UserLoginVO;
 import com.jackson.vo.UserVO;
 import jakarta.annotation.Resource;
@@ -233,11 +234,35 @@ public class UserController {
 
     /**
      * 修改用户密码
+     *
      * @param updatePasswordDTO
      */
     @PutMapping("/update/password")
     @SysLog(value = UserConstant.UPDATE_USER_PASSWORD_LOG, type = SysLogType.UPDATE)
-    public void updatePassword(@RequestBody UpdatePasswordDTO updatePasswordDTO){
+    public void updatePassword(@RequestBody UpdatePasswordDTO updatePasswordDTO) {
         userService.updatePassword(updatePasswordDTO);
+    }
+
+    /**
+     * 获取用户好友列表
+     *
+     * @param username
+     * @return
+     */
+    @GetMapping("/friend/list")
+    public Result<List<UserFriendVO>> getAllUser(String username) {
+        return userService.getAllFriendUser(username);
+    }
+
+    /**
+     * 获取两个用户的聊天记录
+     *
+     * @param username
+     * @param friendUsername
+     * @return
+     */
+    @GetMapping("/message")
+    public Result<List<UserMessage>> getUsersMessage(@RequestParam String username, @RequestParam String friendUsername) {
+        return userService.getUsersMessage(username, friendUsername);
     }
 }

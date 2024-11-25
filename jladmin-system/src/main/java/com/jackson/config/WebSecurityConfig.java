@@ -61,7 +61,8 @@ public class WebSecurityConfig {
                                             "/doc.html", // 后面都是swagger请求
                                             "/swagger-resources/**",
                                             "/v3/api-docs/**",
-                                            "/webjars/**"
+                                            "/webjars/**",
+                                            "/chat/**" // webSocket
                                     )
                                     .permitAll()
                                     .anyRequest()
