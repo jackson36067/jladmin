@@ -4,25 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/OssConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/properties/AliOssProperty.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/AliOssUtils.java" afterDir="false" />
+    <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="实现alioss文件上传">
+      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/EmailDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/EmailController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a78f69b0-3b27-42a4-b25d-57ccc35ae1c1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a78f69b0-3b27-42a4-b25d-57ccc35ae1c1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdateUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UpdateUserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSocketConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/EmailConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/EmailConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/MailManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/MailManagement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +80,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
     &quot;Application.ExportDataTest.executor&quot;: &quot;Debug&quot;,
     &quot;JUnit.JladminSystemApplicationTests.testBcrypt.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.JladminSystemApplicationTests.testFinaMenuByRoleIds.executor&quot;: &quot;Run&quot;,
@@ -310,8 +298,18 @@
       <workItem from="1732249796461" duration="11215000" />
       <workItem from="1732326162655" duration="5907000" />
       <workItem from="1732412283803" duration="24993000" />
-      <workItem from="1732496632743" duration="15726000" />
+      <workItem from="1732496632743" duration="22197000" />
+      <workItem from="1732596895346" duration="2782000" />
     </task>
+    <task id="LOCAL-00001" summary="实现alioss文件上传">
+      <option name="closed" value="true" />
+      <created>1732540485480</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732540485480</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,6 +325,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="实现alioss文件上传" />
+    <option name="LAST_COMMIT_MESSAGE" value="实现alioss文件上传" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
