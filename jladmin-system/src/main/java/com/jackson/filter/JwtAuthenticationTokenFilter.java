@@ -69,7 +69,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 || url.startsWith("/v3/api-docs")
                 || url.startsWith("/v2/api-docs")
                 || url.startsWith("/webjars/")
-                || url.startsWith("/chat") // webSocket
+                || url.startsWith("/chat") || url.startsWith("/admin/user/upload") // webSocket
         ) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;

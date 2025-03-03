@@ -1,5 +1,6 @@
 package com.jackson.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jackson.annotation.SysLog;
 import com.jackson.constant.UserConstant;
 import com.jackson.dto.*;
@@ -38,7 +39,7 @@ public class UserController {
 
     @PostMapping("/login")
     @SysLog(value = UserConstant.LOGIN_USER_LOG, type = SysLogType.LOGIN) // 操作日志记录
-    public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response) {
+    public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
         return userService.login(userLoginDTO, request, response);
     }
 

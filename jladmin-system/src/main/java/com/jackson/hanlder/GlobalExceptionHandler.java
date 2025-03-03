@@ -20,6 +20,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public Result<String> ExceptionHandler(Exception be, HttpServletResponse response) {
         log.info("异常信息:{}", be.getMessage());
+        be.printStackTrace();
         response.setStatus(500);
         return Result.error(be.getMessage());
     }

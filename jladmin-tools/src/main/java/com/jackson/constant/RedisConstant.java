@@ -7,4 +7,6 @@ public class RedisConstant {
     public static final String EMAIL_KEY_PREFIX = "sys:email:";
     public static final Long CODE_EXPIRE_TIME = 1L;
     public static final String LOG_KEY = "sys:reset:log";
+    public static final String USER_MENU_PREFIX = "sys:user:menu:";
+    public static final String USER_LOGIN_CODE_KEY_PREFIX = "sys:user:code:";
 }

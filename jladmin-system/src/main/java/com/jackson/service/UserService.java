@@ -1,5 +1,6 @@
 package com.jackson.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jackson.dto.*;
 import com.jackson.entity.UserMessage;
 import com.jackson.result.PagingResult;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface UserService {
-    Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response);
+    Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException;
 
     Result<PagingResult> getUserWithPaging(Integer pageSize, Integer page, String usernameOrEmail, LocalDateTime begin, LocalDateTime end, Boolean enabled);
 

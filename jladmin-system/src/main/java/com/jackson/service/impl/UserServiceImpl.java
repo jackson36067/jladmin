@@ -6,8 +6,15 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.jackson.Repository.*;
 import com.jackson.annotation.CacheOnlineUserInfo;
+import com.jackson.config.LocalDateTimeAdapter;
 import com.jackson.constant.*;
 import com.jackson.context.BaseContext;
 import com.jackson.dto.*;
@@ -88,7 +95,7 @@ public class UserServiceImpl implements UserService {
      */
     @CacheOnlineUserInfo
     @Override
-    public Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response) {
+    public Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
         // 校验验证码
         if (!request.getHeader(UserConstant.CODE_KEY).equalsIgnoreCase(userLoginDTO.getCode())) {
             throw new CodeErrorException(UserConstant.CODE_ERROR);
@@ -109,8 +116,19 @@ public class UserServiceImpl implements UserService {
             UserLoginVO userLoginVO = BeanUtil.copyProperties(user, UserLoginVO.class);
             userLoginVO.setToken(token);
             // 返回菜单设置
-            List<Long> roleIdlist = roleRepository.findRoleIdsByUserId(user.getId());
-            List<Menu> menuList = menuRepository.findAllByRoleIds(roleIdlist);
+            // 从redis中获取用户菜单
+            String menuJsonStr = stringRedisTemplate.opsForValue().get(RedisConstant.USER_MENU_PREFIX + user.getId());
+            List<Menu> menuList = List.of();
+            if (menuJsonStr != null && !menuJsonStr.isEmpty()) {
+                Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+                menuList = gson.fromJson(menuJsonStr, new TypeToken<List<Menu>>() {
+                }.getType());
+            } else {
+                // 没有 -> 从数据库中获取,然后保存到redis中
+                List<Long> roleIdlist = roleRepository.findRoleIdsByUserId(user.getId());
+                menuList = menuRepository.findAllByRoleIds(roleIdlist);
+                stringRedisTemplate.opsForValue().set(RedisConstant.USER_MENU_PREFIX + user.getId(), JSONUtil.toJsonStr(menuList), 3L, TimeUnit.DAYS);
+            }
             // 获取所有一级菜单集合,一级菜单根据menuId分组
             List<MenuVO> menuVOList = menuList
                     .stream()
@@ -214,7 +232,6 @@ public class UserServiceImpl implements UserService {
     public Result<Void> updateUser(Long id, UpdateUserDTO updateUserDTO) {
         // 通过用户id获取用户信息
         User user = userRepository.findById(id).get();
-
         String username = updateUserDTO.getUsername();
         String nickName = updateUserDTO.getNickName();
         String phone = updateUserDTO.getPhone();
@@ -232,7 +249,7 @@ public class UserServiceImpl implements UserService {
             user.setRoleSet(null);
             userRepository.saveAndFlush(user);
         }
-        if (StringUtils.hasText(username) & !user.getUsername().equals(username)) {
+        if (StringUtils.hasText(username) && !user.getUsername().equals(username)) {
             // 修改的用户名不能重复
             User user1 = userRepository.findUserByUsername(username);
             if (user1 != null) {
@@ -240,35 +257,35 @@ public class UserServiceImpl implements UserService {
             }
             user.setUsername(username);
         }
-        if (StringUtils.hasText(nickName) & !user.getNickName().equals(nickName)) {
+        if (StringUtils.hasText(nickName) && !user.getNickName().equals(nickName)) {
             user.setNickName(nickName);
         }
-        if (StringUtils.hasText(phone) & !user.getPhone().equals(phone)) {
+        if (StringUtils.hasText(phone) && !user.getPhone().equals(phone)) {
             User user1 = userRepository.findByPhone(phone);
             if (user1 != null) {
                 throw new PhoneExistException(UserConstant.PHONE_EXIST);
             }
             user.setPhone(phone);
         }
-        if (StringUtils.hasText(email) & !user.getEmail().equals(email)) {
+        if (StringUtils.hasText(email) && !user.getEmail().equals(email)) {
             User user1 = userRepository.findByEmail(email);
             if (user1 != null) {
                 throw new EmailExistException(UserConstant.EMAIL_EXIST);
             }
             user.setEmail(email);
         }
-        if (deptId != null & !user.getDept().getId().equals(deptId)) {
+        if (deptId != null && !user.getDept().getId().equals(deptId)) {
             // 调用deptRepository修改该用户的对应部门的部门名称
             user.setDept(deptRepository.findById(deptId).get());
         }
-        if (StringUtils.hasText(gender) & !user.getGender().equals(gender)) {
+        if (StringUtils.hasText(gender) && !user.getGender().equals(gender)) {
             user.setGender(gender);
         }
-        if (enabled != null & !user.getEnabled().equals(enabled)) {
+        if (enabled != null && !user.getEnabled().equals(enabled)) {
             user.setEnabled(enabled);
         }
         // 修改头像
-        if (StringUtils.hasText(avatarPath) & !user.getAvatarPath().equals(avatarPath)) {
+        if (StringUtils.hasText(avatarPath) && !user.getAvatarPath().equals(avatarPath)) {
             user.setAvatarPath(avatarPath);
         }
 
@@ -276,6 +293,8 @@ public class UserServiceImpl implements UserService {
         if (roles != null) {
             Set<Role> roleSet = roleRepository.findAllByIdIn(roles);
             user.setRoleSet(roleSet);
+            // 更新用户角色,将用户菜单缓存删除
+            stringRedisTemplate.opsForValue().getAndDelete(RedisConstant.USER_MENU_PREFIX + id);
         }
 
         // 修改岗位
@@ -437,7 +456,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    /**
+    /**vi
      * 退出登录
      */
     @Override

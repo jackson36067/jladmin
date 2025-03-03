@@ -62,7 +62,8 @@ public class WebSecurityConfig {
                                             "/swagger-resources/**",
                                             "/v3/api-docs/**",
                                             "/webjars/**",
-                                            "/chat/**" // webSocket
+                                            "/chat/**", // webSocket
+                                            "/admin/user/upload"
                                     )
                                     .permitAll()
                                     .anyRequest()

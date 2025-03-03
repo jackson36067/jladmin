@@ -42,7 +42,8 @@ public class AliOssUtils {
         ossClient.putObject(bucketName, fileName, inputStream);//参数分别表示上传到 OSS 的地方，文件名，上传的文件
 
         //文件访问路径
-        String url = endpoint.split("//")[0] + "//" + bucketName + "." + endpoint.split("//")[1] + "/" + fileName;
+        // 文件访问路径
+        String url = String.format("http://%s.%s/%s", bucketName, endpoint.split("//")[1], fileName);
         // 关闭ossClient
         ossClient.shutdown();
         return url;// 把上传到oss的路径返回

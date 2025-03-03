@@ -4,12 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="实现alioss文件上传">
-      <change afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/EmailDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/EmailController.java" afterDir="false" />
+    <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="实现邮箱发送接口,项目基本完结">
+      <change afterPath="$PROJECT_DIR$/.idea/jpa.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/LocalDateTimeAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-system/web/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-tools/web/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/UserFriendVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/UserFriendVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/factory/AutowiringSpringBeanJobFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/factory/AutowiringSpringBeanJobFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/filter/JwtAuthenticationTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/filter/JwtAuthenticationTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/hanlder/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/hanlder/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RedisConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RedisConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/AliOssUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/AliOssUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,28 +63,31 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
   <component name="JsbtTreeLayoutManager">
     <layout place="tools.popupGrunt">
       <scroll-view-position x="0" y="0" />
     </layout>
   </component>
+  <component name="KubernetesApiProvider">{}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="customMavenHome" value="$PROJECT_DIR$/../../maven/apache-maven-3.6.1" />
-        <option name="mavenHomeTypeForPersistence" value="CUSTOM" />
-        <option name="userSettingsFile" value="D:\maven\apache-maven-3.6.1\conf\settings.xml" />
+        <option name="localRepository" value="D:\maven\apache-maven-3.6.1\mvn_repo" />
+        <option name="userSettingsFile" value="E:\apache-maven-3.8.8\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
       <MavenImportingSettings>
-        <option name="jdkForImporter" value="openjdk-21" />
+        <option name="jdkForImporter" value="21" />
         <option name="workspaceImportForciblyTurnedOn" value="true" />
       </MavenImportingSettings>
     </option>
   </component>
   <component name="MavenRunner">
-    <option name="jreName" value="openjdk-21" />
+    <option name="jreName" value="21" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -78,50 +97,58 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;Application.ExportDataTest.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.JladminSystemApplicationTests.testBcrypt.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.JladminSystemApplicationTests.testFinaMenuByRoleIds.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.JladminSystemApplicationTests.testFindPermissionsByRoleIdList.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.JladminSystemApplicationTests.testFindRoleIdsByUserId.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.JladminSystemApplicationTests.testUserPaging.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.MenuListTest.testGetMenuList.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserTest.testUserPaging.executor&quot;: &quot;Run&quot;,
-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.jladmin [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Notification.DisplayName-DoNotAsk-Lombok plugin&quot;: &quot;Lombok integration problem&quot;,
-    &quot;Notification.DoNotAsk-Lombok plugin&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.JladminSystemApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/javaCode/jladmin/jladmin-system/src/main/resources/templates/角色数据.xlsx&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;D:/javaCode/jladmin/jladmin-system/src/main/resources/templates/角色数据.xlsx&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "Application.ExportDataTest.executor": "Debug",
+    "JUnit.JladminSystemApplicationTests.testBcrypt.executor": "Run",
+    "JUnit.JladminSystemApplicationTests.testFinaMenuByRoleIds.executor": "Run",
+    "JUnit.JladminSystemApplicationTests.testFindPermissionsByRoleIdList.executor": "Run",
+    "JUnit.JladminSystemApplicationTests.testFindRoleIdsByUserId.executor": "Run",
+    "JUnit.JladminSystemApplicationTests.testUserPaging.executor": "Run",
+    "JUnit.MenuListTest.testGetMenuList.executor": "Run",
+    "JUnit.UserTest.testUserPaging.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "Maven.jladmin [clean].executor": "Run",
+    "Maven.jladmin [compile].executor": "Run",
+    "Maven.jladmin [package].executor": "Run",
+    "Maven.jladmin-common [compile].executor": "Run",
+    "Notification.DisplayName-DoNotAsk-Lombok plugin": "Lombok integration problem",
+    "Notification.DoNotAsk-Lombok plugin": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.JladminSystemApplication.executor": "Debug",
+    "extract.method.default.visibility": "private",
+    "full.screen.before.presentation.mode": "false",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "openjdk-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/jdk21",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "two.files.diff.last.used.file": "D:/javaCode/jladmin/jladmin-system/src/main/resources/templates/角色数据.xlsx",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -226,6 +253,9 @@
     </configuration>
     <configuration name="JladminSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="jladmin-system" />
+      <selectedOptions>
+        <option name="spring.boot.profiles" visible="false" />
+      </selectedOptions>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.jackson.JladminSystemApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -233,19 +263,19 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MenuListTest.testGetMenuList" />
-        <item itemvalue="Application.ExportDataTest" />
-        <item itemvalue="JUnit.JladminSystemApplicationTests.testUserPaging" />
         <item itemvalue="JUnit.UserTest.testUserPaging" />
+        <item itemvalue="JUnit.MenuListTest.testGetMenuList" />
+        <item itemvalue="JUnit.JladminSystemApplicationTests.testUserPaging" />
         <item itemvalue="JUnit.JladminSystemApplicationTests.testFinaMenuByRoleIds" />
+        <item itemvalue="Application.ExportDataTest" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.19416.15" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.19416.15" />
       </set>
     </attachedChunks>
   </component>
@@ -299,7 +329,53 @@
       <workItem from="1732326162655" duration="5907000" />
       <workItem from="1732412283803" duration="24993000" />
       <workItem from="1732496632743" duration="22197000" />
-      <workItem from="1732596895346" duration="2782000" />
+      <workItem from="1732596895346" duration="4592000" />
+      <workItem from="1732684562377" duration="3000" />
+      <workItem from="1732706914091" duration="1531000" />
+      <workItem from="1732711821402" duration="1298000" />
+      <workItem from="1732713134025" duration="2129000" />
+      <workItem from="1732859966107" duration="1805000" />
+      <workItem from="1733056457371" duration="3012000" />
+      <workItem from="1733108030458" duration="6870000" />
+      <workItem from="1733189131160" duration="1607000" />
+      <workItem from="1733213374604" duration="5853000" />
+      <workItem from="1733408420054" duration="1493000" />
+      <workItem from="1733458313244" duration="5201000" />
+      <workItem from="1733473725942" duration="3000" />
+      <workItem from="1733473735909" duration="535000" />
+      <workItem from="1733542653085" duration="981000" />
+      <workItem from="1733578476248" duration="2479000" />
+      <workItem from="1733841040076" duration="16000" />
+      <workItem from="1734094481075" duration="151000" />
+      <workItem from="1734097977345" duration="629000" />
+      <workItem from="1734319239332" duration="483000" />
+      <workItem from="1734325394179" duration="384000" />
+      <workItem from="1734345794543" duration="105000" />
+      <workItem from="1734418142368" duration="1009000" />
+      <workItem from="1734670349411" duration="58000" />
+      <workItem from="1734704674509" duration="15000" />
+      <workItem from="1735003573549" duration="43000" />
+      <workItem from="1735005243801" duration="13000" />
+      <workItem from="1736411697630" duration="357000" />
+      <workItem from="1736412314833" duration="689000" />
+      <workItem from="1736413021319" duration="30000" />
+      <workItem from="1736413219680" duration="42000" />
+      <workItem from="1736421466111" duration="1623000" />
+      <workItem from="1736423108840" duration="869000" />
+      <workItem from="1736424228487" duration="1098000" />
+      <workItem from="1736425591008" duration="90000" />
+      <workItem from="1737775201110" duration="6000" />
+      <workItem from="1738741054960" duration="792000" />
+      <workItem from="1739503292469" duration="397000" />
+      <workItem from="1739511554174" duration="1721000" />
+      <workItem from="1739684916555" duration="4837000" />
+      <workItem from="1740456941476" duration="308000" />
+      <workItem from="1740634989431" duration="5747000" />
+      <workItem from="1740664407819" duration="82000" />
+      <workItem from="1740665911302" duration="845000" />
+      <workItem from="1740722870037" duration="4719000" />
+      <workItem from="1740803875911" duration="16000" />
+      <workItem from="1740968340725" duration="5899000" />
     </task>
     <task id="LOCAL-00001" summary="实现alioss文件上传">
       <option name="closed" value="true" />
@@ -309,7 +385,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732540485480</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="实现邮箱发送接口,项目基本完结">
+      <option name="closed" value="true" />
+      <created>1732610440742</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732610440742</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -328,7 +412,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="实现alioss文件上传" />
-    <option name="LAST_COMMIT_MESSAGE" value="实现alioss文件上传" />
+    <MESSAGE value="实现邮箱发送接口,项目基本完结" />
+    <option name="LAST_COMMIT_MESSAGE" value="实现邮箱发送接口,项目基本完结" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -344,14 +429,17 @@
         <PinnedItemInfo parentTag="org.springframework.aop.framework.JdkDynamicAopProxy" memberName="advised" />
       </pinned-members>
     </pin-to-top-manager>
-    <watches-manager>
-      <configuration name="SpringBootApplicationConfigurationType">
-        <watch expression="param_3" />
-        <watch expression="sheet" />
-        <watch expression="rFactoryBean factory = new SchedulerFactoryBean();&#10;        factory.setJobFactory(springBeanJobFactory());&#10;        return factory;&#10;    }" />
-        <watch expression="rFactoryBean factory = new SchedulerFactoryBean();&#10;        factory.setJobFactory(springBeanJobFactory());&#10;        return factory;&#10;    }" />
-        <watch expression="equals" />
-      </configuration>
-    </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="jladmin" type="b2602c69:ProjectViewProjectNode" />
+        <item name="dir{file://D:/javaCode/jladmin}" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/jladmin$JladminSystemApplication.ic" NAME="JladminSystemApplication Coverage Results" MODIFIED="1736423574600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

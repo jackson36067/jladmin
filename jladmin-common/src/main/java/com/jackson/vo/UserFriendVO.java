@@ -6,15 +6,15 @@ import java.util.Objects;
 public class UserFriendVO implements Serializable {
     private Long id;
     private String username;
-    private String avatar;
+    private String avatarPath;
 
     public UserFriendVO() {
     }
 
-    public UserFriendVO(Long id, String username, String avatar) {
+    public UserFriendVO(Long id, String username, String avatarPath) {
         this.id = id;
         this.username = username;
-        this.avatar = avatar;
+        this.avatarPath = avatarPath;
     }
 
     public Long getId() {
@@ -33,12 +33,12 @@ public class UserFriendVO implements Serializable {
         this.username = username;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getAvatarPath() {
+        return avatarPath;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
     }
 
     @Override
@@ -46,12 +46,12 @@ public class UserFriendVO implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserFriendVO that = (UserFriendVO) o;
-        return Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(avatar, that.avatar);
+        return Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(avatarPath, that.avatarPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, avatar);
+        return Objects.hash(id, username, avatarPath);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class UserFriendVO implements Serializable {
         return "UserFriendVO{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", avatar='" + avatar + '\'' +
+                ", avatar='" + avatarPath + '\'' +
                 '}';
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.scheduling.quartz.SpringBeanJobFactory;
  * 自动注入quartz任务到spring环境工厂
  */
 public class AutowiringSpringBeanJobFactory extends SpringBeanJobFactory {
-    @Autowired
+    @Resource
     private ApplicationContext applicationContext;
 
     @Override
@@ -23,3 +23,4 @@ public class AutowiringSpringBeanJobFactory extends SpringBeanJobFactory {
         return jobInstance;
     }
 }
+ 
