@@ -108,6 +108,11 @@ public class UserServiceImpl implements UserService {
             //登录成功
             String username = userLoginDTO.getUsername();
             User user = userRepository.findUserByUsername(username);
+            // 校验登录的是管理员还是普通用户
+            if (user.getIsAdmin() != userLoginDTO.getIsAdmin()) {
+                // 如果用户身份错误直接报错返回
+                throw new IdentityError(UserConstant.USER_NOT_EXIST);
+            }
             // 生成token
             Map<String, Object> map = new HashMap<>();
             map.put(JwtConstant.USER_ID, user.getId());
@@ -118,7 +123,7 @@ public class UserServiceImpl implements UserService {
             // 返回菜单设置
             // 从redis中获取用户菜单
             String menuJsonStr = stringRedisTemplate.opsForValue().get(RedisConstant.USER_MENU_PREFIX + user.getId());
-            List<Menu> menuList = List.of();
+            List<Menu> menuList;
             if (menuJsonStr != null && !menuJsonStr.isEmpty()) {
                 Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
                 menuList = gson.fromJson(menuJsonStr, new TypeToken<List<Menu>>() {
@@ -127,6 +132,7 @@ public class UserServiceImpl implements UserService {
                 // 没有 -> 从数据库中获取,然后保存到redis中
                 List<Long> roleIdlist = roleRepository.findRoleIdsByUserId(user.getId());
                 menuList = menuRepository.findAllByRoleIds(roleIdlist);
+                menuList.forEach(menu -> menu.setRoleSet(null));
                 stringRedisTemplate.opsForValue().set(RedisConstant.USER_MENU_PREFIX + user.getId(), JSONUtil.toJsonStr(menuList), 3L, TimeUnit.DAYS);
             }
             // 获取所有一级菜单集合,一级菜单根据menuId分组
@@ -456,7 +462,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    /**vi
+    /**
      * 退出登录
      */
     @Override

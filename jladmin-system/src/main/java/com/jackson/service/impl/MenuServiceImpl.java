@@ -56,7 +56,7 @@ public class MenuServiceImpl implements MenuService {
     public Result<List<MenuListVO>> getMenuList(String title, LocalDateTime begin, LocalDateTime end) {
         // 递归获取所有菜单及其子菜单
         // 如果没有请求条件,那么直接获取以及菜单
-        List<Menu> menuList = new ArrayList<>();
+        List<Menu> menuList;
         if (!StringUtils.hasText(title) && begin == null && end == null) {
             // 获取一级菜单集合
             menuList = menuRepository.findAll().stream().filter(menu -> menu.getType() == 0).toList();

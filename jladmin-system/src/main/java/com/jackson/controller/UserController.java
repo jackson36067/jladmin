@@ -26,7 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin/user")
-public class UserController {
+public class UserControllero{
 
     @Resource
     private UserService userService;
@@ -156,7 +156,6 @@ public class UserController {
      * @return
      */
     @PostMapping("/logout")
-    @PreAuthorize(value = "hasAuthority('user:list')")
     public void logout(HttpServletRequest request) {
         userService.logout(request);
     }
@@ -270,6 +269,7 @@ public class UserController {
 
     /**
      * 上传头像至alioss
+     *
      * @param image
      * @return
      */

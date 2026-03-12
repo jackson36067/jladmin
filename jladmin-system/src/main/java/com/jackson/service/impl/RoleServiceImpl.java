@@ -122,12 +122,8 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void updateRoleMenuList(UpdateRoleMenuDTO updateRoleMenuDTO) {
         Role role = roleRepository.findById(updateRoleMenuDTO.getId()).get();
-        role.setMenuSet(null);
-        // 先清空该角色的菜单
-        roleRepository.save(role);
-        // 在保存新的
-        role.setMenuSet(menuRepository.findAllByIdIn(updateRoleMenuDTO.getMenuIdList()));
-        roleRepository.save(role);
+        role.setMenuSet(menuRepository.findAllByIdIn(updateRoleMenuDTO.getMenuIdList().stream().distinct().toList()));
+        roleRepository.saveAndFlush(role);
     }
 
     /**

@@ -75,7 +75,7 @@ public class WebSecurityConfig {
                             // 登录成功后执行的处理器
                             // formLogin.successHandler(new MyAuthenticationSuccessHandler());
                             // 登录失败后执行的处理器
-                            formLogin.failureHandler(new MyAuthenticationFailureHandler());
+                             formLogin.failureHandler(new MyAuthenticationFailureHandler());
                         }
                 )
                 .logout(logout -> logout.clearAuthentication(true)) // 退出登录时清理认证信息
@@ -119,7 +119,9 @@ public class WebSecurityConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:5173");
+        config.addAllowedOrigin("http://localhost:5173"); // 前端本地
+        config.addAllowedOrigin("http://localhost"); // nginx本地地址
+        // config.addAllowedOrigin("http://www.ltjack.fun"); // 服务器地址
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true); // 允许发送 Cookie

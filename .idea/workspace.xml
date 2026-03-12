@@ -5,27 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70195d9-68f7-4d53-b7fc-eed90e024a4d" name="Changes" comment="实现邮箱发送接口,项目基本完结">
-      <change afterPath="$PROJECT_DIR$/.idea/jpa.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/LocalDateTimeAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-system/web/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jladmin-tools/web/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/exception/IdentityError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a78f69b0-3b27-42a4-b25d-57ccc35ae1c1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a78f69b0-3b27-42a4-b25d-57ccc35ae1c1/storage_v2/_src_/schema/jladmin.Te8lpQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpa.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/UserFriendVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/vo/UserFriendVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UserLoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/dto/UserLoginDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-common/src/main/java/com/jackson/entity/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/config/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/factory/AutowiringSpringBeanJobFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/factory/AutowiringSpringBeanJobFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/filter/JwtAuthenticationTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/filter/JwtAuthenticationTokenFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/hanlder/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/hanlder/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/MenuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/MenuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/RoleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-system/src/main/java/com/jackson/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RedisConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/RedisConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/AliOssUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/utils/AliOssUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/UserConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/jladmin-tools/src/main/java/com/jackson/constant/UserConstant.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,14 +71,15 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
+        <option name="customMavenHome" value="E:\apache-maven-3.8.8" />
         <option name="localRepository" value="D:\maven\apache-maven-3.6.1\mvn_repo" />
+        <option name="mavenHomeTypeForPersistence" value="CUSTOM" />
         <option name="userSettingsFile" value="E:\apache-maven-3.8.8\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="jdkForImporter" value="21" />
-        <option name="workspaceImportForciblyTurnedOn" value="true" />
       </MavenImportingSettings>
     </option>
   </component>
@@ -97,58 +94,61 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "Application.ExportDataTest.executor": "Debug",
-    "JUnit.JladminSystemApplicationTests.testBcrypt.executor": "Run",
-    "JUnit.JladminSystemApplicationTests.testFinaMenuByRoleIds.executor": "Run",
-    "JUnit.JladminSystemApplicationTests.testFindPermissionsByRoleIdList.executor": "Run",
-    "JUnit.JladminSystemApplicationTests.testFindRoleIdsByUserId.executor": "Run",
-    "JUnit.JladminSystemApplicationTests.testUserPaging.executor": "Run",
-    "JUnit.MenuListTest.testGetMenuList.executor": "Run",
-    "JUnit.UserTest.testUserPaging.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven.jladmin [clean].executor": "Run",
-    "Maven.jladmin [compile].executor": "Run",
-    "Maven.jladmin [package].executor": "Run",
-    "Maven.jladmin-common [compile].executor": "Run",
-    "Notification.DisplayName-DoNotAsk-Lombok plugin": "Lombok integration problem",
-    "Notification.DoNotAsk-Lombok plugin": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.JladminSystemApplication.executor": "Debug",
-    "extract.method.default.visibility": "private",
-    "full.screen.before.presentation.mode": "false",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "openjdk-21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/jdk21",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.stylelint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.stylelint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "two.files.diff.last.used.file": "D:/javaCode/jladmin/jladmin-system/src/main/resources/templates/角色数据.xlsx",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;Application.ExportDataTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.JladminSystemApplicationTests.testBcrypt.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JladminSystemApplicationTests.testFinaMenuByRoleIds.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JladminSystemApplicationTests.testFindPermissionsByRoleIdList.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JladminSystemApplicationTests.testFindRoleIdsByUserId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JladminSystemApplicationTests.testUserPaging.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MenuListTest.testGetMenuList.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserTest.testUserPaging.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.jladmin [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.jladmin [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.jladmin [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.jladmin [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.jladmin-common [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Lombok plugin&quot;: &quot;Lombok integration problem&quot;,
+    &quot;Notification.DoNotAsk-Lombok plugin&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.JladminSystemApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/javaCode/jackson-mall&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Mappings&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;D:/javaCode/jladmin/jladmin-system/src/main/resources/templates/角色数据.xlsx&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -165,8 +165,8 @@
       <list>
         <ConnectionInfo>
           <option name="global" value="false" />
-          <option name="id" value="69ea48ea-7adc-4d87-9a59-72465fcc9e85" />
-          <option name="name" value="redis" />
+          <option name="id" value="88a685a8-7f1e-488a-8ac2-2083e69a9a38" />
+          <option name="name" value="jlAdmin" />
           <option name="port" value="6379" />
           <option name="url" value="192.168.80.101" />
         </ConnectionInfo>
@@ -274,8 +274,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.19416.15" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.19416.15" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -375,7 +375,93 @@
       <workItem from="1740665911302" duration="845000" />
       <workItem from="1740722870037" duration="4719000" />
       <workItem from="1740803875911" duration="16000" />
-      <workItem from="1740968340725" duration="5899000" />
+      <workItem from="1740968340725" duration="12211000" />
+      <workItem from="1741014024693" duration="84000" />
+      <workItem from="1741072484451" duration="6808000" />
+      <workItem from="1741161256989" duration="22000" />
+      <workItem from="1741524715524" duration="1119000" />
+      <workItem from="1741668687549" duration="336000" />
+      <workItem from="1741672357319" duration="14000" />
+      <workItem from="1741743188470" duration="549000" />
+      <workItem from="1741747166231" duration="21000" />
+      <workItem from="1741782249035" duration="817000" />
+      <workItem from="1741848775891" duration="1327000" />
+      <workItem from="1741852644485" duration="19000" />
+      <workItem from="1741852760725" duration="27000" />
+      <workItem from="1741853443528" duration="23000" />
+      <workItem from="1741853534218" duration="14000" />
+      <workItem from="1741853888841" duration="166000" />
+      <workItem from="1742200453699" duration="18000" />
+      <workItem from="1742209039601" duration="13000" />
+      <workItem from="1742209083492" duration="162000" />
+      <workItem from="1742209281171" duration="30000" />
+      <workItem from="1742537626819" duration="125000" />
+      <workItem from="1742537956269" duration="176000" />
+      <workItem from="1742538152645" duration="585000" />
+      <workItem from="1743942567979" duration="297000" />
+      <workItem from="1744629270062" duration="185000" />
+      <workItem from="1744940363927" duration="787000" />
+      <workItem from="1747963434145" duration="846000" />
+      <workItem from="1748053993303" duration="31000" />
+      <workItem from="1748219721932" duration="2295000" />
+      <workItem from="1748228634407" duration="490000" />
+      <workItem from="1748229262782" duration="1062000" />
+      <workItem from="1748233939032" duration="2030000" />
+      <workItem from="1748239392641" duration="32000" />
+      <workItem from="1748263418591" duration="31000" />
+      <workItem from="1748426913860" duration="3004000" />
+      <workItem from="1748433788206" duration="3059000" />
+      <workItem from="1748943624318" duration="1606000" />
+      <workItem from="1748959745831" duration="1378000" />
+      <workItem from="1749035429264" duration="400000" />
+      <workItem from="1749120541966" duration="1148000" />
+      <workItem from="1749121719086" duration="63000" />
+      <workItem from="1749468873771" duration="203000" />
+      <workItem from="1749714152159" duration="1104000" />
+      <workItem from="1749730112135" duration="5988000" />
+      <workItem from="1749782021760" duration="2196000" />
+      <workItem from="1750060716616" duration="4282000" />
+      <workItem from="1750079555714" duration="1870000" />
+      <workItem from="1750925118496" duration="1203000" />
+      <workItem from="1750936409808" duration="3858000" />
+      <workItem from="1751024618164" duration="4628000" />
+      <workItem from="1751169784206" duration="469000" />
+      <workItem from="1751174316383" duration="30000" />
+      <workItem from="1751174370422" duration="10709000" />
+      <workItem from="1752031612349" duration="40000" />
+      <workItem from="1752045353230" duration="120000" />
+      <workItem from="1752290226366" duration="1414000" />
+      <workItem from="1752553853549" duration="26000" />
+      <workItem from="1753067444335" duration="57000" />
+      <workItem from="1753157155712" duration="25000" />
+      <workItem from="1753157215419" duration="24000" />
+      <workItem from="1753426243832" duration="10000" />
+      <workItem from="1753499707008" duration="41000" />
+      <workItem from="1753513785032" duration="1803000" />
+      <workItem from="1753858088399" duration="9000" />
+      <workItem from="1754032993074" duration="81000" />
+      <workItem from="1756053012707" duration="1298000" />
+      <workItem from="1756054516361" duration="25000" />
+      <workItem from="1756726541681" duration="1269000" />
+      <workItem from="1757245330544" duration="1829000" />
+      <workItem from="1757305719799" duration="612000" />
+      <workItem from="1757383703637" duration="76000" />
+      <workItem from="1761575758035" duration="959000" />
+      <workItem from="1761611508572" duration="35000" />
+      <workItem from="1762263991024" duration="173000" />
+      <workItem from="1762827944438" duration="289000" />
+      <workItem from="1762829067544" duration="202000" />
+      <workItem from="1763093852102" duration="2374000" />
+      <workItem from="1763103683918" duration="85000" />
+      <workItem from="1763107186173" duration="58000" />
+      <workItem from="1763107436090" duration="383000" />
+      <workItem from="1763263416716" duration="4491000" />
+      <workItem from="1763267980760" duration="14000" />
+      <workItem from="1763464230579" duration="485000" />
+      <workItem from="1763531894018" duration="615000" />
+      <workItem from="1763537904316" duration="11000" />
+      <workItem from="1763538014409" duration="597000" />
+      <workItem from="1763598423344" duration="769000" />
     </task>
     <task id="LOCAL-00001" summary="实现alioss文件上传">
       <option name="closed" value="true" />
@@ -398,6 +484,19 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.security:spring-security-core" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-websocket" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.validation:jakarta.validation-api" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.persistence:jakarta.persistence-api" />
+    <option featureType="dependencySupport" implementationName="java:io.projectreactor:reactor-core" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-commons" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-messaging" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-webmvc" />
+    <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

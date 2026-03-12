@@ -8,15 +8,17 @@ import java.util.Objects;
 public class UserLoginDTO implements Serializable {
     private String username;
     private String password;
+    private Boolean isAdmin;
     private String code;
 
     public UserLoginDTO() {
     }
 
-    public UserLoginDTO(String username, String password, String code) {
+    public UserLoginDTO(String username, String password, String code, Boolean isAdmin) {
         this.username = username;
         this.password = password;
         this.code = code;
+        this.isAdmin = isAdmin;
     }
 
     public String getUsername() {
@@ -43,17 +45,12 @@ public class UserLoginDTO implements Serializable {
         this.code = code;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserLoginDTO that = (UserLoginDTO) o;
-        return Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(code, that.code);
+    public Boolean getIsAdmin() {
+        return isAdmin;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(username, password, code);
+    public void setIsAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 
     @Override
@@ -61,7 +58,21 @@ public class UserLoginDTO implements Serializable {
         return "UserLoginDTO{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", isAdmin=" + isAdmin +
                 ", code='" + code + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserLoginDTO that = (UserLoginDTO) o;
+        return Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(isAdmin, that.isAdmin) && Objects.equals(code, that.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password, isAdmin, code);
     }
 }
